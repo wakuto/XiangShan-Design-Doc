@@ -23,6 +23,9 @@ extra:
     - name: English
       link: https://docs.xiangshan.cc/projects/design/en/latest/
       lang: en
+    - name: 日本語
+      link: https://docs.xiangshan.cc/projects/design/ja/latest/
+      lang: ja
 
 nav:
   - 首页: index.md

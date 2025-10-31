@@ -1,0 +1,76 @@
+```markdown
+# Repeater
+
+Repeaterには以下のモジュールが含まれます：
+
+* PTWFilter itlbRepeater1
+* PTWRepeaterNB itlbRepeater2
+* PTWRepeaterNB itlbRepeater3
+* PTWNewFilter dtlbRepeater
+
+## 設計仕様
+
+1. L1 TLBとL2 TLB間のPTW要求と応答の転送をサポート
+2. 重複要求のフィルタリングをサポート
+3. TLBヒントメカニズムをサポート
+
+## 機能
+
+### L1 TLBのPTW要求をL2 TLBに転送
+
+L1 TLBとL2 TLBの間には物理的な距離が長く、長い配線遅延を引き起こすため、Repeaterモジュールを介して中間にパイプラインステージを追加する必要があります。ITLBとDTLBはともに複数のoutstandingな要求をサポートするため、repeaterはMSHRのような機能を同時に担い、重複要求をフィルタリングします。Filterは重複要求をフィルタリングし、L1 TLBに重複エントリが出現するのを防ぎます。Filterのエントリ数は、ある程度L2 TLBの並列度を決定します。（5.1.1.2節参照）
+
+Kunminghuアーキテクチャでは、L2 TLBはmemblockモジュール内にありますが、ITLBとDTLBの両方から一定の距離があります。XiangShanのMMUには3つのitlbRepeaterと1つのdtlbRepeaterが含まれており、L1 TLBとL2 TLBの間にパイプラインステージを追加する効果があります。2つのレベルのRepeater間はvalid-ready信号でやり取りします。ITLBはPTW要求と仮想ページ番号をitlbRepeater1に送信し、アービトレーション後にitlbRepeater2に送信し、itlbRepeater3に送信し、itlbRepeater3を介してL2 TLBにPTW要求を渡します。L2 TLBはPTW要求に対応する仮想ページ番号、L2 TLBを検索して得られた物理ページ番号、ページテーブルの権限ビット、ページテーブルレベル、例外発生の有無などの信号をitlbRepeater3、itlbRepeater2に返し、itlbRepeater1を介して最終的にITLBに返します。DTLBとdtlbRepeaterのやり取りはITLBと似ており、dtlbRepeaterとitlbRepeater1はFilterモジュールで、L1 TLBの重複要求をマージできます。KunminghuアーキテクチャではITLBとDTLBはともにノンブロッキングアクセスであるため、これらのrepeaterもすべてブロッキングRepeaterです。
+
+### 重複要求のフィルタリング
+
+ITLBとDTLBはともに複数のチャネルを含み、異なるチャネル間、同じチャネル内の複数のミス要求が重複する可能性があります。通常のArbiterのみを使用し、毎回1つの要求しか処理しない場合、L1 TLBにアクセスする他の要求は再送され、引き続きミスとなり、L2 TLBに送信されます。これにより、L2 TLBの利用率が低くなり、再送時にプロセッサのリソースも占有します。そのため、Filterモジュールを使用します。Filterの本質は多入力単出力のキューであり、重複要求のフィルタリングの役割を果たします。
+
+Kunminghuアーキテクチャでは、dtlbrepeaterはload entry、store entry、prefetch entryの3つの部分で構成され、load dtlb、store dtlb、prefetch dtlbからの要求はそれぞれ3種類のエントリに送信されて処理されます。3種類のエントリはラウンドロビンアービトレータを使用してアービトレーションを行い、アービトレーション後の結果をL2 TLBに送信します。また、itlbrepeaterはITLBから入力されたすべての要求をチェックし、重複要求をフィルタリングします。しかし、dtlbrepeaterが重複要求をチェックする粒度はエントリであり、同じdtlb（load dtlb、store dtlb、prefetch dtlb）内の要求が重複しないことのみをチェックしますが、異なるdtlb間（例えばload dtlbとstore dtlb）でL2 TLBに送信される要求は依然として重複する可能性があります。
+
+### TLBヒントメカニズムのサポート
+
+![TLBヒントの模式図](./figure/image28.png)
+
+TLBがヒットした場合、load命令のライフサイクルに影響を与えません（0サイクル目にloadunitがTLBを検索し、1サイクル目にTLBが結果を返す）。TLBがミスした場合、L2 TLBとメモリ内のページテーブルを検索し続け、結果が得られるまで返します。しかし、load命令のライフサイクルから見ると、このload命令はTLB検索がミスした後、load replay queueに入って待機します。このload命令がload replay queueによって再送され、TLB検索で物理アドレスがヒットして初めて、物理アドレスに基づいて後続の操作を行うことができます。
+
+したがって、load命令がいつ再送されるかが、loadの実行時間を短縮する鍵となります。load命令がタイムリーに再送されなければ、TLBのリフィルサイクルが短縮されても、メモリアクセスの全体的な性能は向上しません。そのため、KunminghuアーキテクチャはTLBヒントメカニズムを実装し、TLBミスによって再送が必要なload命令をターゲットにウェイクアップします。具体的には、load_s0ステージでvaddrをTLBに送信し、ミスした場合、load_s1ステージでミス情報を返します。同時に、load_s1ステージでTLBはこのミス情報をdtlbrepeaterに送信し、dtlbrepeaterが処理します。
+
+Dtlbrepeaterの処理結果は2種類あり、MSHRidまたはfull信号を返します。dtlbrepeaterのload entryでは、まず新しい要求が既存のエントリと重複しているかどうかをチェックし、既存のエントリと重複している場合は、そのエントリのMSHRidを返します。既存のエントリと重複していない場合は、空きエントリがあるかどうかをチェックし、空きエントリがあればMSHRidを返し、なければfull信号を返します。2つのloadチャネルが同時にdtlbrepeaterに要求を送信し、仮想アドレスが同じ場合、loadunit(0)のMSHRidが優先されます。
+
+Kunminghuアーキテクチャでは、TLBミスによってload replay queueに入ったすべての命令は、ウェイクアップを待って再送されるしかありません。load命令がload replay queueに入った後、ウェイクアップ信号を待たずにいると、デッドロックが発生します。デッドロックを避けるため、DTLBがdtlbrepeaterに要求を送信し、dtlbrepeaterに空きエントリがない場合、full信号を返す必要があります。これは、dtlbrepeaterが満杯で、このload命令に対応するPTW要求を受け取れないことを示し、そのためload replay queueはヒント信号を受け取らず、load replay queueが再送を保証し、デッドロックしないようにする必要があります。この状況以外に、リフィルされたエントリがdtlbまたはdtlbrepeaterに到着したが、まだdtlbエントリに書き込まれていない場合も、loadunitにfull信号を返し、再送が必要であることを示します。
+
+load_s2ステージで、dtlbrepeaterはmshrid情報をloadunitに返し、load_s3ステージでload replay queueに書き込みます。MSHRidが有効な場合、load replay queueはPTWリフィル情報がdtlbrepeaterに保存されているMSHRidにヒットするのを待つ必要があります。このとき、dtlbrepeaterはload replay queueにウェイクアップ（ヒント）情報を送信し、このMSHRidがリフィルされ、再送が必要であることを示し、このときdtlbにヒットできます。また、あるPTWリフィル要求が複数のMSHRエントリに対応する場合（例えば、2つのvpnが同じ2M空間内にあり、PTWリフィルのページテーブルレベルが2MBページの場合）、この状況ではdtlbrepeaterはload replay queueにreplay_all信号を送信し、dtlbミスによってブロックされているすべてのload要求を再送する必要があることを示します。この状況はまれであるため、性能をほとんど損なわない便利な解決策です。
+
+## 全体ブロック図
+
+Repeaterの全体ブロック図を[@fig:MMU-repeater-overall]に示します。3つのitlbRepeaterと1つのdtlbRepeaterがあり、L1 TLBとL2 TLBの間にパイプラインステージを追加する効果があります。2つのレベルのRepeater間はvalid-ready信号でやり取りします。Repeaterは上流からITLBとDTLBのPTW要求を受け取ります。ITLBとDTLBはともにノンブロッキングアクセスであるため、これらのrepeaterもすべてブロッキングRepeaterです。Repeaterは下流にL1 TLBのPTW要求をL2 TLBに送信します。dtlbRepeaterとitlbRepeater1はFilterモジュールで、L1 TLBの重複要求をマージできます。
+
+itlbRepeater1を除き、残りの2つのitlbRepeaterの本質は単なるパイプラインステージの追加です。追加するパイプラインステージの数は物理的な距離によって決まります。XiangShanのKunminghuアーキテクチャでは、L2 TLBはMemblockにあり、ITLBがあるFrontendモジュールとは物理的に距離が遠いため、Frontendに2つのrepeaterを追加し、Memblockに1つのRepeaterを追加することを選択しました。一方、DTLBはMemblockにあり、L2 TLBとの距離が近いため、1つのRepeaterでタイミング要件を満たすことができます。
+
+![Repeaterモジュール全体ブロック図](./figure/image29.png){#fig:MMU-repeater-overall}
+
+## インターフェースリスト
+
+インターフェースリストドキュメントを参照してください。
+
+## インターフェースタイミング
+
+### Repeater1とL1 TLBのインターフェースタイミング
+
+[@sec:L1TLB-tlbRepeater-time] [TLBとtlbRepeaterのインターフェースタイミング](./L1TLB.md#sec:L1TLB-tlbRepeater-time)を参照してください。
+
+### itlbRepeater3およびdtlbRepeater1とL2 TLBのインターフェースタイミング
+
+itlbRepeater3およびdtlbRepeater1とL2 TLBのインターフェースタイミングを[@fig:MMU-tlbrepeater-time-L2TLB]に示します。両者はvalid-ready信号でハンドシェイクを行い、RepeaterはL1 TLBから発行されたPTW要求と要求の仮想アドレスをL2 TLBに送信します。L2 TLBはクエリ結果を得た後、物理アドレスと対応するページテーブルをRepeaterに返します。
+
+![itlbRepeater3およびdtlbRepeater1とL2 TLBのインターフェースタイミング](./figure/image31.svg){#fig:MMU-tlbrepeater-time-L2TLB}
+
+### 多段itlbrepeater間のインターフェースタイミング
+
+多段itlbrepeater間のインターフェースタイミングを[@fig:MMU-multi-itlbrepeater-time]に示します。2つのレベルのRepeater間はvalid-ready信号でハンドシェイクを行います。
+
+![多段itlbrepeater間のインターフェースタイミング](./figure/image33.svg){#fig:MMU-multi-itlbrepeater-time}
+
+
+```

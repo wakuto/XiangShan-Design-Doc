@@ -1,0 +1,160 @@
+INHERIT: utils/mkdocs-base.yml
+
+docs_dir: 'docs/ja'
+site_dir: 'site/ja'
+
+site_name: XiangShan デザインドキュメント
+repo_url: https://github.com/OpenXiangShan/XiangShan-Design-Doc
+repo_name: XiangShan-Design-Doc
+
+theme:
+  language: ja
+
+markdown_extensions:
+  replace_variables:
+      yaml_file: docs/variables-ja.yml
+
+extra:
+  scope: /
+  back_to_home:
+    url: https://docs.xiangshan.cc/
+    title: XiangShan ドキュメントホームに戻る
+  alternate:
+    - name: 中文
+      link: https://docs.xiangshan.cc/projects/design/zh-cn/latest/
+      lang: zh
+    - name: English
+      link: https://docs.xiangshan.cc/projects/design/en/latest/
+      lang: en
+    - name: 日本語
+      link: https://docs.xiangshan.cc/projects/design/ja/latest/
+      lang: ja
+
+nav:
+  - ホーム: index.md
+  - フロントエンド:
+    - 分岐予測ユニット:
+      - frontend/BPU/index.md
+      - BPU抽象モジュール: frontend/BPU/Composer.md
+      - フェッチターゲットユニット: frontend/BPU/FTB.md
+      - 分岐ターゲットバッファ: frontend/BPU/uFTB.md
+      - メイン予測器TAGE-SC: frontend/BPU/TAGE-SC.md
+      - 間接分岐予測器: frontend/BPU/ITTAGE.md
+      - リターンアドレススタック: frontend/BPU/RAS.md
+    - フェッチターゲットキュー: 
+      - frontend/FTQ/index.md
+    - 命令フェッチユニット:
+      - frontend/IFU/index.md
+      - プリデコーダ: frontend/IFU/PreDecoder.md
+    - 命令キャッシュ:
+      - frontend/ICache/index.md
+      - MainPipe: frontend/ICache/MainPipe.md
+      - IPrefetchPipe: frontend/ICache/IPrefetchPipe.md
+      - WayLookup: frontend/ICache/WayLookup.md
+      - MissUnit: frontend/ICache/MissUnit.md
+      - Replacer: frontend/ICache/Replacer.md
+      - CtrlUnit: frontend/ICache/CtrlUnit.md
+    - PCクラス: 
+      - frontend/Pruned_Address/index.md
+  - バックエンド:
+    - backend/index.md
+    - 制御ブロック (CtrlBlock): 
+      - backend/CtrlBlock/index.md
+      - デコード: backend/CtrlBlock/decode.md
+      - リネーム: backend/CtrlBlock/Rename.md
+      - ディスパッチ: backend/CtrlBlock/Dispatch.md
+      - リオーダバッファ: backend/CtrlBlock/Rob.md
+    - データパス (DataPath):
+      - DataPath: backend/DataPath/DataPath.md
+      - Og2ForVector: backend/DataPath/Og2ForVector.md
+      - WbDataPath: backend/DataPath/WbDataPath.md
+      - WbFuBusyTable: backend/DataPath/WbFuBusyTable.md
+      - BypassNetwork: backend/DataPath/BypassNetwork.md
+    - スケジューリングと発行:
+      - Scheduler: backend/Schedule_And_Issue/Scheduler.md
+      - IssueQueue: backend/Schedule_And_Issue/IssueQueue.md
+      - IssueQueueEntries: backend/Schedule_And_Issue/IssueQueueEntries.md
+    - 実行:
+      - ExuBlock: backend/ExuBlock/ExuBlock.md
+      - ExuUnit: backend/ExuBlock/ExuUnit.md
+    - 機能ユニット (FunctionUnit):
+      - 整数機能ユニット: backend/FunctionUnit/IntFunctionUnit.md
+      - 浮動小数点機能ユニット: backend/FunctionUnit/FpFunctionUnit.md
+      - ベクトル機能ユニット: backend/FunctionUnit/VecFunctionUnit.md
+      - メモリ機能ユニット: backend/FunctionUnit/MemFunctionUnit.md
+    - ベクトル浮動小数点ユニット (VFPU): backend/VFPU.md
+    - 制御ステータスレジスタ (CSR): backend/CSR.md
+    - ハードウェア性能モニタ (HPM): backend/HPM.md
+    - デバッグモジュール: backend/DebugModule/DM.md
+  - メモリシステム:
+    - ロード・ストアユニット (LSU):
+      - memblock/LSU/index.md
+      - ロードユニット (LoadUnit): memblock/LSU/LoadUnit.md
+      - ストアアドレスユニット (StoreUnit): memblock/LSU/StoreUnit.md
+      - ストアデータユニット (StdExeUnit): memblock/LSU/StdExeUnit.md
+      - アトミック操作ユニット (AtomicsUnit): memblock/LSU/AtomicsUnit.md
+      - ベクトルメモリアクセス:
+        - memblock/LSU/VLSU/index.md
+        - ベクトルロード分割ユニット (VLSplit): memblock/LSU/VLSU/VLSplit.md
+        - ベクトルストア分割ユニット (VSSplit): memblock/LSU/VLSU/VSSplit.md
+        - ベクトルロードマージバッファ (VLMergeBuffer): memblock/LSU/VLSU/VLMergeBuffer.md
+        - ベクトルストアマージバッファ (VSMergeBuffer): memblock/LSU/VLSU/VSMergeBuffer.md
+        - ベクトルセグメントユニット (VSegmentUnit): memblock/LSU/VLSU/VSegmentUnit.md
+        - ベクトルFOFユニット (VfofBuffer): memblock/LSU/VLSU/VfofBuffer.md
+      - ロード・ストアキュー (LSQ):
+        - memblock/LSU/LSQ/index.md
+        - ロードキュー (VirtualLoadQueue): memblock/LSU/LSQ/VirtualLoadQueue.md
+        - Read-After-Readチェック (LoadQueueRAR): memblock/LSU/LSQ/LoadQueueRAR.md
+        - Read-After-Writeチェック (LoadQueueRAW): memblock/LSU/LSQ/LoadQueueRAW.md
+        - ロードリプレイキュー (LoadQueueReplay): memblock/LSU/LSQ/LoadQueueReplay.md
+        - Uncacheロードユニット (LoadQueueUncache): memblock/LSU/LSQ/LoadQueueUncache.md
+        - ロード例外バッファ (LqExceptionBuffer): memblock/LSU/LSQ/LqExceptionBuffer.md
+        - ストアキュー (StoreQueue): memblock/LSU/LSQ/StoreQueue.md
+      - Uncache処理ユニット (Uncache): memblock/LSU/Uncache.md
+      - ストアコミットバッファ (SBuffer): memblock/LSU/SBuffer.md
+      - ロード非整列アクセスユニット (LoadMisalignBuffer): memblock/LSU/LoadMisalignBuffer.md
+      - ストア非整列アクセスユニット (StoreMisalignBuffer): memblock/LSU/StoreMisalignBuffer.md
+    - データキャッシュ:
+      - memblock/DCache/index.md
+      - ロードパイプライン (LoadPipe): memblock/DCache/LoadPipe.md
+      - ミスキュー (MissQueue): memblock/DCache/MissQueue.md
+      - プローブキュー (ProbeQueue): memblock/DCache/ProbeQueue.md
+      - メインパイプライン (MainPipe): memblock/DCache/MainPipe.md
+      - ライトバックキュー (WritebackQueue): memblock/DCache/WritebackQueue.md
+      - エラー処理とカスタム障害注入: memblock/DCache/Error.md
+    - メモリ管理ユニット (MMU):
+      - memblock/MMU/index.md
+      - L1TLB: memblock/MMU/L1TLB.md
+      - Repeater: memblock/MMU/Repeater.md
+      - L2TLB:
+        - memblock/MMU/L2TLB/index.md
+        - ページキャッシュ: memblock/MMU/L2TLB/PageCache.md
+        - ページテーブルウォーカー: memblock/MMU/L2TLB/PTW.md
+        - 最終レベルページテーブルウォーカー: memblock/MMU/L2TLB/LLPTW.md
+        - ハイパーバイザページテーブルウォーカー: memblock/MMU/L2TLB/HPTW.md
+        - ミスキュー: memblock/MMU/L2TLB/MissQueue.md
+        - プリフェッチャ: memblock/MMU/L2TLB/Prefetcher.md
+      - PMP & PMA: memblock/MMU/PMP-PMA.md
+  - キャッシュサブシステム:
+    - L2キャッシュ:
+      - L2キャッシュ (CoupledL2): cache/l2cache/CoupledL2.md
+      - Aチャネル要求バッファ (RequestBuffer): cache/l2cache/ReqBuf.md
+      - 要求アービタとメインパイプライン: cache/l2cache/ReqArb_MainPipe.md
+      - ディレクトリ (Directory): cache/l2cache/Directory.md
+      - データSRAM (DataStorage): cache/l2cache/DataStorage.md
+      - MSHR: cache/l2cache/MSHR.md
+      - アップストリームTileLinkチャネル: 
+        - SinkA: cache/l2cache/upstream/SinkA.md
+        - SinkC: cache/l2cache/upstream/SinkC.md
+        - GrantBuffer: cache/l2cache/upstream/GrantBuffer.md
+      - ダウンストリームCHIチャネル: 
+        - TXREQ: cache/l2cache/downstream/TXREQ.md
+        - RXRSP: cache/l2cache/downstream/RXRSP.md
+        - RXDAT: cache/l2cache/downstream/RXDAT.md
+        - RXSNP: cache/l2cache/downstream/RXSNP.md
+        - TXDAT: cache/l2cache/downstream/TXDAT.md
+        - TXRSP: cache/l2cache/downstream/TXRSP.md
+        - P-Credit管理機構: cache/l2cache/downstream/PCredit.md
+        - リンク層コントローラ (LinkMonitor): cache/l2cache/downstream/LinkMonitor.md
+      - MMIOブリッジ (MMIOBridge): cache/l2cache/MMIOBridge.md
+      - エラー処理: cache/l2cache/Error.md

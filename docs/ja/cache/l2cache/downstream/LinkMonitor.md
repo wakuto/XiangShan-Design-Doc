@@ -1,0 +1,23 @@
+# リンク層コントローラ LinkMonitor
+
+## 機能説明
+LinkMonitorモジュールは、Valid-Readyハンドシェイクに基づくメッセージをL-Creditベースのハンドシェイクに変換し、TXおよびRXリンクの電源状態を維持します。詳細については、CHI仕様のリンクハンドシェイクの章を参照してください。
+
+### 機能1：DecoupledハンドシェイクからL-Creditハンドシェイクへ
+3つのTXチャネルからのDecoupledハンドシェイクは、Decoupled2LCreditモジュールを介してLCreditハンドシェイクに変換されます。Decoupled2LCreditモジュールは、下流のICNによって受信されたLCreditの数（lcreditPool）を記録します。lcreditPoolが0より大きい場合にのみ、上流のDecoupledリクエストを受け入れることができます。Decoupledハンドシェイクが成功すると、lcreditPoolカウントは1つ減少します。
+
+TXリンク状態の影響：TXリンク状態がSTOPまたはACTIVATEの場合、Decoupledメッセージの受信を停止する必要があります。TXリンク状態がSTOPの場合、LCreditの受信も停止し、下流のlcrdv信号がlcreditPoolをハイにしてもlcreditPoolは変更されません。
+
+### 機能2：L-CreditハンドシェイクからDecoupledハンドシェイクへ
+3つのRXチャネルから受信したLCreditハンドシェイクは、LCredit2Decoupledモジュールを介してDecoupledハンドシェイクに変換されます。LCredit2Decoupledモジュールは、デフォルトで4エントリのキュー（lcreditNumとして設定可能、lcreditNum ≤ 15）を維持してメッセージを一時的に保存します。つまり、RXチャネルは最大でlcreditNum個の未解決のLCreditを下流に送信できます。また、lcreditNumに初期化されたカウンタ（lcreditPool）を維持し、チャネルが現在送信できるLCreditの最大数を追跡します。lcreditPool > 有効なキューエントリの数（queueCnt）の場合、チャネルがキューが受信できるよりも少ない未解決のLCreditを送信したことを示し、チャネルが下流にLCreditを送信できるようになります。lcreditPool < lcreditNumの場合、チャネルは無条件に有効な下流のリクエスト、つまり前のサイクルでflitvがハイでflitpendingがハイのリクエストを受け入れる必要があります。
+
+RXリンク状態の影響：RXリンク状態がRUNでない場合、lcreditPool > 有-効なキューエントリの数であっても、チャネルは下流にLCreditを送信してはなりません。
+
+### 機能3：TXSACTIVEとRXSACTIVE
+TXSACTIVEは常にハイに保持されます。RXSACTIVEは現在使用されていません。
+
+### 機能4：インターフェースのアクティベーションとディアクティベーション
+TXLINKACTIVEREQはリセット後もハイのままです。RXLINKACTIVEACKは、RXLINKACTIVEREQが真に設定された次のサイクルで真に設定されます。RXLINKACTIVEREQが偽に設定された後のサイクルから、3つのRXチャネルの状態を監視します。すべての未解決のLCreditが回収されると（つまり、lcreditPoolがlcreditNumに等しくなると）、RXLINKACTIVEACKは偽に設定できます。
+
+## 全体ブロック図
+![LinkMonitor](./figure/LinkMonitor.svg)
