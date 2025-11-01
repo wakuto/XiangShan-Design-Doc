@@ -88,3 +88,8 @@ StoreMisalignBufferは、自身が開始したストアアクセスを収集し�
 | splitStoreResp | Validあり。データはValid時に有効 |
 | writeBack | Valid、Readyあり。データはValid && ready時に有効 |
 | vecWriteBack | Valid、Readyあり。データはValid && ready時に有効 |
+| StoreOutValid | Validなし。データは常に有効と見なされ、対応する信号が発生すると応答 |
+| StoreVecOutValid | Validなし。データは常に有効と見なされ、対応する信号が発生すると応答 |
+| overwriteExpBuf | 浮動 |
+| sqControl | Validなし。データは常に有効と見なされ、対応する信号が発生すると応答 |
+| toVecStoreMergeBuffer | Validなし。データは常に有効と見なされ、対応する信号が発生すると応答 |

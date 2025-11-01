@@ -95,4 +95,30 @@ VLMergeBufferから受信すると、VLSplitPipelineはエンキュー要求を�
 
 ## 全体ブロック図
 
-単一モジュールのためブロック図なし。
+単一モジュールのため、ブロック図はありません。
+
+## 主要ポート
+
+VLSplitの外部インターフェースのみをリストし、内部のVLSplitPipeとVLSplitBufferのインターフェースは含みません。
+
+| ポート名           | 方向 | 説明                             |
+| ------------------ | :--- | :------------------------------- |
+| `redirect`         | In   | リダイレクトポート               |
+| `in`               | In   | Issue Queueからのuop発行を受け取る |
+| `toMergeBuffer.req`| Out  | MergeBufferエントリを要求        |
+| `toMergeBuffer.resp`| In   | MergeBufferの応答                |
+| `out`              | Out  | メモリアクセス要求をLoad Unitに送信 |
+| `threshold`        | In   | VLMergeBufferのしきい値信号を受信 |
+
+## インターフェースタイミング
+
+インターフェースのタイミングは比較的単純なため、テキストによる説明のみを提供します。
+
+| ポート名           | 説明                                                       |
+| ------------------ | :--------------------------------------------------------- |
+| `redirect`         | Validを持つ。データはValidと共に有効                       |
+| `in`               | Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `toMergeBuffer.req`| Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `toMergeBuffer.resp`| Validを持つ。データはValidと共に有効                       |
+| `out`              | Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `threshold`        | Validを持たない。データは常に有効と見なされ、対応する信号が発生すると応答する |

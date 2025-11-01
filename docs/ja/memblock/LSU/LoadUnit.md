@@ -159,3 +159,41 @@
         * misalignNeedWakeUp == trueの場合、直接書き戻します。それ以外の場合は、再送のためにLoadMisalignBufferに進みます。
 
 ### 機能6：プリフェッチリクエストのサポート
+
+*   LoadUnitは2種類のプリフェッチリクエストを受け付けます。
+
+    *   高信頼度プリフェッチ（confidence > 0）
+
+    *   低信頼度プリフェッチ（confidence == 0）
+
+*   プリフェッチトレーニングをサポートします。
+
+    *   ステージs2：
+
+        *   `io_prefetch_train_l1` を介してL1プリフェッチャを学習させます。
+
+        *   `io_prefetch_train` を介してSMSプリフェッチャを学習させます。
+
+\newpage
+
+## 全体ブロック図
+
+![LoadUnit全体ブロック図](./figure/LSU-LoadUnit.svg){#fig:LSU-LoadUnit}
+
+\newpage
+
+## インタフェースタイミング
+
+### LoadUnitインタフェースタイミング例
+
+![LoadUnitインタフェースタイミング](./figure/LSU-LoadUnit-Timing.svg){#fig:LSU-LoadUnit-timing}
+
+ロード命令がLoadUnitに入った後、ステージ0でTLBとDCacheにリクエストを出し、ステージ1でTLBからpaddrを受け取ります。ステージ2でDCacheヒット可否を取得し、同時にRAWおよびRAR違反をチェックします。ステージ3で`io_lsq_ldin` を通じてLoadQueueを更新し、`ldout` で書き戻します。
+
+\newpage
+
+### ステージ0異なるソースのアービトレーションタイミング例
+
+![ステージ0異なるソースのアービトレーションタイミング](./figure/LSU-LoadUnit-s0-arb.svg){#fig:LSU-LoadUnit-s0-arb}
+
+図の例では、ステージ0で異なるソースのロード命令がどのように仲裁されるかを示しています。3番目のクロックでは `io_ldin_valid` のみが有効でハンドシェイクが成立し、次のサイクルでステージ1に進みます。5番目のクロックでは `io_ldin_valid` と `io_replay_valid` が同時に有効になり、リプレイの優先度がスカラロードより高いため、リプレイ要求が仲裁を獲得してステージ1に進みます。

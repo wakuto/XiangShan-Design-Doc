@@ -1,4 +1,3 @@
-```markdown
 # L1 TLB
 
 ## 設計仕様
@@ -411,6 +410,3 @@ dtlbRepeaterからDTLBへのPTW応答のインターフェースタイミング�
 * X拍目：dtlbRepeaterが下位のdtlbRepeaterを介して渡されたL2 TLBのPTW応答を受信し、dtlbrepeater_ptw_resp_validがハイになります。
 * X+1拍目：dtlbRepeaterがPTW応答をmemblockに渡します。
 * X+2拍目：DTLBがPTW応答を受信します。
-
-
-```

@@ -98,3 +98,11 @@ StoreUnitは、非整列ストア命令をスカラ操作と同様に処理し�
 \newpage
 
 ## インターフェースのタイミング
+
+### インターフェースタイミングの例
+
+図
+ef{fig:LSU-StoreUnit-Timing}に示すように、ストア命令がStoreUnitに入ると、ステージ0でTLBに要求し、ステージ1でTLBから返されたpaddrを取得します。ステージ0でマスクをStoreQueueに書き込み、ステージ1でRAWに要求を送信し、io_lsqを介してストア命令の他の情報をLoadStoreQueueに更新します。ステージ2でフィードバック関連情報を取得し、ステージ4でstoutを介して書き戻します。
+
+![StoreUnitインターフェースタイミング](./figure/LSU-StoreUnit-Timing.svg){#fig:LSU-StoreUnit-Timing}
+

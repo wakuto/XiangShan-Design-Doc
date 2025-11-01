@@ -96,3 +96,16 @@ AMOCAS命令は、fuOpTypeを再利用して複数のstd uopまたは複数のst
     ![AMOCAS.Q命令のUop分割図](./figure/atomicsUnitAMOCASQUop.svg)
 
 ## 例外のまとめ
+
+アトミック命令で発生する可能性のある例外は次のとおりです。
+
+- **アドレス非整列例外**: アトミック操作のアドレスは、操作タイプ（ワード/ダブルワード/クアッドワード）に応じて整列（4B / 8B / 16B）している必要があります。そうでない場合、アドレス非整列例外が報告されます。
+- **不正命令例外**（バックエンドのデコード段階でチェックが完了し、メモリアクセスとは無関係）: AMOCAS.Q命令では、レジスタペアrs2とrdのレジスタ番号が偶数である必要があります。奇数の場合、不正命令例外を報告する必要があります。
+- **ブレークポイント例外**: トリガー比較がヒットした場合、ブレークポイント例外を報告する必要があります。
+- **アドレス変換と権限チェックに関連する例外**
+  - TLBアドレス変換が例外を返した場合、LR命令かどうかに応じて、対応するLoadまたはStoreのPageFault / AccessFault / GuestPageFault例外を報告します。
+  - PMP属性がMMIOであるか、PMPに対応する読み取り/書き込み権限がない場合、LoadAccessFault / StoreAccessFaultを報告します。
+  - PMA + PBMT属性がIOまたはNCの場合（以下の3つのケースを含む）、LoadAccessFault / StoreAccessFaultを報告します。
+    - PBMT = IO
+    - PBMT = NC
+    - PBMT = PMA かつ PMA = MMIO

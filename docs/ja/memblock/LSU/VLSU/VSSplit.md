@@ -94,3 +94,33 @@ VSSplitBufferは、VSSplitPipelineからエントリ要求と関連情報を受�
 リダイレクション信号が到着すると、リダイレクション関連情報に基づいてVSSplitBufferの関連エントリがフラッシュされます。
 
 ## 全体ブロック図
+
+単一モジュールのブロック図はありません。
+
+## 主要ポート
+
+VSSplitの外部インターフェースのみをリストし、内部のVSSplitPipeとVSSplitBufferのインターフェースは含みません。
+
+| ポート名           | 方向 | 説明                                                                              |
+| ------------------ | :--- | :-------------------------------------------------------------------------------- |
+| `redirect`         | In   | リダイレクトポート                                                                |
+| `in`               | In   | Issue Queueからのuop発行を受け取る                                                |
+| `toMergeBuffer.req`| Out  | MergeBufferエントリを要求                                                         |
+| `toMergeBuffer.resp`| In   | MergeBufferの応答                                                                 |
+| `out`              | Out  | メモリアクセス要求をStore Unitに送信                                              |
+| `vstd`             | Out  | 実行完了したuopがバックエンドに書き戻される際に、Storeキュー内のエントリ状態を更新 |
+| `vstdMisalign`     | In   | Store UnitとStore Misalign Bufferからmisalign関連信号を受信                       |
+
+## インターフェースタイミング
+
+インターフェースのタイミングは比較的単純なため、テキストによる説明のみを提供します。
+
+| ポート名           | 説明                                                       |
+| ------------------ | :--------------------------------------------------------- |
+| `redirect`         | Validを持つ。データはValidと共に有効                       |
+| `in`               | Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `toMergeBuffer.req`| Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `toMergeBuffer.resp`| Validを持つ。データはValidと共に有効                       |
+| `out`              | Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `vstd`             | Valid、Readyを持つ。データはValid && readyと共に有効       |
+| `vstdMisalign`     | Validを持たない。データは常に有効と見なされ、対応する信号が発生すると応答する |

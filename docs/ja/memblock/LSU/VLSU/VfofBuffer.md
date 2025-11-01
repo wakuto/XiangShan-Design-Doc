@@ -1,21 +1,20 @@
-```markdown
-# ベクトルFOF命令ユニット VfofBuffer
+# ベクトル FOF 命令ユニット VfofBuffer
 
 ## 機能説明
 
-ベクトルFault-Only-First (fof) 命令のVLレジスタを修正するuopを処理し、書き戻します。fof命令に対しては、VLレジスタの修正を担当するuopを別途分割します。現在、fof命令は非投機的に実行されます。
+ベクトル Fault Only First (fof) 命令で VL レジスタを更新する uop を処理し書き戻す。fof 命令では VL 更新専用の uop を追加で切り出し、現状は非投機で実行する。
 
 ### 特性 1：メモリアクセスuopの書き戻し情報収集
 
-VfofBufferは、fof命令のメモリアクセスuopの書き戻し情報を収集する責任を負い、エントリは1つだけです。VLレジスタを更新する必要がある場合、VfofBufferで維持されている情報が更新されます。
-Fault-Only-First命令が発行されると、通常のVLSplitへの進入に加えて、vfofBufferにもエントリが1つ割り当てられます。
-このエントリは、VLMergeBufferからの同じRobIdxを持つuopの書き戻しを監視しますが、これらのuopがバックエンドに書き戻されるのを妨げることはなく、これらのuopの関連メタデータを収集して自身のVLを更新・維持するだけです。
-VLMergeBufferからバックエンドに書き戻されるuopには例外情報やVLなどが含まれており、これらの書き戻し情報に基づいて、このuopがVLの変更を引き起こすべきかどうかを判断する必要があります。VLの変更が必要な場合は、VfofBufferで維持されているVLと比較し、より小さいVLに更新します。
+VfofBuffer は fof 命令のメモリアクセス uop の書き戻し情報を集約し、保持する項は 1 つだけである。VL レジスタを更新する必要が生じた場合は VfofBuffer 内の情報を更新する。
+Fault Only First 命令が発行されると、通常どおり VLSplit に入るのに加え vfofBuffer にも 1 項を割り当てる。
+この項は VLMergeBuffer から同一 RobIdx の uop 書き戻しを監視するが、バックエンドへの書き戻し自体は妨げず、付随するメタデータを収集して内部で保持する VL を更新する。
+VLMergeBuffer が書き戻す uop には例外情報や VL などが含まれるため、それらに基づいて VL を更新すべきか判断し、更新すべきなら VfofBuffer が保持する VL と比較して小さい方に張り替える。
 
 ### 特性 2：VLレジスタを修正するuopの書き戻し
 
-VfofBufferは、その命令のすべてのメモリアクセスuopが書き戻された後、VLレジスタを修正するuopを書き戻します。
-VLレジスタを修正する必要がない場合でも、このuopは書き戻されますが、書き込みイネーブル信号は有効になりません。
+VfofBuffer はその命令に属する全メモリアクセス uop の書き戻しが終わってから VL レジスタを更新する uop を書き戻す。
+VL を更新する必要がない場合でもこの uop 自体は書き戻されるが、書き込みイネーブルは無効のままである。
 
 ## 全体ブロック図
 
@@ -26,9 +25,9 @@ VLレジスタを修正する必要がない場合でも、このuopは書き戻
 |                   | 方向 | 説明                              |
 | ----------------: | :--- | :-------------------------------- |
 |          redirect | In   | リダイレクトポート                |
-|                in | In   | Issue Queueからのuop発行を受信    |
-| mergeUopWriteback | In   | VLMergeBufferから書き戻されたデータuopを受信 |
-|      uopWriteback | Out  | VLを修正するuopをバックエンドに書き戻す |
+|                in | In   | Issue Queue からの uop 発行を受信 |
+| mergeUopWriteback | In   | VLMergeBuffer からの書き戻し uop を受信 |
+|      uopWriteback | Out  | VL を更新する uop をバックエンドに送る |
 
 
 ## インターフェースタイミング
@@ -37,9 +36,7 @@ VLレジスタを修正する必要がない場合でも、このuopは書き戻
 
 |                   | 説明                                          |
 | ----------------: | :-------------------------------------------- |
-|          redirect | Validあり。データはValid時に有効              |
-|                in | Valid、Readyあり。データはValid && ready時に有効 |
-| mergeUopWriteback | Valid、Readyあり。データはValid && ready時に有効 |
-|      uopWriteback | Valid、Readyあり。データはValid && ready時に有効 |
-
-```
+|          redirect | Valid を持つ。データは Valid 時に有効        |
+|                in | Valid と Ready を持つ。Valid && Ready 時に有効 |
+| mergeUopWriteback | Valid と Ready を持つ。Valid && Ready 時に有効 |
+|      uopWriteback | Valid と Ready を持つ。Valid && Ready 時に有効 |

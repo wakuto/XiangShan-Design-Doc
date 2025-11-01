@@ -87,6 +87,43 @@ Table: LoadQueueReplay格納情報
         *   LoadQueueReplayは、LqPtrに基づいてリプレイする最も古いLoad命令を決定でき、選択幅はOldestSelectStride=4です。
 
     *   DCacheデータ関連のロード命令を優先的にスケジューリング
-        *   LoadQueueReplyは、まずL2ヒントによってトリガーされたリプレイをスケジュールします（dcacheミスが発生した場合、下位レベルのキャッシュL2をクエリし続ける必要があります。L2キャッシュがリフィルする2〜3サイクル前に、L2キャッシュはLoadQueueReplayに早期ウェイクアップ信号を送信します。これはL2ヒントとして知られています）。L2ヒントを受信すると、LoadQueueReplayはdcacheミスによってブロックされたLoad命令をより早くウェイクアップしてリプレイできます。
+    *   LoadQueueReplayは、まずL2ヒントによってトリガーされたリプレイをスケジュールします（dcacheミスが発生した場合、下位レベルのキャッシュL2をクエリし続ける必要があります。L2キャッシュがリフィルする2〜3サイクル前に、L2キャッシュはLoadQueueReplayに早期ウェイクアップ信号を送信します。これはL2ヒントとして知られています）。L2ヒントを受信すると、LoadQueueReplayはdcacheミスによってブロックされたLoad命令をより早くウェイクアップしてリプレイできます。
 
-        *   L2ヒントのシナリオがない場合、ロードリプレイの残りの理由は高優先度と低優先度に分類されます。高優先度には、dcacheミスまたはst-ldフォワーディングによるリプレイが含まれ、他の理由は低優先度に分類されます。LoadQueueReplayからリプレイ条件を満たすLoad命令（有効、未スケジュール、かつウェイクアップを待機してブロックされていない）を見つけることができれば、そのLoad命令がリプレイのために選択されます。それ以外の場合は、エンキュー順に従って、AgeDetectorモジュールを介して一連のロードリプレイキューエントリの中で最も早くエンキューされたものを見つけてリプレイします。
+    *   L2ヒントのシナリオがない場合、ロードリプレイの残りの理由は高優先度と低優先度に分類されます。高優先度には、dcacheミスまたはst-ldフォワーディングによるリプレイが含まれ、他の理由は低優先度に分類されます。LoadQueueReplayからリプレイ条件を満たすLoad命令（有効、未スケジュール、かつウェイクアップを待機してブロックされていない）を見つけることができれば、そのLoad命令がリプレイのために選択されます。それ以外の場合は、エンキュー順に従って、AgeDetectorモジュールを介して一連のロードリプレイキューエントリの中で最も早くエンキューされたものを見つけてリプレイします。
+
+
+\newpage
+
+## 全体ブロック図
+
+![LoadQueueReplay全体ブロック図](./figure/LSQ-LoadQueueReplay.svg){#fig:LSQ-LoadQueueReplay}
+
+## インタフェースタイミング
+
+### エンキュータイミング
+
+    * リプレイエンキュー
+
+    ![LoadQueueReplayリプレイエンキュータイミング図](./figure/LSQ-LoadQueueReplay-Enq-Timing.svg){#fig:LSQ-LoadQueueReplay-Enq-Timing}
+
+    \newpage
+
+    * 非リプレイエンキュー
+
+    ![LoadQueueReplay非リプレイエンキュータイミング図](./figure/LSQ-LoadQueueReplay-NoEnq-Timing.svg){#fig:LSQ-LoadQueueReplay-NoEnq-Timing}
+
+### リプレイタイミング
+
+    ![LoadQueueReplayリプレイタイミング図](./figure/LSQ-LoadQueueReplay-Deq-Timing.svg){#fig:LSQ-LoadQueueReplay-Deq-Timing}
+
+\newpage
+
+### フリーリストタイミング
+
+    * 割り当てタイミング
+
+    ![フリーリスト割り当てタイミング図](./figure/LSQ-Freelist-Alloc-Timing.svg){#fig:LSQ-Freelist-Alloc-Timing}
+
+    * 回収タイミング
+
+    ![フリーリスト回収タイミング図](./figure/LSQ-Freelist-DeAlloc-Timing.svg){#fig:LSQ-Freelist-DeAlloc-Timing}

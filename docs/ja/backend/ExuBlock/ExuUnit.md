@@ -98,3 +98,28 @@ fpExuBlockには5つのExeUnitが含まれており、各ExeUnitは次の機能�
 | --- | --- |
 | exus0 | falu、fcvt、f2v、fmac |
 | exus1 | fdiv |
+| exus2 | falu、fmac |
+| exus3 | fdiv |
+| exus4 | falu、fmac |
+
+vfExuBlockには5つのExeUnitが含まれており、各ExeUnitは次の機能に対応しています。
+
+表: vfExuBlockの各ExeUnitに含まれるFU
+
+| ExeUnit | 機能 |
+| --- | --- |
+| exus0 | vfma、vialu、vimac、vppu |
+| exus1 | vfalu、vfcvt、vipu、VSetRvfWvf |
+| exus2 | vfma、vialu |
+| exus3 | vfalu |
+| exus4 | vfdiv、vidiv |
+
+## ゲート
+
+ExuUnitは、機能ユニットFUのクロックゲーティングもサポートしています。各機能ユニットFUのクロックイネーブル信号clk_enを制御することで、消費電力を削減します。クロックは、機能ユニットが必要な場合にのみ有効になり、機能ユニットの遅延設定と不確定遅延が有効かどうかによって、クロックゲーティングのイネーブル信号を動的に計算し、消費電力の最適化を実現します。
+
+簡単に言うと、固定遅延で遅延サイクル数が0より大きいFUの場合、2つのlatReal + 1長のベクトルfuVldVecとfuRdyVecを使用し、FU入力が有効な場合、fuVldVec(0)は1になり、各サイクルで1を後方に移動します。また、fuRdyVec(i)については、その値はfuRdyVec(i+1)とfuVldVec(i+1)に依存します。このように、fuVldVecに1がある場合は、現在有効な計算があることを示します。
+
+不確定遅延のFUの場合、uncer_en_regを使用してFU入力がfireしたときに記録し、FU出力がfireしたときにクリアします。
+
+したがって、ゲーティングを使用できるFUの場合、そのclk_enがハイになる条件は次のとおりです。ゼロ遅延のFUでFU入力がfireする。複数サイクル遅延のFUで入力がfireする、または現在のFUで有効な計算がある。不確定遅延のFUでFU入力がfireする、または現在のFUで有効な計算がある。このような条件でクロックゲーティングが行われます。

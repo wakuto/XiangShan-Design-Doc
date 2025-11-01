@@ -46,3 +46,35 @@ state_hptw_req、state_hptw_resp、state_last_hptw_req、およびstate_last_hpt
 各エントリは、各第2段階変換の結果を格納するためにhptw resp構造で拡張されました。最初の第2段階変換時に、hptwが戻ると、すべてのエントリがチェックされます。同じキャッシュラインに対するメモリアクセス要求がすでに発行されている場合、直接mem waitingフェーズに入ります。
 
 LLPTWは、第2段階変換のために追加のアービタを導入します。hyper_arb1は、hptw req状態に対応する最初の第2段階アドレス変換に使用されます。hyper_arb2は、last hptw req状態に対応する2番目の第2段階アドレス変換に使用されます。hptw_req_arbの入力はhyper_arb1とhyper_arb2で構成され、出力はhptw要求信号です。
+
+## 全体ブロック図
+
+最終レベルページテーブルウォーカーは、最後のページテーブルを並列に処理できますが、内部論理はページテーブルウォーカーと同じくステートマシンで実現されています。ここでは状態遷移図と遷移関係を紹介します。LLPTW と L2 TLB 内の他モジュールとの接続については 5.3.3 節を参照してください。
+
+状態遷移図を [@fig:LLPTW-states] に示します。これは 2 段階翻訳ではないリクエストに対する状態遷移です。
+
+![最終レベルページテーブルウォーカーの状態遷移図](../figure/image41.png){#fig:LLPTW-states}
+
+仮想化拡張を追加した後、LLPTW が 2 段階翻訳リクエストを受け取った場合の状態遷移を [@fig:LLPTW-allstage-states] に示します。
+
+![allStage リクエストを処理する状態遷移図](../figure/image42.jpeg){#fig:LLPTW-allstage-states}
+
+LLPTW に入るリクエストは常に idle から始まるわけではなく、既存エントリの状況に応じて idle、addr_check、mem_waiting、mem_out、cache のいずれか、2 段階翻訳なら hptw_req、cache、mem_waiting、last_hptw_req のいずれかから処理が始まります。
+
+* idle：初期状態であり、LLPTW のエントリが空であることを示します。同じリクエストを事前取得が持っている場合は受理せず idle のままにします。以下の 3 状況で idle に戻ります。
+	1. mem_out 状態で PMP / PMA チェックがアクセスフォールトとなり、L1 TLB に返却したとき。
+	2. mem_out 状態で最後のページテーブルを取得し、L1 TLB に返却したとき。
+	3. cache 状態で、必要なページテーブルが既に Page Cache に書き込まれており、Page Cache へ返却して探索を継続させるとき。
+* hptw_req：2 段階翻訳リクエストが入った場合に遷移し、L2TLB へ第 2 段階翻訳リクエストを送信します。
+* hptw_resp：第 2 段階翻訳の応答待ち。応答後、既存の mem_waiting 項目と重複していれば mem_waiting へ、そうでなければ addr_check へ進みます。
+* addr_check：重複がなく非 2 段階リクエストの場合、あるいは 2 段階リクエストで hptw 応答を受け取った場合に遷移します。物理アドレスを PMP モジュールに送り PMP / PMA チェックを行い、エラーなしなら mem_req、エラーがあれば mem_out へ進みます。
+* mem_req：PMP / PMA チェックが完了したためメモリ（mem_arb）へリクエストを送信します。mem_arb が送信するリクエストの仮想ページ番号が該当エントリと一致すると mem_waiting へ遷移します。
+* mem_waiting：LLPTW がすでにメモリへ送ったリクエストと仮想ページ番号が一致した場合に設定され、メモリの応答を待ちます。応答が戻ると、非 2 段階リクエストなら mem_out、2 段階リクエストなら last_hptw_req へ進みます。
+* last_hptw_req：2 段階翻訳リクエストが最終ページテーブルを得た後、最後の第 2 段階翻訳を行うための hptw リクエストを送信する状態です。
+* last_hptw_resp：最後の第 2 段階翻訳の応答を待ち、完了後に mem_out へ遷移します。
+* mem_out：メモリからのページテーブル応答を L1 TLB に返す状態です。addr_check でアクセスフォールトが発生した場合もここで L1 TLB にエラーを報告します。送信が完了すると idle に戻ります。
+* cache：mem_out / last_hptw_req / last_hptw_resp にある別のエントリと仮想ページ番号が一致する場合、既に Cache に書き戻されたページテーブルを Page Cache に問い合わせる必要があり、この状態に設定されます。Page Cache（実際には mq_arb）がリクエストを受理すると idle に戻ります。
+
+## インターフェースタイミング
+
+最終レベルページテーブルウォーカーは valid-ready 方式で L2 TLB 内の他モジュールと通信します。信号は多岐にわたり、特別に留意すべきタイミング関係はないため、ここでは詳細を省略します。

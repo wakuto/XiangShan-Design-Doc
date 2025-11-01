@@ -203,3 +203,81 @@ StoreQueueは早期コミットアプローチを採用しています。
         *   命令が割り当てられ、コミットされていること。
 
         *   ベクトルではなく、アドレスとデータが有効であるか、ベクトルであり、vsMergeBufferがサブミットされていること。
+
+        *   直前の命令がNonCacheableやMMIO命令ではないこと。最初の命令である場合、自身がNonCacheableやMMIO命令であってはなりません。
+
+        *   未整列ストアの場合、16バイト境界を越えないこと。越える場合は、アドレスとデータが有効であるか、例外が存在する必要があります。
+
+*   アドレスとデータの生成：
+
+    *   アドレスは上下に分割されます。
+
+        *   低位アドレス：8バイト境界に揃えたアドレス。
+
+        *   高位アドレス：低位アドレスに8を加算した値。
+
+    *   データは上下に分割されます。
+
+        *   16バイト境界を跨ぐデータ：元のデータをアドレス下位4ビットが示すバイト数だけ左シフトした値。
+
+        *   低位データ：16バイト境界を跨ぐデータの下位128ビット。
+
+        *   高位データ：16バイト境界を跨ぐデータの上位128ビット。
+
+    *   書き込み選択ロジック：
+
+        *   dataBufferが未整列命令の書き込みを受け付け、チャネル0の命令が未整列かつ16バイト境界を跨ぐ場合：
+
+            *   4Kページを跨がず、もしくは跨ぐがデキュー可能な場合：チャネル0は低位アドレスと低位データでdataBufferに書き込み、チャネル1はStoreMisalignBufferの物理アドレスと高位データで書き込みます。
+
+            *   それ以外の場合：チャネル0は低位アドレスと低位データで、チャネル1は高位アドレスと高位データでdataBufferに書き込みます。
+
+        *   チャネルの命令が16バイト境界を跨がず未整列の場合は、16バイト境界に揃えたアドレスと整列済みデータでdataBufferに書き込みます。
+
+        *   それ以外の場合、元のデータとアドレスをdataBufferに書き込みます。
+
+### 特徴8：Sbufferの強制フラッシュ
+
+StoreQueueは、Sbufferを強制的にフラッシュするために二重しきい値方式（上限閾値と下限閾値）を用います。StoreQueueの有効エントリ数が上限閾値を超えると、Sbufferの強制フラッシュを開始し、有効エントリ数が下限閾値を下回るまで継続します。
+
+\newpage
+
+## 全体ブロック図
+
+![StoreQueue全体ブロック図](./figure/LSQ-StoreQueue.svg){#fig:LSQ-StoreQueue width=90%}
+
+## インタフェースタイミング
+
+### エンキューインタフェースタイミング例
+
+![StoreQueue全体ブロック図](./figure/LSQ-StoreQueue-Enq-Timing.svg){#fig:LSQ-StoreQueue-Enq-Timing width=90%}
+
+\newpage
+
+### データ更新インタフェースタイミング
+
+![データ更新インタフェースタイミング](./figure/LSQ-StoreQueue-Data-Timing.svg){#fig:LSQ-StoreQueue-Data-Timing width=90%}
+
+### アドレス更新インタフェースタイミング
+
+StoreQueueのアドレス更新はデータ更新と類似しており、StoreUnitはs1段でio_lsqを介してアドレスを更新し、s2段でio_lsq_replenishを介して例外を更新します。データ更新と異なり、アドレス更新は1サイクルで完了します。
+
+### MMIOインタフェースタイミング例
+
+![MMIOインタフェースタイミング例](./figure/LSQ-StoreQueue-MMIO-Timing.svg){#fig:LSQ-StoreQueue-MMIO-Timing width=90%}
+
+\newpage
+
+### NonCacheableインタフェースタイミング例
+
+![NonCacheableインタフェースタイミング例](./figure/LSQ-StoreQueue-NC-Timing.svg){#fig:LSQ-StoreQueue-NC-Timing width=90%}
+
+### CBOインタフェースタイミング例
+
+![CBOインタフェースタイミング例](./figure/LSQ-StoreQueue-CBO-Timing.svg){#fig:LSQ-StoreQueue-CBO-Timing width=90%}
+
+\newpage
+
+### CMOインタフェースタイミング例
+
+![CMOインタフェースタイミング例](./figure/LSQ-StoreQueue-CMO-Timing.svg){#fig:LSQ-StoreQueue-CMO-Timing width=90%}

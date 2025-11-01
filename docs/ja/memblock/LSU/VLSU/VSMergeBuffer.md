@@ -1,4 +1,3 @@
-```markdown
 # ベクトルStoreマージユニット VSMergeBuffer
 
 ## 機能説明
@@ -52,6 +51,3 @@ VSMergeBufferは対応するエントリをneedRSReplayに設定し、最終的�
 |redirect               |Validあり。データはValid時に有効                      |
 |feedback               |Validあり。データはValid時に有効                      |
 |fromMisalignBuffer     |Validなし。データは常に有効と見なされ、対応する信号が発生すると即座に応答    |
-
-
-```

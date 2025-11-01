@@ -127,3 +127,33 @@ CtrlUnitは、DCacheのECCエラーインジェクションを制御するため
 
 * 設定レジスタは、図\ref{fig:DCache-Error-Config-Timing}に示すように、tilelinkインターフェースを介して読み書きできます。書き込みアドレスとデータはAチャネルで送信されます。
   * アドレス0x38022010のEccMask0レジスタをデータ値0xffで設定します。
+  * アドレス0x38022008のEccEidレジスタをデータ値0x4で設定します。
+  * アドレス0x38022000のEccCtlレジスタをデータ値0x5で設定します。
+
+![設定レジスタタイミング](./figure/DCache-Error-Config-Timing.svg){#fig:DCache-Error-Config-Timing width=80%}
+
+### タグ注入タイミング
+
+* 図\ref{fig:DCache-Error-TagInj-Timing}に示すように、レジスタ（EccCtl、EccEid、EccMask0）を設定すると、カウンタが0に到達した時点で注入が開始されます。
+
+  * タグ注入インターフェース `io_pseudoError_0_valid` がアサートされます。
+
+  * 注入が成功すると（`io_pseudoError_0_valid && io_pseudoError_0_ready == 1`）、EccCtl の `ese` ビットがクリアされ、注入が終了します。
+
+  * MainPipe を例にとると、`s1_tag_error`、`s2_tag_error`、`s3_tag_error` が順にアサートされ、最終的に `io_error` ポート経由で BEU にエラー情報が報告されます。
+
+![タグ注入タイミング](./figure/DCache-Error-TagInj-Timing.svg){#fig:DCache-Error-TagInj-Timing width=80%}
+
+\newpage
+
+### データ注入タイミング
+
+* 図\ref{fig:DCache-Error-DataInj-Timing}に示すように、レジスタ（EccCtl、EccEid、EccMask2）を設定すると、カウンタが0に到達した時点で注入が開始されます。
+
+  * データ注入インターフェース `io_pseudoError_1_valid` がアサートされます。
+
+  * 注入が成功すると（`io_pseudoError_1_valid && io_pseudoError_1_ready == 1`）、EccCtl の `ese` ビットがクリアされ、注入が終了します。
+
+  * MainPipe を例にとると、`s2_data_error` と `s3_data_error` が順にアサートされ、最終的に `io_error` ポート経由で BEU にエラー情報が報告されます。
+
+![データ注入タイミング](./figure/DCache-Error-DataInj-Timing.svg){#fig:DCache-Error-DataInj-Timing width=80%}

@@ -1,12 +1,51 @@
 # ベクトルメモリアクセス
 
-この章では、XiangShanプロセッサのベクトルメモリアクセスに関連するコンポーネントについて詳しく説明します。これらのユニットは、RISC-Vベクトル拡張（RVV）のロードおよびストア命令を効率的に処理するために設計されています。
+## サブモジュールリスト
 
-この章で説明するコンポーネントは以下の通りです。
+| サブモジュール | 説明 |
+| --- | --- |
+| [VLSplit](VLSplit.md) | ベクトルロードuop分割モジュール |
+| [VSSplit](VSSplit.md) | ベクトルストアuop分割モジュール |
+| [VLMergeBuffer](VLMergeBuffer.md) | ベクトルロードフロー合流モジュール |
+| [VSMergeBuffer](VSMergeBuffer.md) | ベクトルストアフロー合流モジュール |
+| [VSegmentUnit](VSegmentUnit.md) | ベクトルセグメント実行モジュール |
+| [VfofBuffer](VfofBuffer.md) | ベクトルfault-only-first命令ライトバックVLレジスタuop収集ライトバックモジュール |
 
-- **ベクトルロード分割ユニット**: ベクトルロード命令を分割します。
-- **ベクトルストア分割ユニット**: ベクトルストア命令を分割します。
-- **ベクトルロードマージバッファ**: 分割されたロード結果をマージします。
-- **ベクトルストアマージバッファ**: 分割されたストアデータをマージします。
-- **ベクトルセグメントユニット**: セグメント化されたメモリアクセスを処理します。
-- **ベクトルFOFユニット**: Vector Find-First/Find-Only-First (vfirst, vmsbf, etc.) 命令を処理します。
+
+## 機能説明
+
+- RVV 1.0の全メモリアクセス命令を完全にサポート
+- ベクトルLoad/Store命令の順不同スケジューリングをサポート
+- ベクトルLoad/Store命令から分割されたUopの順不同実行をサポート
+- ベクトル順不同違反のチェックと回復をサポート
+- 非整列ベクトルメモリアクセスをサポート
+- 非メモリ空間へのベクトルメモリアクセスはサポートしない
+
+### パラメータ設定
+
+| パラメータ | 設定（項目数） |
+| :---: | :---: |
+| VLEN | 128 |
+| VLMergeBuffer | 16 |
+| VSMergeBuffer | 16 |
+| VSegmentBuffer | 8 |
+| VFOFBuffer | 1 |
+
+### 機能概要
+
+VLSIssueQueueに入る前に、Dispatch段階でLoad QueueまたはStore Queueのインデックスが割り当てられます。
+ベクトルメモリアクセス命令はバックエンドでuopに分割された後、まずVsplitモジュールでデコード、マスクとアドレスオフセットの計算が行われ、同時にMergebufferエントリが要求されます。
+新しいベクトルメモリアクセスアーキテクチャでは、スカラのLoadUnit & StoreUnit、およびLoad Queue & Store Queueが再利用されます。
+
+ベクトルLoadとStoreは2つのIssue Queueを共有します。
+ベクトルLoadの場合、2つのIssue Queueは2つのVLSplitに接続されます。
+ベクトルStoreの場合、2つのIssue Queueは2つのVSSplitに接続されます。
+2つのVLSplitはそれぞれLoadUnit0、LoadUnit1に対応します。
+2つのVSSplitはそれぞれStoreUnit0、StoreUnit1に対応します。
+ベクトルLoadがReplay Queueによる再発行を必要とする場合、他のloadunitに再発行される可能性があります。ベクトルメモリアクセスがパイプラインから実行完了した後、mergebufferによって集約され、ライトバックされます。
+
+
+## 全体ブロック図
+
+全体ブロック図は更新予定
+<!-- svgを使用してください -->

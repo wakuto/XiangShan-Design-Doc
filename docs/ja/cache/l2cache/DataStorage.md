@@ -1,3 +1,2 @@
 # データSRAM DataStorage
-
-DataStorageモジュールは、シングルポートSRAMを使用して構築されたCoupledL2データSRAMの読み取りと書き込みを担当します。要求は、MainPipe s3パイプラインステージ中にのみDataStorageと対話します。DataStorageは、クロックサイクルごとに1つの読み取りまたは書き込み要求しか処理できません。
+DataStorage モジュールは CoupledL2 のデータ SRAM の読み書きを担当し、単一ポート SRAM で構成される。要求は MainPipe の s3 ステージでのみ DataStorage とやり取りし、各サイクルで処理できる読み出しまたは書き込み要求は 1 件のみである。
