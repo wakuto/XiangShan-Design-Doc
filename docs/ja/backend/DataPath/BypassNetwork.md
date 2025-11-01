@@ -1,6 +1,7 @@
 # BypassNetwork
 
-- バージョン: V2R2
+### - バージョン: V2R2
+
 - ステータス: OK
 - 日付: 2025/02/27
 - コミット: [xxx](https://github.com/OpenXiangShan/XiangShan/tree/xxx)

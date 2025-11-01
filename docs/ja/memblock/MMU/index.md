@@ -216,7 +216,7 @@ MMUの全体アーキテクチャは[@fig:MMU-arch-overall]に示されていま
 
 ITLBはFrontendからのPTWリクエストを受け取り、DTLBはMemblockからのPTWリクエストを受け取ります。FrontendからのPTWリクエストには、ICacheの3つのリクエストとIFUの1つのリクエストが含まれます。MemblockからのPTWリクエストには、LoadUnitの2つのリクエスト（AtomicsUnitがLoadUnitの1つのリクエストチャネルを占有）、L1 Load stream & strideプリフェッチャの1つのリクエスト、StoreUnitの2つのリクエスト、およびSMSPrefetcherの1つのリクエストが含まれます。ITLB、DTLBはRepeaterを介してL2 TLBに接続されており、いずれもノンブロッキングアクセスです。これらのRepeaterは、パイプラインステージを追加する機能に加えて、重複リクエストをフィルタリングする機能も備えており、L1 TLBからL2 TLBに送信される重複リクエストをフィルタリングして、L1 TLBに重複エントリが出現するのを防ぎます。
 
-ITLBのリクエストとDTLBのリクエストは調停（Arbiter 2to1）を経て、まずPage Cacheにアクセスします。2段階アドレス変換でないリクエストの場合、リーフノードにヒットすれば直接L1 TLBに返され、ヒットしなければPage CacheでヒットしたページテーブルのレベルとPage Table WalkerおよびLast Level Page Table Walkerの空き状況に応じて、Page Table Walker、Last Level Page Table Walker、またはMiss Queueに入ります（5.3節参照）。Miss Queue、Prefetcherからのリクエストは、調停器（Arbiter 3to1）を介してL1 TLBからのリクエストと一緒に調停され、再度Page Cacheにアクセスします。もう1つのケースとして、Page Cacheが2段階アドレス変換リクエストを受け取った場合、2段階変換が両方とも有効な場合、第1段階のページテーブルにヒットすればPTWに送られて第2段階の変換が行われます。その他の場合は、第1段階のページテーブルのヒットレベルとPTWおよびLLPTWの空き状況に応じて、PTW、LLPTW、Miss Queueに送られます。第1段階の変換のみの場合、非2段階アドレス変換リクエストの処理と同様に、ヒットレベルとPTWおよびLLPTWの空き状況に応じてPTW、LLPTW、Miss Queueに送られます。第2段階の変換のみの場合、検索で見つかればL1TLBに返され、見つからなければPTWに送られて第2段階の変換が行われます。さらに、Page CacheはisHptwReqが有効なリクエストも受け取ります。これは、そのリクエストが第2段階の変換を行うリクエストであることを示します。このタイプのリクエストがPage Cacheでヒットした場合、hptw_resp_arbに送られます。ヒットしなかった場合、HPTWに送られて検索され、HPTWは検索結果をhptw_resp_arbに送ります。
+ITLBのリクエストとDTLBのリクエストは調停（Arbiter 2to1）を経て、まずPage Cacheにアクセスします。2段階アドレス変換でないリクエストの場合、リーフノードにヒットすれば直接L1 TLBに返され、ヒットしなければPage CacheでヒットしたページテーブルのレベルとPage Table WalkerおよびLast Level Page Table Walkerの空き状況に応じて、Page Table Walker、Last Level Page Table Walker、またはMiss Queueに入ります（5.3節参照）。Miss Queue、Prefetcherからのリクエストは、アービタ（Arbiter 3to1）を介してL1 TLBからのリクエストと一緒に調停され、再度Page Cacheにアクセスします。もう1つのケースとして、Page Cacheが2段階アドレス変換リクエストを受け取った場合、2段階変換が両方とも有効な場合、第1段階のページテーブルにヒットすればPTWに送られて第2段階の変換が行われます。その他の場合は、第1段階のページテーブルのヒットレベルとPTWおよびLLPTWの空き状況に応じて、PTW、LLPTW、Miss Queueに送られます。第1段階の変換のみの場合、非2段階アドレス変換リクエストの処理と同様に、ヒットレベルとPTWおよびLLPTWの空き状況に応じてPTW、LLPTW、Miss Queueに送られます。第2段階の変換のみの場合、検索で見つかればL1TLBに返され、見つからなければPTWに送られて第2段階の変換が行われます。さらに、Page CacheはisHptwReqが有効なリクエストも受け取ります。これは、そのリクエストが第2段階の変換を行うリクエストであることを示します。このタイプのリクエストがPage Cacheでヒットした場合、hptw_resp_arbに送られます。ヒットしなかった場合、HPTWに送られて検索され、HPTWは検索結果をhptw_resp_arbに送ります。
 
 Page Table WalkerとLast Level Page Table Walkerはどちらも第2段階のアドレス変換を行うことができ、PTWとLLPTWでは、2段階アドレス変換リクエストの場合、PTWまたはLLPTWがPTEから取得するアドレスはすべてゲスト物理アドレスであり、メモリアクセス前に第2段階のアドレス変換を行って実際の物理アドレスを取得する必要があります。PTWおよびLLPTWモジュールの紹介を参照してください。
 
@@ -276,7 +276,7 @@ Table: L2 TLB IOインターフェースリスト
 |  | HPTW | hptw | L2 TLB Hypervisor Page Table Walker、5.3.10節で紹介 |
 |  | L2TlbPrefetch | prefetch | L2 TLB Prefetcher、5.3.12節で紹介 |
 
-詳細はインターフェースリストドキュメントを参照してください。また、一部の調停器はインターフェースリストから省略されています。
+詳細はインターフェースリストドキュメントを参照してください。また、一部のアービタはインターフェースリストから省略されています。
 
 ## インターフェースタイミング
 
