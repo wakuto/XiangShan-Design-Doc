@@ -6,6 +6,11 @@ site_dir: 'site/ja'
 site_name: XiangShan デザインドキュメント
 repo_url: https://github.com/wakuto/XiangShan-Design-Doc
 repo_name: XiangShan-Design-Doc
+copyright: |
+  <div>この文書は日本語翻訳版です。翻訳者: <a href="https://github.com/wakuto">wakuto</a></div>
+  <div>※ AI翻訳を使用しているため、誤訳や不正確な表現が含まれる可能性があります</div>
+  <div>原著作 © 2024 - 2025 The XiangShan Team, Beijing Institute of Open Source Chip</div>
+  <div>ライセンス: <a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a></div>
 
 theme:
   language: ja
@@ -27,7 +32,7 @@ extra:
       link: https://docs.xiangshan.cc/projects/design/en/latest/
       lang: en
     - name: 日本語
-      link: https://xiangshan-design-doc-ja.vercel.app/ja/
+      link: https://xiang-shan-design-doc-ja.vercel.app/ja/
       lang: ja
 
 nav:
