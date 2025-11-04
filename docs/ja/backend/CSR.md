@@ -7,7 +7,7 @@
 
 ## 用語説明
 
-表：用語説明
+Table: 用語説明
 
 | 略語 | 正式名称 | 説明 |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ RISC-Vマニュアルで定義されているCSRに加えて、7つのカスタ�
 
 sbpctl（Speculative Branch Prediction Control register）のアドレスは0x5C0で、HSモードで定義された読み書き可能なレジスタです。
 
-表：sbpctlの定義
+Table: sbpctlの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -106,7 +106,7 @@ sbpctl（Speculative Branch Prediction Control register）のアドレスは0x5C
 
 spfctl（Speculative Prefetch Control register）のアドレスは0x5C1で、HSモードで定義された読み書き可能なレジスタです。
 
-表：spfctlの定義
+Table: spfctlの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -130,7 +130,7 @@ spfctl（Speculative Prefetch Control register）のアドレスは0x5C1で、HS
 
 slvpredctl（Speculative Load Violation Predictor Control register）のアドレスは0x5C2で、HSモードで定義された読み書き可能なレジスタです。
 
-表：slvpredctlの定義
+Table: slvpredctlの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -145,7 +145,7 @@ slvpredctl（Speculative Load Violation Predictor Control register）のアド�
 
 smblockctl（Speculative Memory Block Control register）のアドレスは0x5C3で、HSモードで定義された読み書き可能なレジスタです。
 
-表：smblockctlの定義
+Table: smblockctlの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -162,7 +162,7 @@ smblockctl（Speculative Memory Block Control register）のアドレスは0x5C3
 
 srnctl（Speculative Runtime Control register）のアドレスは0x5C4で、HSモードで定義された読み書き可能なレジスタです。
 
-表：srnctlの定義
+Table: srnctlの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -175,7 +175,7 @@ srnctl（Speculative Runtime Control register）のアドレスは0x5C4で、HS�
 
 mcorepwr（Core Power Down Status Enable）のアドレスは0xBC0で、Mモードで定義された読み書き可能なレジスタです。
 
-表：mcorepwrの定義
+Table: mcorepwrの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -186,7 +186,7 @@ mcorepwr（Core Power Down Status Enable）のアドレスは0xBC0で、Mモー�
 
 mflushpwr（Flush L2 Cache Enable）のアドレスは0xBC1で、Mモードで定義された読み書き可能なレジスタです。
 
-表：mflushpwrの定義
+Table: mflushpwrの定義
 
 | フィールド名 | フィールド位置 | 初期値 | 説明 |
 | --- | --- | --- | --- |
@@ -206,7 +206,7 @@ sLevelPermitModでも同様にEX_IIのみが発生し、HSモードCSR（sstatee
 
 privilegePermitModでは、低特権モードが高特権モードのCSRにアクセスできないことを保証し、現在の特権レベルとアクセス対象のCSR特権レベルに基づいてEX_IIとEX_VIの2種類の例外を生成します。
 
-表：異なる特権レベルでのCSRアクセス権限チェック
+Table: 異なる特権レベルでのCSRアクセス権限チェック
 
 | | MレベルCSR | H/VSレベルCSR | SレベルCSR | UレベルCSR |
 | --- | --- | --- | --- | --- |
