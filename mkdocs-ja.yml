@@ -32,7 +32,7 @@ extra:
       link: https://docs.xiangshan.cc/projects/design/en/latest/
       lang: en
     - name: 日本語
-      link: https://xiangshan-design-doc-ja.vercel.app/ja/
+      link: https://xiangshan-design-doc-ja.vercel.app/
       lang: ja
 
 nav:
