@@ -1,0 +1,4736 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../memblock/MMU/PMP-PMA/">
+      
+      
+        <link rel="next" href="../ReqBuf/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+
+  <!-- ReadTheDocs Version Addon -->
+  
+
+    
+      
+        <title>L2キャッシュ (CoupledL2) - XiangShan デザインドキュメント</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/table_fix.css">
+    
+    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-coupledl2" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!--
+  Additional Copyright © 2025 Xu Zefan, The XiangShan Team
+
+  Portions of this software have been modified. These modifications are
+  released under the same license as the original software, and are subject to
+  the same terms and conditions.
+-->
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="ヘッダー"
+  >
+
+    <!-- Link to home -->
+    <a href="../../.."
+      title="XiangShan デザインドキュメント"
+      class="md-header__button md-logo"
+      aria-label="XiangShan デザインドキュメント"
+      data-md-component="logo"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XiangShan デザインドキュメント
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              L2キャッシュ (CoupledL2)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- New: Back to home button -->
+    
+      
+      
+      
+      <div class="md-header__option">
+        <a
+          class="md-header__button md-icon"
+          href="https://docs.xiangshan.cc/"
+          title="XiangShan ドキュメントホームに戻る"
+          aria-label="XiangShan ドキュメントホームに戻る"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+      </div>
+    
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="言語切り替え">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://docs.xiangshan.cc/projects/design/zh-cn/latest/cache/l2cache/CoupledL2/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://docs.xiangshan.cc/projects/design/en/latest/cache/l2cache/CoupledL2/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://xiangshan-design-doc-ja.vercel.app/ja/cache/l2cache/CoupledL2/" hreflang="ja" class="md-select__link">
+              日本語
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Button to open search modal -->
+    
+      
+
+      <!-- Check if search is actually enabled - see https://t.ly/DT_0V -->
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+
+        <!-- Search interface -->
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wakuto/XiangShan-Design-Doc" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XiangShan-Design-Doc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="XiangShan デザインドキュメント" class="md-nav__button md-logo" aria-label="XiangShan デザインドキュメント" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    XiangShan デザインドキュメント
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wakuto/XiangShan-Design-Doc" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XiangShan-Design-Doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ホーム
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    フロントエンド
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            フロントエンド
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/BPU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    分岐予測ユニット
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            分岐予測ユニット
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/Composer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BPU抽象モジュール
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/FTB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    フェッチターゲットユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/uFTB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    分岐ターゲットバッファ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/TAGE-SC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メイン予測器TAGE-SC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/ITTAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    間接分岐予測器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/RAS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リターンアドレススタック
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/FTQ/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    フェッチターゲットキュー
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            フェッチターゲットキュー
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/IFU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    命令フェッチユニット
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            命令フェッチユニット
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/IFU/PreDecoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プリデコーダ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/ICache/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    命令キャッシュ
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            命令キャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MainPipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/IPrefetchPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IPrefetchPipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/WayLookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WayLookup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/MissUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MissUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/Replacer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Replacer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/CtrlUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CtrlUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/Pruned_Address/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    PCクラス
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            PCクラス
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../backend/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    バックエンド
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            バックエンド
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../backend/CtrlBlock/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    制御ブロック (CtrlBlock)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            制御ブロック (CtrlBlock)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/decode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    デコード
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/Rename/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リネーム
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/Dispatch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ディスパッチ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/Rob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リオーダバッファ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    データパス (DataPath)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            データパス (DataPath)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/DataPath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DataPath
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/Og2ForVector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Og2ForVector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/WbDataPath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WbDataPath
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/WbFuBusyTable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WbFuBusyTable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/BypassNetwork/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BypassNetwork
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    スケジューリングと発行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            スケジューリングと発行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/Schedule_And_Issue/Scheduler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/Schedule_And_Issue/IssueQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IssueQueue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/Schedule_And_Issue/IssueQueueEntries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IssueQueueEntries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    実行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            実行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/ExuBlock/ExuBlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ExuBlock
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/ExuBlock/ExuUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ExuUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    機能ユニット (FunctionUnit)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            機能ユニット (FunctionUnit)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/IntFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    整数機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/FpFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    浮動小数点機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/VecFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトル機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/MemFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メモリ機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/VFPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトル浮動小数点ユニット (VFPU)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CSR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    制御ステータスレジスタ (CSR)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/HPM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ハードウェア性能モニタ (HPM)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DebugModule/DM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    デバッグモジュール
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    メモリシステム
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            メモリシステム
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/LSU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ロード・ストアユニット (LSU)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            ロード・ストアユニット (LSU)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LoadUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードユニット (LoadUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/StoreUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアアドレスユニット (StoreUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/StdExeUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアデータユニット (StdExeUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/AtomicsUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    アトミック操作ユニット (AtomicsUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/LSU/VLSU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ベクトルメモリアクセス
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1_6" id="__nav_4_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            ベクトルメモリアクセス
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VLSplit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルロード分割ユニット (VLSplit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VSSplit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルストア分割ユニット (VSSplit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VLMergeBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルロードマージバッファ (VLMergeBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VSMergeBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルストアマージバッファ (VSMergeBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VSegmentUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルセグメントユニット (VSegmentUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VfofBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルFOFユニット (VfofBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/LSU/LSQ/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ロード・ストアキュー (LSQ)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1_7" id="__nav_4_1_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            ロード・ストアキュー (LSQ)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/VirtualLoadQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードキュー (VirtualLoadQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueRAR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read-After-Readチェック (LoadQueueRAR)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueRAW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read-After-Writeチェック (LoadQueueRAW)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueReplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードリプレイキュー (LoadQueueReplay)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueUncache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uncacheロードユニット (LoadQueueUncache)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LqExceptionBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロード例外バッファ (LqExceptionBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/StoreQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアキュー (StoreQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/Uncache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uncache処理ユニット (Uncache)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/SBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアコミットバッファ (SBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LoadMisalignBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロード非整列アクセスユニット (LoadMisalignBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/StoreMisalignBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストア非整列アクセスユニット (StoreMisalignBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/DCache/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    データキャッシュ
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            データキャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/LoadPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードパイプライン (LoadPipe)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/MissQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ミスキュー (MissQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/ProbeQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プローブキュー (ProbeQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メインパイプライン (MainPipe)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/WritebackQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ライトバックキュー (WritebackQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/Error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    エラー処理とカスタム障害注入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/MMU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    メモリ管理ユニット (MMU)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            メモリ管理ユニット (MMU)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L1TLB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    L1TLB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/Repeater/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repeater
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/MMU/L2TLB/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    L2TLB
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            L2TLB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/PageCache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ページキャッシュ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/PTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/LLPTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    最終レベルページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/HPTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ハイパーバイザページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/MissQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ミスキュー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/Prefetcher/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プリフェッチャ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/PMP-PMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PMP & PMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    キャッシュサブシステム
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            キャッシュサブシステム
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            L2キャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ (CoupledL2)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ (CoupledL2)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      サブモジュールリスト
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      設計仕様
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      機能説明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="機能説明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mesi" class="md-nav__link">
+    <span class="md-ellipsis">
+      MESIライクなキャッシュコヒーレンシプロトコルを採用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ディレクトリを使用してキャッシュライン情報を記録
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ノンブロッキングパイプライン構造を採用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ノンブロッキングパイプライン構造を採用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acquire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acquire要求処理フロー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      スヌープ要求処理フロー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      リリース要求処理フロー
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      リフィルデータの受信後に置き換えパスの選択と置き換えを実行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      同じセット内の要求への並列アクセスをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      ロード命令の早期ウェイクアップ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      ハードウェアプリフェッチをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      要求のマージをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      キャッシュエイリアスのハードウェア処理をサポート
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体設計
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="全体設計">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体ブロック図
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ReqBuf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aチャネル要求バッファ (RequestBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ReqArb_MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    要求アービタとメインパイプライン
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ディレクトリ (Directory)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DataStorage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    データSRAM (DataStorage)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MSHR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MSHR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_7" id="__nav_5_1_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    アップストリームTileLinkチャネル
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            アップストリームTileLinkチャネル
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upstream/SinkA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SinkA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upstream/SinkC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SinkC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upstream/GrantBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GrantBuffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_8" id="__nav_5_1_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ダウンストリームCHIチャネル
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            ダウンストリームCHIチャネル
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/TXREQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXREQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/RXRSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXRSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/RXDAT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXDAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/RXSNP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXSNP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/TXDAT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXDAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/TXRSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXRSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/PCredit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    P-Credit管理機構
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downstream/LinkMonitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リンク層コントローラ (LinkMonitor)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MMIOBridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MMIOブリッジ (MMIOBridge)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    エラー処理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      サブモジュールリスト
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      設計仕様
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      機能説明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="機能説明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mesi" class="md-nav__link">
+    <span class="md-ellipsis">
+      MESIライクなキャッシュコヒーレンシプロトコルを採用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ディレクトリを使用してキャッシュライン情報を記録
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ノンブロッキングパイプライン構造を採用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ノンブロッキングパイプライン構造を採用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acquire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acquire要求処理フロー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      スヌープ要求処理フロー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      リリース要求処理フロー
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      リフィルデータの受信後に置き換えパスの選択と置き換えを実行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      同じセット内の要求への並列アクセスをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      ロード命令の早期ウェイクアップ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      ハードウェアプリフェッチをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      要求のマージをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      キャッシュエイリアスのハードウェア処理をサポート
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体設計
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="全体設計">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体ブロック図
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/wakuto/XiangShan-Design-Doc/edit/master/docs/cache/l2cache/CoupledL2.md" title="編集" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/wakuto/XiangShan-Design-Doc/raw/master/docs/cache/l2cache/CoupledL2.md" title="このページの原文を表示" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="2-coupledl2">レベル2キャッシュ CoupledL2</h1>
+<h2 id="_1">サブモジュールリスト</h2>
+<p>CoupledL2のトップレベルは、（デフォルトで）4つのスライス、MMIOBridge、およびプリフェッチャに分かれています。</p>
+<p>プリフェッチャには、L2ローカルプリフェッチャであるBest-Offset Prefetch（BOP）と、DCacheでトレーニングされたがL2にフェッチする必要があるプリフェッチ要求を受信するために使用されるL1 DCacheプリフェッチレシーバが含まれています。</p>
+<p>MMIOBridge、またはMMIO要求ブリッジは、TileLinkバスのMMIO要求をCHI要求に変換します。これらとキャッシュ可能なアドレス空間のCHI要求との間で調停を行い、統一されたCHIインターフェースを介して相互接続バスにアクセスします。</p>
+<p>CoupledL2の4つのスライスは、下位アドレスビットに基づいて分割され、異なるアドレスを持つ要求またはプリフェッチアドレスは、異なるスライスに分散されます。</p>
+<p>各スライスのサブモジュールのリストは次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>サブモジュール</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SinkA</td>
+<td>アップストリームTileLinkバスAチャネルコントローラ。</td>
+</tr>
+<tr>
+<td>SinkC</td>
+<td>アップストリームTileLinkバスCチャネルコントローラ</td>
+</tr>
+<tr>
+<td>GrantBuffer</td>
+<td>アップストリームTileLinkバスD/Eチャネルコントローラ</td>
+</tr>
+<tr>
+<td>TXREQ</td>
+<td>ダウンストリームCHIバスTXREQチャネルコントローラ</td>
+</tr>
+<tr>
+<td>TXDAT</td>
+<td>ダウンストリームCHIバスTXDATチャネルコントローラ</td>
+</tr>
+<tr>
+<td>TXRSP</td>
+<td>ダウンストリームCHIバスTXRSPチャネルコントローラ</td>
+</tr>
+<tr>
+<td>RXSNP</td>
+<td>ダウンストリームCHIバスRXSNPチャネルコントローラ</td>
+</tr>
+<tr>
+<td>RXDAT</td>
+<td>ダウンストリームCHIバスRXDATチャネルコントローラ</td>
+</tr>
+<tr>
+<td>RXRSP</td>
+<td>ダウンストリームCHIバスRXRSPチャネルコントローラ</td>
+</tr>
+<tr>
+<td>Directory.</td>
+<td>ディレクトリ、メタデータ情報を格納するSRAM</td>
+</tr>
+<tr>
+<td>DataStorage</td>
+<td>データSRAM</td>
+</tr>
+<tr>
+<td>RefillBuffer</td>
+<td>リフィルデータレジスタファイル。</td>
+</tr>
+<tr>
+<td>ReleaseBuffer</td>
+<td>リリースデータレジスタファイル</td>
+</tr>
+<tr>
+<td>RequestBuffer</td>
+<td>Aチャネル要求バッファ</td>
+</tr>
+<tr>
+<td>RequestArb</td>
+<td>要求アービタ、メインパイプラインステージs0〜s2。</td>
+</tr>
+<tr>
+<td>MainPipe</td>
+<td>メインパイプラインステージs3〜s5。</td>
+</tr>
+<tr>
+<td>MSHRCtl</td>
+<td>MSHR（Miss Status Handling Registers）制御モジュール、デフォルトで16個のMSHRエントリを含む</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">設計仕様</h2>
+<ul>
+<li>上流のL1Cache / PTWとTileLinkバスプロトコルを使用して相互接続します</li>
+<li>下流のHN-FとCHIバスプロトコルを使用し、B/C/E.bの3つのCHIバスバージョンをサポートします（デフォルトはE.b）</li>
+<li>
+<p>次のCHI読み取りトランザクションをサポートします。</p>
+<ul>
+<li>ReadNoSnp（B/C/E.b）（MMIOおよびUncache要求にのみ使用）</li>
+<li>ReadNotSharedDirty（B/C/E.b）</li>
+<li>ReadUnique（B/C/E.b）</li>
+</ul>
+</li>
+<li>
+<p>次のCHIデータレス・トランザクションをサポートします。</p>
+<ul>
+<li>MakeUnique（B/C/E.b）</li>
+<li>Evict（B/C/E.b）</li>
+<li>CleanShared（B/C/E.b）</li>
+<li>CleanInvalid（B/C/E.b）</li>
+<li>MakeInvalid（B/C/E.b）</li>
+</ul>
+</li>
+<li>
+<p>次のCHI書き込みトランザクションをサポートします。</p>
+<ul>
+<li>WriteNoSnpPtl（B/C/E.b）（MMIOおよびUncache要求にのみ使用）</li>
+<li>WriteBackFull（B/C/E.b）</li>
+<li>WriteCleanFull（B/C/E.b）</li>
+<li>WriteEvictOrEvict（E.b）</li>
+</ul>
+</li>
+<li>
+<p>次のCHIスヌープトランザクションをサポートします。</p>
+<ul>
+<li>SnpOnceFwd（B/C/E.b）</li>
+<li>SnpOnce（B/C/E.b）</li>
+<li>SnpStashUnique（B/C/E.b）</li>
+<li>SnpStashShared（B/C/E.b）</li>
+<li>SnpCleanFwd（B/C/E.b）</li>
+<li>SnpClean（B/C/E.b）</li>
+<li>SnpNotSharedDirtyFwd（B/C/E.b）</li>
+<li>SnpNotSharedDirty（B/C/E.b）</li>
+<li>SnpSharedFwd（B/C/E.b）</li>
+<li>SnpShared（B/C/E.b）</li>
+<li>SnpUniqueFwd（B/C/E.b）</li>
+<li>SnpUnique（B/C/E.b）</li>
+<li>SnpUniqueStash（B/C/E.b）</li>
+<li>SnpCleanShared（B/C/E.b）。</li>
+<li>SnpCleanInvalid（B/C/E.b）</li>
+<li>SnpMakeInvalid（B/C/E.b）</li>
+<li>SnpMakeInvalidStash（B/C/E.b）</li>
+<li>SnpQuery（E.b）</li>
+</ul>
+</li>
+<li>
+<p>1MBの容量、8ウェイセットアソシアティブ構造、下位アドレスビットに基づいて4つのスライスに分割</p>
+</li>
+<li>キャッシュラインサイズは64B、バスデータ幅は32B、完全なキャッシュライン転送には2ビートのデータ転送が必要</li>
+<li>MESIライクなキャッシュコヒーレンシプロトコルを採用</li>
+<li>DCacheとは厳密な包含ポリシーを、ICache / PTWとは非厳密な包含ポリシーを採用</li>
+<li>ノンブロッキングのメインパイプライン構造を採用</li>
+<li>最大アクセス並列度は4 × 16（各スライスに16個のMSHRエントリ、合計4スライス）、スライスごとに最大15個のMSHRエントリがL1Cache / PTWアクセスに利用可能</li>
+<li>同じセット内の要求への並列アクセスをサポート</li>
+<li>L2キャッシュミスのリフィルデータを受信した後に、置き換えウェイを選択して置き換えることをサポート</li>
+<li>メモリアクセス要求とプリフェッチ要求のマージをサポート</li>
+<li>ロード命令の早期ウェイクアップのためのL2リフィルヒント信号の生成をサポート</li>
+<li>BOPプリフェッチャをサポート</li>
+<li>L1によってトレーニングされ、L2にバックフィルされたプリフェッチ要求の処理をサポート</li>
+<li>DRRIP / PLRUなどの置き換えアルゴリズムをサポートし、デフォルトはDRRIP</li>
+<li>キャッシュエイリアスのハードウェア処理をサポート</li>
+<li>MMIO要求処理をサポート。MMIO要求はCoupledL2でTileLinkバスからCHIバスに変換され、4つのスライスからのキャッシュ可能な要求と調停されます。</li>
+</ul>
+<h2 id="_3">機能説明</h2>
+<p>CoupledL2は、XiangshanコアのDCache / ICache / PTWから送信されたTileLinkライトバックおよび置き換え要求を受信し、対応するデータブロックの転送とコヒーレンシ状態の遷移を完了し、オンチップネットワークのRN-Fとして機能して、オンチップ相互接続システムにおけるXiangshanコアのキャッシュコヒーレンシを維持します。</p>
+<p>CoupledL2モジュールは、アップストリームのTileLinkチャネルコントローラ（SinkA / SinkC）を介して要求を受信し、それらを内部要求に変換します。要求は、要求調停を介してメインパイプラインに入り、ディレクトリを読み取ってキャッシュブロックの状態を取得し、キャッシュブロックの状態と要求情報に基づいて処理できるかどうかを判断します。</p>
+<ul>
+<li>このレベルのキャッシュが要求を直接処理できる場合、メインパイプラインでデータの読み取りやディレクトリの更新などの操作を続行し、GrantBufferに入ってTileLinkバス応答に変換されます。</li>
+<li>要求を処理するために他のキャッシュとの対話が必要な場合、MSHRが割り当てられます。MSHRは、必要に応じて上位および下位レベルのキャッシュにサブ要求を送信します。応答を受信し、リリース条件を満たすと、タスクはメインパイプラインにリリースされ、バッファの読み取り、データの読み取り/書き込み、ディレクトリの更新などの操作が行われます。その後、チャネルコントローラモジュールに進み、TileLinkバス応答に変換されます。</li>
+</ul>
+<p>要求に必要なすべての操作がMSHRで完了すると、MSHRは解放され、新しい要求の受信を待ちます。</p>
+<h3 id="mesi">MESIライクなキャッシュコヒーレンシプロトコルを採用</h3>
+<p>Xiangshanコアのキャッシュサブシステムは、TileLink一貫性ツリーのルールに従います。CoupledL2のキャッシュライン状態には、N（Nothing）、B（Branch）、T（Trunk）、およびTT（Tip）の4つの状態があります。</p>
+<ul>
+<li>N: 無効</li>
+<li>B: 読み取り専用権限</li>
+<li>T: 現在のコアには書き込み権限がありますが、書き込み権限はアップストリームキャッシュにあり、現在のキャッシュレベルは読み取りも書き込みもできません。</li>
+<li>TT: 読み取りおよび書き込み可能。</li>
+</ul>
+<p>コヒーレンシツリーは、メモリ、L3、L2、L1の順に下から上に成長し、メモリが読み書き権限を持つルートノードになります。子ノードの権限は、親ノードの権限を超えることはできません。ここで、TTはT権限を持つ最上位の子ノード（T権限ツリーのリーフノードでもある）を表し、このノードの上にはNまたはB権限しか存在しないことを示します。逆に、T権限を持つがTT権限を持たないノードは、その上にT/TT権限ノードが必ず存在することを示します。詳細なルールについては、TileLinkのマニュアルを参照してください。</p>
+<h3 id="_4">ディレクトリを使用してキャッシュライン情報を記録</h3>
+<p>CoupledL2は、ディレクトリベースのインクルーシブキャッシュです（ここでの「ディレクトリ」は、メタデータとタグを含む広義のものです）。メタデータには、状態ビット/ダーティビット/上位レベルのキャッシュクライアントにいるかどうか/上位レベルのエイリアスビット/プリフェッチされたかどうか/プリフェッチソース/アクセスされたかどうかが含まれます。</p>
+<p>パイプラインステージs1で、RequestArbはディレクトリへの読み取り要求を開始して、タグアレイでヒットを確認します。ヒットした場合、ヒットしたウェイが選択されます。ミスした場合、置き換えアルゴリズムに基づいて置き換えウェイが選択され、選択されたウェイのメタデータがステージs3のMainPipeに返されます。</p>
+<h3 id="_5">ノンブロッキングパイプライン構造を採用</h3>
+<p>CoupledL2は、メインパイプラインアーキテクチャを採用しています。さまざまなチャネルからの要求は、ディレクトリ操作のためにメインパイプラインに調停されます。要求情報とディレクトリの結果に基づいて、対応する操作が配置されます。</p>
+<h4 id="acquire">Acquire要求処理フロー</h4>
+<p><span><a href="#fig:acquire">此图</a></span>に示すように。</p>
+<p>
+<figure id="fig:acquire"><img src="../figure/CHI-CoupledL2-Acquire.svg" /><figcaption>Acquire要求処理フロー</figcaption></figure>
+</p>
+<h4 id="_6">スヌープ要求処理フロー</h4>
+<p><span><a href="#fig:snoop">此图</a></span>に示すように。</p>
+<p>
+<figure id="fig:snoop"><img src="../figure/CHI-CoupledL2-Snoop.svg" /><figcaption>スヌープ要求処理フロー</figcaption></figure>
+</p>
+<h4 id="_7">リリース要求処理フロー</h4>
+<p>リリース要求の処理フローは次のとおりです。</p>
+<ol>
+<li>SinkCからL1 DCacheからのリリース要求を受信し、内部要求に変換します。</li>
+<li>s1でリリース要求がパイプラインに入り、ディレクトリを照会します。</li>
+<li>s3でディレクトリ検索結果を取得します（L1 DCacheとL2は厳密な包含関係にあるため、リリースは常にヒットします）。s3はディレクトリを書き込み、ダーティデータがある場合はs3でDataStorageに書き込む必要があります。</li>
+<li>s3はReleaseAck応答を生成し、s3とs5の間のいずれかのステージでパイプラインを終了し、GrantBufferに入り、ReleaseAckをL1に返します。</li>
+</ol>
+<h3 id="_8">リフィルデータの受信後に置き換えパスの選択と置き換えを実行</h3>
+<p>キャッシュが新しい要求を受信したがセットが満杯の場合、従来のロジックによれば、まず置き換えウェイを選択し、それを下位レベルのキャッシュに書き込んで、今後の不足データの補充のためのスペースを確保し、次に新しいデータブロックが下位レベルのキャッシュから補充されるのを待ってから書き込む必要があります。しかし、このアプローチは特定の問題を引き起こす可能性があります。</p>
+<ol>
+<li>
+<p>一方で、下位レベルのキャッシュからの補充には、しばしば長いレイテンシ（数十から数千サイクル）が伴います。この期間中、古いデータブロックは追い出されていますが、新しいデータブロックはまだ到着しておらず、キャッシュの場所は事実上空いています。これにより、キャッシュリソースがアイドル状態になり、無駄になり、有効なキャッシュ容量が減少します。</p>
+</li>
+<li>
+<p>他方で、この期間中に上位レベルのキャッシュが置き換えられたデータブロックに再度アクセスしようとすると、データブロックはすでに解放されているため、下位レベルのキャッシュから再度フェッチすることしかできず、アクセスレイテンシが大幅に増加します。</p>
+</li>
+</ol>
+<p>CoupledL2は、リフィルデータが受信されるまで、置き換えウェイの選択と置き換えられたデータの解放を遅延させます。具体的には、要求がキャッシュに入ると、ディレクトリ情報が読み取られてヒットかどうかが判断されます。ヒットした場合、データが読み取られて返されます（標準プロセス）。ミスした場合、CoupledL2はディレクトリ読み取り結果に基づいて置き換えブロックを選択したり、置き換えブロックの解放をスケジュールしたりしません。代わりに、MSHRエントリを割り当て、データをフェッチするために下位レベルのキャッシュに要求を送信するだけです。下位レベルがリフィルデータを返した後、MSHRタスクはディレクトリを再度読み取り、その時点で置き換えブロックが選択され、置き換えブロックのデータがデータストレージユニットから読み取られ、下位レベルのキャッシュに解放されます。最後に、新しいデータブロックがストレージユニットに書き込まれます。</p>
+<p>DataStorageとの対話はMainPipeのステージs3でのみ発生し、DataStorageのSRAMはシングルポートであるため、単一のMSHRタスクを使用して同時に（1）置き換えられたデータブロックの内容を読み出して下位レベルのキャッシュに解放し、（2）新しいデータブロックを書き込むことはできません。したがって、これらの2つの操作は、MSHR RefillとMSHR Releaseの2つのタスクに分割する必要があり、RefillはReleaseの前に発行されます。さらに2つの考慮事項に基づいて、（1）古いデータの読み取りは新しいデータの書き込みの前に行う必要があり、（2）データはできるだけ早くL1に返す必要があるため、2つのMSHRタスクにそれぞれ次のタスクを割り当てます。</p>
+<ul>
+<li>MSHR Refill: RefillBufferを読み取ってリフィルデータを取得し、L1にフィードバックします。DataStorageを読み取って古いデータを取得し、ReleaseBufに保存します。新しいデータのメタデータでディレクトリを更新します。</li>
+<li>MSHR Release: ReleaseBufを読み取ってデータをL3に解放します。RefillBufferを読み取ってリフィルデータをDataStorageに書き込みます。</li>
+</ul>
+<h3 id="_9">同じセット内の要求への並列アクセスをサポート</h3>
+<p>CoupledL2は、同じセットを持つ複数の要求への並列アクセスをサポートします。同じセットをターゲットとする複数の要求の場合、これらの要求はリフィルデータが受信されるまで置き換えウェイの選択を必要としないため、リフィルデータが到着するまで並列にアクセスできます。リフィルデータを受信すると、MSHRは置き換えウェイの選択を開始し、置き換えられたブロックを下位レベルのキャッシュに書き込みます。ディレクトリは、置き換えウェイの選択が現在置き換えられているウェイを選択しないことを保証し、同じセットに対する複数の要求が常に異なる置き換えウェイを選択することを保証します。</p>
+<h3 id="_10">ロード命令の早期ウェイクアップ</h3>
+<p>CoupledL2がL1 DCacheにデータをリフィルするたびに、GrantDataを発行する3サイクル前に、コア内のLoadQueueにリフィルヒント信号を送信します。ウェイクアップ信号を受信すると、LoadQueueReplayはリプレイする必要のあるロード命令を直ちにウェイクアップし、LoadUnitに送信します。ロード命令は、LoadUnitのs2/s3パイプラインステージでリフィルされたデータを受信するため、L1でロードがミスした場合のアクセスレイテンシが短縮されます。</p>
+<h3 id="_11">ハードウェアプリフェッチをサポート</h3>
+<p>CoupledL2のハードウェアプリフェッチャは、BOPプリフェッチ要求とL1 DCacheからのプリフェッチ要求の両方を受信し、これらの要求をプリフェッチキューに送信します。プリフェッチキューが満杯になると、キューの先頭にある最も古いプリフェッチ要求が自動的に破棄され、新しいプリフェッチ要求が入るようになり、プリフェッチの適時性が確保されます。</p>
+<h3 id="_12">要求のマージをサポート</h3>
+<p>実験的な観察により、L2キャッシュにはかなりの部分のタイムリーでないプリフェッチが存在することが明らかになりました。プリフェッチャは将来のデータニーズを予測しますが、要求の送信が遅すぎます。プリフェッチによって引き起こされたキャッシュミスがMSHRで下位レベルのキャッシュからのデータをまだ待っている間に、同じアドレスに対するAcquire要求がすでにL2に到着しています。このようなAcquire要求がRequestBufferエントリでブロックされ、L2エントリを占有して後続の要求の進入を妨げるのを防ぐために、現在のL2設計では、タイムリーでないプリフェッチ要求と後続の同じアドレスに対するAcquire要求をマージするメカニズムを実装しています。要求マージ機能は次のように実装されています。</p>
+<ol>
+<li>SinkAチャネルのRequestBufferエントリで、L1からのA要求がマージ条件を満たすかどうかを判断します。新しい要求はAcquireであり、MSHRにAcquireと同じアドレスを持つプリフェッチであるミス要求が存在します。</li>
+<li>マージ条件が満たされた場合、新しい要求はキューに入ってブロックされる必要はありません。代わりに、同じアドレスのプリフェッチに対応するMSHRエントリに直接入り、エントリにmergeAのマークを付け、両方の要求の内容を含む一連の新しい要求ステータス情報を追加します。</li>
+<li>ターゲットデータがL3から返されると、MSHRエントリがウェイクアップされ、処理のためにメインパイプラインにタスクが送信されます。メインパイプラインでは、置き換えウェイが選択され、新しいデータがバックフィルされ、データブロックのメタがAcquire要求が処理された後の状態に更新されます。同時に、要求はトレーニングとしてプリフェッチャにも情報を渡します。</li>
+<li>要求応答を処理する場合、このマージ要求はメインパイプラインからGrantBufferに入ります。プリフェッチ要求の場合、L2はプリフェッチ応答を返します。Acquire要求の場合、L2はgrantQueueキューを介してAcquireを発行したアップストリームノードにデータと応答を返します。</li>
+</ol>
+<h3 id="_13">キャッシュエイリアスのハードウェア処理をサポート</h3>
+<p>XiangshanコアのL1キャッシュはVIPTインデックス方式を採用しており、DCacheは64KBの4ウェイセットアソシアティブ構造です。DCacheへのアクセスに使用されるインデックスとブロックオフセットは、4KBページのページオフセットを超えており、キャッシュエイリアス問題を引き起こします。<span><a href="#fig:cache-alias">此图</a></span>に示すように、2つの仮想ページが同じ物理ページにマッピングされる場合、2つの仮想ページのエイリアスビット（4KBページオフセットを超えるインデックスの部分）は異なる可能性があります。追加の処理を行わないと、VIPTインデックスは2つの仮想ページからのキャッシュブロックをDCacheの異なるセットに配置し、同じ物理アドレスがDCacheに2回キャッシュされることになります。DCacheがこれを処理しない場合、キャッシュコヒーレンシエラーにつながる可能性があります。</p>
+<p>
+<figure id="fig:cache-alias"><img src="../figure/CHI-CoupledL2-cache-alias.svg" /><figcaption>キャッシュエイリアスの原理図</figcaption></figure>
+</p>
+<p>Xiangshanコアは、CoupledL2を介してハードウェアでキャッシュエイリアス問題を解決します。具体的には、CoupledL2は上位レベルのデータのエイリアスビットを記録し、物理アドレスキャッシュブロックがL1 DCacheに最大1つのエイリアスビットを持つことを保証します。上位レベルのキャッシュがエイリアスビットを持つAcquire要求を送信すると、L2キャッシュはディレクトリをチェックします。ヒットしたがエイリアスビットが一致しない場合、以前に記録されたエイリアスビットを上位レベルのキャッシュにプローブし、Acquireのエイリアスビットをディレクトリに書き込みます。</p>
+<h2 id="_14">全体設計</h2>
+<h3 id="_15">全体ブロック図</h3>
+<p>XSTile（XiangshanコアとCoupledL2を含む）の構造ブロック図を<span><a href="#fig:xstile">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:xstile"><img src="../figure/CHI-CoupledL2-SoC.svg" /><figcaption>XSTileブロック図</figcaption></figure>
+</p>
+<p>CoupledL2のマイクロアーキテクチャブロック図を<span><a href="#fig:coupledl2-microarch">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:coupledl2-microarch"><img src="../figure/CHI-CoupledL2-microArch.svg" /><figcaption>CoupledL2マイクロアーキテクチャ図</figcaption></figure>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../../../memblock/MMU/PMP-PMA/" class="md-footer__link md-footer__link--prev" aria-label="前: PMP &amp; PMA">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                PMP & PMA
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ReqBuf/" class="md-footer__link md-footer__link--next" aria-label="次: Aチャネル要求バッファ (RequestBuffer)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                Aチャネル要求バッファ (RequestBuffer)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <div>XiangShan Documents are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div>
+<div>Copyright © 2024 - 2025 The XiangShan Team, Beijing Institute of Open Source Chip</div>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://xiangshan.cc/" target="_blank" rel="noopener" title="XiangShan Homepage" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://docs.xiangshan.cc" target="_blank" rel="noopener" title="XiangShan Documents" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4zm11 3h5.5L15 1.5zM8 0h8l6 6v12c0 1.11-.89 2-2 2H8a2 2 0 0 1-2-2V2c0-1.11.89-2 2-2m9 16v-2H8v2zm3-4v-2H8v2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/OpenXiangShan" target="_blank" rel="noopener" title="XiangShan on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+  
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+
+  <!-- ReadTheDocs Version Addon -->
+  
+
+  </body>
+</html>

@@ -1,0 +1,5329 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../Repeater/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+
+  <!-- ReadTheDocs Version Addon -->
+  
+
+    
+      
+        <title>L1TLB - XiangShan デザインドキュメント</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/table_fix.css">
+    
+    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#l1-tlb" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!--
+  Additional Copyright © 2025 Xu Zefan, The XiangShan Team
+
+  Portions of this software have been modified. These modifications are
+  released under the same license as the original software, and are subject to
+  the same terms and conditions.
+-->
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="ヘッダー"
+  >
+
+    <!-- Link to home -->
+    <a href="../../.."
+      title="XiangShan デザインドキュメント"
+      class="md-header__button md-logo"
+      aria-label="XiangShan デザインドキュメント"
+      data-md-component="logo"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XiangShan デザインドキュメント
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              L1TLB
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- New: Back to home button -->
+    
+      
+      
+      
+      <div class="md-header__option">
+        <a
+          class="md-header__button md-icon"
+          href="https://docs.xiangshan.cc/"
+          title="XiangShan ドキュメントホームに戻る"
+          aria-label="XiangShan ドキュメントホームに戻る"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+      </div>
+    
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="言語切り替え">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://docs.xiangshan.cc/projects/design/zh-cn/latest/memblock/MMU/L1TLB/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://docs.xiangshan.cc/projects/design/en/latest/memblock/MMU/L1TLB/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://xiangshan-design-doc-ja.vercel.app/ja/memblock/MMU/L1TLB/" hreflang="ja" class="md-select__link">
+              日本語
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Button to open search modal -->
+    
+      
+
+      <!-- Check if search is actually enabled - see https://t.ly/DT_0V -->
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+
+        <!-- Search interface -->
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wakuto/XiangShan-Design-Doc" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XiangShan-Design-Doc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="XiangShan デザインドキュメント" class="md-nav__button md-logo" aria-label="XiangShan デザインドキュメント" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    XiangShan デザインドキュメント
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wakuto/XiangShan-Design-Doc" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XiangShan-Design-Doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ホーム
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    フロントエンド
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            フロントエンド
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/BPU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    分岐予測ユニット
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            分岐予測ユニット
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/Composer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BPU抽象モジュール
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/FTB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    フェッチターゲットユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/uFTB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    分岐ターゲットバッファ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/TAGE-SC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メイン予測器TAGE-SC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/ITTAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    間接分岐予測器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/RAS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リターンアドレススタック
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/FTQ/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    フェッチターゲットキュー
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            フェッチターゲットキュー
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/IFU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    命令フェッチユニット
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            命令フェッチユニット
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/IFU/PreDecoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プリデコーダ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/ICache/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    命令キャッシュ
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            命令キャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MainPipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/IPrefetchPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IPrefetchPipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/WayLookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WayLookup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/MissUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MissUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/Replacer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Replacer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/CtrlUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CtrlUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/Pruned_Address/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    PCクラス
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            PCクラス
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../backend/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    バックエンド
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            バックエンド
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../backend/CtrlBlock/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    制御ブロック (CtrlBlock)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            制御ブロック (CtrlBlock)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/decode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    デコード
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/Rename/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リネーム
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/Dispatch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ディスパッチ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CtrlBlock/Rob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リオーダバッファ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    データパス (DataPath)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            データパス (DataPath)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/DataPath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DataPath
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/Og2ForVector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Og2ForVector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/WbDataPath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WbDataPath
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/WbFuBusyTable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WbFuBusyTable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DataPath/BypassNetwork/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BypassNetwork
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    スケジューリングと発行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            スケジューリングと発行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/Schedule_And_Issue/Scheduler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/Schedule_And_Issue/IssueQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IssueQueue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/Schedule_And_Issue/IssueQueueEntries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IssueQueueEntries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    実行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            実行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/ExuBlock/ExuBlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ExuBlock
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/ExuBlock/ExuUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ExuUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    機能ユニット (FunctionUnit)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            機能ユニット (FunctionUnit)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/IntFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    整数機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/FpFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    浮動小数点機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/VecFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトル機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/FunctionUnit/MemFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メモリ機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/VFPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトル浮動小数点ユニット (VFPU)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/CSR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    制御ステータスレジスタ (CSR)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/HPM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ハードウェア性能モニタ (HPM)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../backend/DebugModule/DM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    デバッグモジュール
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    メモリシステム
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            メモリシステム
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LSU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ロード・ストアユニット (LSU)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            ロード・ストアユニット (LSU)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LoadUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードユニット (LoadUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/StoreUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアアドレスユニット (StoreUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/StdExeUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアデータユニット (StdExeUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/AtomicsUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    アトミック操作ユニット (AtomicsUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LSU/VLSU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ベクトルメモリアクセス
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1_6" id="__nav_4_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            ベクトルメモリアクセス
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/VLSU/VLSplit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルロード分割ユニット (VLSplit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/VLSU/VSSplit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルストア分割ユニット (VSSplit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/VLSU/VLMergeBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルロードマージバッファ (VLMergeBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/VLSU/VSMergeBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルストアマージバッファ (VSMergeBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/VLSU/VSegmentUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルセグメントユニット (VSegmentUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/VLSU/VfofBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルFOFユニット (VfofBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LSU/LSQ/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ロード・ストアキュー (LSQ)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1_7" id="__nav_4_1_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            ロード・ストアキュー (LSQ)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/VirtualLoadQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードキュー (VirtualLoadQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/LoadQueueRAR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read-After-Readチェック (LoadQueueRAR)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/LoadQueueRAW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read-After-Writeチェック (LoadQueueRAW)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/LoadQueueReplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードリプレイキュー (LoadQueueReplay)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/LoadQueueUncache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uncacheロードユニット (LoadQueueUncache)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/LqExceptionBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロード例外バッファ (LqExceptionBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LSQ/StoreQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアキュー (StoreQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/Uncache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uncache処理ユニット (Uncache)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/SBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアコミットバッファ (SBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/LoadMisalignBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロード非整列アクセスユニット (LoadMisalignBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LSU/StoreMisalignBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストア非整列アクセスユニット (StoreMisalignBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../DCache/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    データキャッシュ
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            データキャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DCache/LoadPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードパイプライン (LoadPipe)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DCache/MissQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ミスキュー (MissQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DCache/ProbeQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プローブキュー (ProbeQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DCache/MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メインパイプライン (MainPipe)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DCache/WritebackQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ライトバックキュー (WritebackQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DCache/Error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    エラー処理とカスタム障害注入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    メモリ管理ユニット (MMU)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            メモリ管理ユニット (MMU)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    L1TLB
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    L1TLB
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      設計仕様
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      機能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="機能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontendmemblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendとMemBlockからのアドレス変換要求の受信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plru" class="md-nav__link">
+    <span class="md-ellipsis">
+      PLRU置換アルゴリズムの採用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontendmemblock_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendとMemBlockへの物理アドレスの返却
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ブロッキングアクセスとノンブロッキングアクセス
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-tlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 TLBエントリの格納構造
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-tlb2" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 TLB内部での仮想メモリの有効/無効および2段階変換の有効/無効の判断をサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-tlb_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 TLBの特権レベル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      PTW要求の送信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dtlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      DTLBはクエリで返された物理アドレスのコピーをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      例外処理メカニズム
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointer-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      pointer masking拡張のサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB圧縮のサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      4種類のTLBエントリを格納
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb2" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBリフィルは2段階のページテーブルを融合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBエントリのヒット判定ロジック
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpaddrptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      ゲストページフォルト後のgpaddr取得のためのPTW再送をサポート
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体ブロック図
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      インターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="インターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec:ITLB-time-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      ITLBとFrontendのインターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ITLBとFrontendのインターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontenditlbptwitlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendからITLBへのPTW要求がITLBにヒットした場合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontenditlbptwitlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendからITLBへのPTW要求がITLBにミスした場合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec:DTLB-time-memblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      DTLBとMemblockのインターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DTLBとMemblockのインターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memblockdtlbptwdtlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      MemblockからDTLBへのPTW要求がDTLBにヒットした場合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memblockdtlbptwdtlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      MemblockからDTLBへのPTW要求がDTLBにミスした場合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec:L1TLB-tlbRepeater-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBとtlbRepeaterのインターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TLBとtlbRepeaterのインターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tlbtlbrepeaterptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBからtlbRepeaterへのPTW要求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#itlbrepeateritlbptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      itlbRepeaterからITLBへのPTW応答
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dtlbrepeaterdtlbptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      dtlbRepeaterからDTLBへのPTW応答
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Repeater/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repeater
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../L2TLB/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    L2TLB
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            L2TLB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L2TLB/PageCache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ページキャッシュ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L2TLB/PTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L2TLB/LLPTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    最終レベルページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L2TLB/HPTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ハイパーバイザページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L2TLB/MissQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ミスキュー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L2TLB/Prefetcher/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プリフェッチャ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PMP-PMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PMP & PMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    キャッシュサブシステム
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            キャッシュサブシステム
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            L2キャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/CoupledL2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ (CoupledL2)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/ReqBuf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aチャネル要求バッファ (RequestBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/ReqArb_MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    要求アービタとメインパイプライン
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ディレクトリ (Directory)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/DataStorage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    データSRAM (DataStorage)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/MSHR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MSHR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_7" id="__nav_5_1_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    アップストリームTileLinkチャネル
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            アップストリームTileLinkチャネル
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/upstream/SinkA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SinkA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/upstream/SinkC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SinkC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/upstream/GrantBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GrantBuffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_8" id="__nav_5_1_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ダウンストリームCHIチャネル
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            ダウンストリームCHIチャネル
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/TXREQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXREQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/RXRSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXRSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/RXDAT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXDAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/RXSNP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXSNP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/TXDAT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXDAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/TXRSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXRSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/PCredit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    P-Credit管理機構
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/LinkMonitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リンク層コントローラ (LinkMonitor)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/MMIOBridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MMIOブリッジ (MMIOBridge)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/Error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    エラー処理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      設計仕様
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      機能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="機能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontendmemblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendとMemBlockからのアドレス変換要求の受信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plru" class="md-nav__link">
+    <span class="md-ellipsis">
+      PLRU置換アルゴリズムの採用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontendmemblock_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendとMemBlockへの物理アドレスの返却
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ブロッキングアクセスとノンブロッキングアクセス
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-tlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 TLBエントリの格納構造
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-tlb2" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 TLB内部での仮想メモリの有効/無効および2段階変換の有効/無効の判断をサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-tlb_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 TLBの特権レベル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      PTW要求の送信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dtlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      DTLBはクエリで返された物理アドレスのコピーをサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      例外処理メカニズム
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointer-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      pointer masking拡張のサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB圧縮のサポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      4種類のTLBエントリを格納
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb2" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBリフィルは2段階のページテーブルを融合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBエントリのヒット判定ロジック
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpaddrptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      ゲストページフォルト後のgpaddr取得のためのPTW再送をサポート
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体ブロック図
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      インターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="インターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec:ITLB-time-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      ITLBとFrontendのインターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ITLBとFrontendのインターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontenditlbptwitlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendからITLBへのPTW要求がITLBにヒットした場合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontenditlbptwitlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      FrontendからITLBへのPTW要求がITLBにミスした場合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec:DTLB-time-memblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      DTLBとMemblockのインターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DTLBとMemblockのインターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memblockdtlbptwdtlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      MemblockからDTLBへのPTW要求がDTLBにヒットした場合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memblockdtlbptwdtlb_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      MemblockからDTLBへのPTW要求がDTLBにミスした場合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec:L1TLB-tlbRepeater-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBとtlbRepeaterのインターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TLBとtlbRepeaterのインターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tlbtlbrepeaterptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLBからtlbRepeaterへのPTW要求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#itlbrepeateritlbptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      itlbRepeaterからITLBへのPTW応答
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dtlbrepeaterdtlbptw" class="md-nav__link">
+    <span class="md-ellipsis">
+      dtlbRepeaterからDTLBへのPTW応答
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/wakuto/XiangShan-Design-Doc/edit/master/docs/memblock/MMU/L1TLB.md" title="編集" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/wakuto/XiangShan-Design-Doc/raw/master/docs/memblock/MMU/L1TLB.md" title="このページの原文を表示" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="l1-tlb">L1 TLB</h1>
+<h2 id="_1">設計仕様</h2>
+<ol>
+<li>FrontendとMemBlockからのアドレス変換要求の受信をサポート</li>
+<li>PLRU置換アルゴリズムをサポート</li>
+<li>FrontendとMemBlockへの物理アドレスの返却をサポート</li>
+<li>ITLBとDTLBはともにノンブロッキングアクセスを採用</li>
+<li>ITLBとDTLBのエントリはともにレジスタファイルで実装</li>
+<li>ITLBとDTLBのエントリはともに全 ASSOCIATIVE 構造</li>
+<li>ITLBとDTLBはそれぞれプロセッサの現在の特権レベルとメモリアクセス実行時の有効な特権レベルを使用</li>
+<li>L1 TLB内部での仮想メモリの有効/無効および2段階変換の有効/無効の判断をサポート</li>
+<li>L2 TLBへのPTW要求の送信をサポート</li>
+<li>DTLBはクエリで返された物理アドレスのコピーをサポート</li>
+<li>例外処理をサポート</li>
+<li>TLB圧縮をサポート</li>
+<li>TLBヒントメカニズムをサポート</li>
+<li>4種類のTLBエントリを格納</li>
+<li>TLBリフィルは2段階のページテーブルを融合</li>
+<li>TLBエントリのヒット判定ロジック</li>
+<li>ゲストページフォルト後のgpaddr取得のためのPTW再送をサポート</li>
+</ol>
+<h2 id="_2">機能</h2>
+<h3 id="frontendmemblock">FrontendとMemBlockからのアドレス変換要求の受信</h3>
+<p>コア内でのメモリ読み書き（フロントエンドの命令フェッチとバックエンドのメモリアクセスを含む）の前に、L1 TLBによるアドレス変換が必要です。物理的な距離が遠く、相互汚染を避けるため、フロントエンドの命令フェッチ用のITLB（Instruction TLB）とバックエンドのメモリアクセス用のDTLB（Data TLB）に分かれています。ITLBは全 ASSOCIATIVE モードを採用し、48エントリの全 ASSOCIATIVE で全てのページサイズを保存します。ITLBはFrontendからのアドレス変換要求を受け取ります。itlb_requestors(0)からitlb_requestors(2)はicacheから、そのうちitlb_requestors(2)はicacheのプリフェッチ要求です。itlb_requestors(3)はifuからで、MMIO命令のアドレス変換要求です。</p>
+<p>ITLBのエントリ設定と要求元はそれぞれ<span><a href="#tbl:ITLB-config">此表</a>、<a href="#tbl:ITLB-request-source">此表</a></span>に示します。</p>
+<table id="tbl:ITLB-config"><caption>ITLBのエントリ設定</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>エントリ名</strong></th>
+<th style="text-align: center;"><strong>エントリ数</strong></th>
+<th style="text-align: center;"><strong>構成</strong></th>
+<th style="text-align: center;"><strong>置換アルゴリズム</strong></th>
+<th style="text-align: center;"><strong>格納内容</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Page</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;">全 ASSOCIATIVE</td>
+<td style="text-align: center;">PLRU</td>
+<td style="text-align: center;">全てのページサイズ</td>
+</tr>
+</tbody>
+</table>
+<table id="tbl:ITLB-request-source"><caption>ITLBの要求元</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>シーケンス番号</strong></th>
+<th style="text-align: center;"><strong>ソース</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">requestors(0)</td>
+<td style="text-align: center;">Icache, mainPipe</td>
+</tr>
+<tr>
+<td style="text-align: center;">requestors(1)</td>
+<td style="text-align: center;">Icache, mainPipe</td>
+</tr>
+<tr>
+<td style="text-align: center;">requestors(2)</td>
+<td style="text-align: center;">Icache, fdipPrefetch</td>
+</tr>
+<tr>
+<td style="text-align: center;">requestors(3)</td>
+<td style="text-align: center;">IFU</td>
+</tr>
+</tbody>
+</table>
+<p>XiangShanのメモリアクセスチャネルには、2つのLoadパイプライン、2つのStoreパイプライン、SMSプリフェッチャ、L1 Load stream &amp; strideプリフェッチャがあります。多数の要求に対応するため、2つのLoadパイプラインとL1 Load stream &amp; strideプリフェッチャはLoad DTLBを使用し、2つのStoreパイプラインはStore DTLBを使用し、プリフェッチ要求はPrefetch DTLBを使用します。合計3つのDTLBがあり、すべてPLRU置換アルゴリズムを採用しています（5.1.1.2節参照）。</p>
+<p>DTLBは全 ASSOCIATIVE モードを採用し、48エントリの全 ASSOCIATIVE で全てのページサイズを保存します。DTLBはMemBlockからのアドレス変換要求を受け取ります。dtlb_ldはloadUnitsとL1 Load stream &amp; strideプリフェッチャからの要求を受け取り、Load命令のアドレス変換を担当します。dtlb_stはStoreUnitsからの要求を受け取り、Store命令のアドレス変換を担当します。特に、AMO命令はloadUnit(0)のdtlb_ld_requestorを使用し、dtlb_ldに要求を送信します。SMSPrefetcherは別のDTLBにプリフェッチ要求を送信します。</p>
+<p>DTLBのエントリ設定と要求元はそれぞれ<span><a href="#tbl:DTLB-config">此表</a>、<a href="#tbl:DTLB-request-source">此表</a></span>に示します。</p>
+<table id="tbl:DTLB-config"><caption>DTLBのエントリ設定</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>エントリ名</strong></th>
+<th style="text-align: center;"><strong>エントリ数</strong></th>
+<th style="text-align: center;"><strong>構成</strong></th>
+<th style="text-align: center;"><strong>置換アルゴリズム</strong></th>
+<th style="text-align: center;"><strong>格納内容</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Page</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;">全 ASSOCIATIVE</td>
+<td style="text-align: center;">PLRU</td>
+<td style="text-align: center;">全てのページサイズ</td>
+</tr>
+</tbody>
+</table>
+<table id="tbl:DTLB-request-source"><caption>DTLBの要求元</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>モジュール</strong></th>
+<th style="text-align: center;"><strong>シーケンス番号</strong></th>
+<th style="text-align: center;"><strong>ソース</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">DTLB_LD</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">ld_requestors(0)</td>
+<td style="text-align: center;">loadUnit(0), AtomicsUnit</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">ld_requestors(1)</td>
+<td style="text-align: center;">loadUnit(1)</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">ld_requestors(2)</td>
+<td style="text-align: center;">loadUnit(2)</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">ld_requestors(3)</td>
+<td style="text-align: center;">L1 Load stream &amp; stride Prefetch</td>
+</tr>
+<tr>
+<td style="text-align: center;">DTLB_ST</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">st_requestors(0)</td>
+<td style="text-align: center;">StoreUnit(0)</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">st_requestors(1)</td>
+<td style="text-align: center;">StoreUnit(1)</td>
+</tr>
+<tr>
+<td style="text-align: center;">DTLB_PF</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">pf_requestors(0)</td>
+<td style="text-align: center;">SMSPrefetch</td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">pf_requestors(1)</td>
+<td style="text-align: center;">L2 Prefetch</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plru">PLRU置換アルゴリズムの採用</h3>
+<p>L1 TLBは設定可能な置換戦略を採用しており、デフォルトはPLRU置換アルゴリズムです。Nanhuアーキテクチャでは、ITLBとDTLBはともにNormalPageとSuperPageを含み、リフィル戦略は複雑です。NanhuアーキテクチャのITLBのNormalPageは4KBページの変換を担当し、SuperPageは2MBと1GBページの変換を担当します。リフィルするページのサイズ（4KB、2MB、1GB）に応じてNormalPageまたはSuperPageに書き込む必要があります。NanhuアーキテクチャのDTLBのNormalPageは4KBページの変換を担当し、SuperPageは全てのページサイズの変換を担当します。NormalPageはダイレクトマップで、エントリ数は多いですが利用率は低いです。SuperPageは全 ASSOCIATIVE で、利用率は高いですがタイミングの制約からエントリ数が少なく、ミス率が高いです。</p>
+<p>Kunminghuアーキテクチャでは、上記の問題を最適化し、タイミングを満たす条件下で、ITLBとDTLBを統一して48エントリの全 ASSOCIATIVE 構造に設定し、任意のサイズのページをリフィルできるようにしました。ITLBとDTLBはともにPLRU置換戦略を採用しています。</p>
+<p>ITLBとDTLBのリフィル戦略を<span><a href="#tbl:L1TLB-refill-policy">此表</a></span>に示します。</p>
+<table id="tbl:L1TLB-refill-policy"><caption>ITLBとDTLBのリフィル戦略</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>モジュール</strong></th>
+<th style="text-align: center;"><strong>エントリ名</strong></th>
+<th style="text-align: center;"><strong>戦略</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ITLB</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Page</td>
+<td style="text-align: center;">48エントリ全 ASSOCIATIVE、任意のサイズのページをリフィル可能</td>
+</tr>
+<tr>
+<td style="text-align: center;">DTLB</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Page</td>
+<td style="text-align: center;">48エントリ全 ASSOCIATIVE、任意のサイズのページをリフィル可能</td>
+</tr>
+</tbody>
+</table>
+<h3 id="frontendmemblock_1">FrontendとMemBlockへの物理アドレスの返却</h3>
+<p>L1 TLBが仮想アドレスから物理アドレスを取得した後、FrontendとMemBlockにそれぞれの要求の物理アドレス、および要求がミスしたか、ゲストページフォルト、ページフォルト、アクセスフォルトが発生したかなどの情報を返します。FrontendまたはMemBlockの各要求に対して、ITLBまたはDTLBから応答が送信され、tlb_requestor(i)_resp_validで応答が有効であることを示します。</p>
+<p>Nanhuアーキテクチャでは、SuperPageとNormalPageは物理的にはともにレジスタファイルで実装されていますが、SuperPageは16エントリの全 ASSOCIATIVE 構造、NormalPageはダイレクトマップ構造です。ダイレクトマップのNormalPageからデータを読み出した後、さらにタグの比較が必要です。SuperPageの全 ASSOCIATIVE エントリ数は16ですが、毎回1エントリしかヒットせず、hitVecでヒットをマークし、SuperPageから読み出したデータを選択します。NormalPageのデータ読み出し+タグ比較の時間は、SuperPageのデータ読み出し+データ選択の時間よりもはるかに長いです。そのため、タイミングの観点から、dtlbはMemBlockにfast_miss信号を返し、SuperPageがミスしたことを示します。miss信号はSuperPageとNormalPageの両方がミスしたことを示します。</p>
+<p>また、Nanhuアーキテクチャでは、DTLBのPMP &amp; PMAチェックのタイミングが厳しいため、PMPを動的チェックと静的チェックの2つの部分に分ける必要があります（5.4節参照）。L2 TLBのページテーブルエントリがDTLBにリフィルされる際、同時にリフィルされるページテーブルエントリをPMPとPMAに送り、権限チェックを行います。チェック結果はDTLBに保存され、DTLBはMemBlockに静的チェックが有効であることとチェック結果を示す信号を別途返す必要があります。</p>
+<p>Kunminghuアーキテクチャでは、TLBクエリのエントリ設定と対応するタイミングが最適化され、現在fast_missは廃止され、追加の静的PMP &amp; PMAチェックも不要です。ただし、将来的にタイミングやその他の理由で復活する可能性があるため、ドキュメントの完全性と互換性のために前の2つの段落は残しておきます。Kunminghuアーキテクチャではfast_missと静的PMP &amp; PMAチェックが廃止されたことに再度注意してください。</p>
+<h3 id="_3">ブロッキングアクセスとノンブロッキングアクセス</h3>
+<p>Nanhuアーキテクチャでは、フロントエンドの命令フェッチはITLBに対してブロッキングアクセスを要求し、バックエンドのメモリアクセスはDTLBに対してノンブロッキングアクセスを要求します。実際には、TLB本体はノンブロッキングアクセスであり、要求の情報を保存しません。TLBがブロッキングアクセスまたはノンブロッキングアクセスを採用する理由は、要求元の要求によるものです。フロントエンドの命令フェッチがTLBミスした場合、TLBが結果を取得するのを待ってから命令をプロセッサのバックエンドに送って処理する必要があり、ブロッキングの効果を示します。一方、メモリアクセス操作はアウトオブオーダーでスケジューリングでき、ある要求がミスした場合、別のload/store命令をスケジューリングして実行を続けることができるため、ノンブロッキングの効果を示します。</p>
+<p>Nanhuアーキテクチャの上記機能はTLBによって実現され、TLBはいくつかの制御ロジックを介して、ITLBがミスした場合、PTWを介してページテーブルエントリを取得するまで待機し続けます。Kunminghuの上記機能はICacheによって保証され、ITLBがミスしてICacheに報告された後、ICacheはヒットするまで同じ要求を再送し続け、ノンブロッキングアクセスの効果を保証します。</p>
+<p>ただし、KunminghuアーキテクチャのITLBとDTLBはともにノンブロッキングであり、外部効果がブロッキングかノンブロッキングかにかかわらず、命令フェッチユニットまたはメモリアクセスユニットによって制御されます。</p>
+<h3 id="l1-tlb_1">L1 TLBエントリの格納構造</h3>
+<p>XiangShanのTLBは、 ASSOCIATIVE モード、エントリ数、置換戦略など、構成を構成できます。デフォルト設定は、ITLBとDTLBがともに48エントリの全 ASSOCIATIVE 構造で、ともにレジスタファイルで実装されています（5.1.2.3節参照）。同じサイクルで同じアドレスに同時に読み書きする場合、バイパスを介して直接結果を得ることができます。</p>
+<p>参照されるILTBまたはDTLBの構成：ともに全 ASSOCIATIVE 構造、エントリ数8/16/32/48。現在、全 ASSOCIATIVE /セット ASSOCIATIVE /ダイレクトマップのTLB構造をパラメータ化して変更することはサポートされておらず、手動でコードを修正する必要があります。</p>
+<h3 id="l1-tlb2">L1 TLB内部での仮想メモリの有効/無効および2段階変換の有効/無効の判断をサポート</h3>
+<p>XiangShanはRISC-VマニュアルのSv39ページテーブルをサポートしており、仮想アドレス長は39ビットです。XiangShanの物理アドレスは36ビットで、パラメータ化して変更可能です。</p>
+<p>仮想メモリが有効かどうかは、特権レベルとSATPレジスタのMODEフィールドなどによって共同で決定され、この判断はTLB内部で完了し、TLBの外部には透過的です。特権レベルの説明については5.1.2.7節を参照してください。SATPのMODEフィールドについては、XiangShanのKunminghuアーキテクチャはMODEフィールドが8、つまりSv39ページングメカニズムのみをサポートし、それ以外の場合はillegal instruction faultを報告します。TLBの外部モジュール（Frontend、LoadUnit、StoreUnit、AtomicsUnitなど）から見ると、すべてのアドレスはTLBのアドレス変換を経ています。</p>
+<p>H拡張を追加すると、アドレス変換が有効かどうかの判断には、2段階アドレス変換があるかどうかも判断する必要があります。2段階アドレス変換が有効になるには2つの要求があります。1つ目は、現在実行されているのが仮想化メモリアクセス命令であること、2つ目は、仮想化モードが有効で、かつVSATPまたはHGATPのMODEがゼロでないことです。このときのアドレス変換モードは以下の通りです。アドレス変換モードは、TLBで対応するタイプのページテーブルを検索し、L2TLBに送信するPTW要求に使用されます。</p>
+<table><caption>2段階変換モード</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>VSATP Mode</strong></th>
+<th style="text-align: center;"><strong>HGATP Mode</strong></th>
+<th style="text-align: center;"><strong>変換モード</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">非0</td>
+<td style="text-align: center;">非0</td>
+<td style="text-align: center;">allStage、2段階変換の両方あり</td>
+</tr>
+<tr>
+<td style="text-align: center;">非0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">onlyStage1、第1段階の変換のみ</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">非0</td>
+<td style="text-align: center;">onlyStage2、第2段階の変換のみ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="l1-tlb_2">L1 TLBの特権レベル</h3>
+<p>Riscvマニュアルの要求に従い、フロントエンドの命令フェッチ（ITLB）の特権レベルは現在のプロセッサの特権レベル、バックエンドのメモリアクセス（DTLB）の特権レベルはメモリアクセス実行時の有効な特権レベルです。現在のプロセッサの特権レベルとメモリアクセス実行時の有効な特権レベルはともにCSRモジュールで判断され、ITLBとDTLBに渡されます。現在のプロセッサの特権レベルはCSRモジュールに保存されています。メモリアクセス実行時の有効な特権レベルは、mstatusレジスタのMPRV、MPV、MPPビット、およびhstatusのSPVPによって共同で決定されます。仮想化メモリアクセス命令を実行する場合、メモリアクセス実行時の有効な特権レベルはhstatusのSPVPビットに保存されている特権レベルです。実行する命令が仮想化メモリアクセス命令でなく、MPRVビットが0の場合、メモリアクセス実行時の有効な特権レベルと現在のプロセッサの特権レベルは同じで、メモリアクセス実行時の有効な仮想化モードも現在の仮想化モードと同じです。MPRVビットが1の場合、メモリアクセス実行時の有効な特権レベルはmstatusレジスタのMPPに保存されている特権レベルで、メモリアクセス実行時の有効な仮想化モードはhstatusレジスタのMPVに保存されている仮想化モードです。ITLBとDTLBの特権レベルは表の通りです。</p>
+<table><caption>ITLBとDTLBの特権レベル</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>モジュール</strong></th>
+<th style="text-align: center;"><strong>特権レベル</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ITLB</td>
+<td style="text-align: center;">現在のプロセッサの特権レベル</td>
+</tr>
+<tr>
+<td style="text-align: center;">DTLB</td>
+<td style="text-align: center;">非仮想化メモリアクセス命令を実行する場合、mstatus.MPRV=0の場合は現在のプロセッサの特権レベルと仮想化モード、mstatus.MPRV=1の場合はmstatus.MPPに保存されている特権レベルとhstatus.MPVに保存されている仮想化モード</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ptw">PTW要求の送信</h3>
+<p>L1 TLBがミスした場合、L2 TLBにPage Table Walk要求を送信する必要があります。L1 TLBとL2 TLBの間には物理的な距離が長いため、中間にパイプラインステージを追加する必要があり、これをRepeaterと呼びます。また、repeaterは重複した要求をフィルタリングし、L1 TLBに重複エントリが出現するのを防ぐ機能を担う必要があります（5.2節参照）。そのため、ITLBまたはDTLBの第1レベルのRepeaterはFilterとも呼ばれます。L1 TLBはRepeaterを介してL2 TLBにPTW要求を送信し、PTW応答を受信します（5.3節参照）。</p>
+<h3 id="dtlb">DTLBはクエリで返された物理アドレスのコピーをサポート</h3>
+<p>物理実装では、Memblockのdcacheとlsuは距離が遠いため、LoadUnitのload_s1ステージでhitVecを生成し、それをdcacheとlsuにそれぞれ送ると、深刻なタイミング問題を引き起こします。そのため、dcacheとlsuの近くで並行して2つのhitVecを生成し、それぞれdcacheとlsuに送る必要があります。Memblockのタイミング問題を解決するために、DTLBはクエリで得られた物理アドレスを2つコピーし、それぞれdcacheとlsuに送る必要があります。dcacheとlsuに送られる物理アドレスは完全に同じです。</p>
+<h3 id="_4">例外処理メカニズム</h3>
+<p>ITLBで発生する可能性のある例外には、inst guest page fault、inst page fault、inst access faultがあり、すべて要求元のICacheまたはIFUに処理を委ねます。DTLBで発生する可能性のある例外には、load guest page fault、load page fault、load access fault、store guest page fault、store page fault、store access faultがあり、すべて要求元のLoadUnits、StoreUnits、またはAtomicsUnitに処理を委ねます。L1TLBはgpaddrを保存していないため、ゲストページフォルトが発生した場合、PTWを再実行する必要があります。本ドキュメントの第6部：例外処理メカニズムを参照してください。</p>
+<p>ここでは、仮想アドレスから物理アドレスへの変換に関連する例外について補足説明します。例外を以下のように分類します。</p>
+<ol>
+<li>ページテーブルに関連する例外</li>
+<li>非仮想化状況、または仮想化のVS-Stageの場合、ページテーブルに予約ビットが0でない/非整列/書き込み権限がないなど（詳細はマニュアル参照）が発生した場合、page faultを報告する必要があります。</li>
+<li>仮想化段階のG-Stageの場合、ページテーブルに予約ビットが0でない/非整列/書き込み権限がないなど（詳細はマニュアル参照）が発生した場合、guest page faultを報告する必要があります。</li>
+<li>仮想アドレスまたは物理アドレスに関連する例外<ol>
+<li>アドレス変換プロセス中に、仮想アドレスまたは物理アドレスに関連する例外。この部分のチェックはL2 TLBのPTWプロセス中に行われます。</li>
+<li>非仮想化状況、または仮想化のall-Stageの場合、G-stageのgvpnをチェックする必要があります。hgatpのmodeが8（Sv39x4を表す）の場合、gvpnの（41 - 12 = 29）ビット以上がすべて0である必要があります。hgatpのmodeが9（Sv48x4を表す）の場合、gvpnの（50 - 12 = 38）ビット以上がすべて0である必要があります。そうでない場合、guest page faultが報告されます。</li>
+<li>アドレス変換でページテーブルを取得したとき、ページテーブルのPPN部分の上位（48-12=36）ビット以上がすべて0である必要があります。そうでない場合、access faultが報告されます。</li>
+<li>元のアドレスで、仮想アドレスまたは物理アドレスに関連する例外。具体的には以下の通りです。この部分は理論的にはL1 TLBでチェックする必要がありますが、ITLBのリダイレクト結果は完全にBackendから来るため、ITLBの対応するこの部分の例外はBackendがFrontendにリダイレクトを送信する際に記録され、ITLBで再度チェックされることはありません。Backendのこの部分の説明を参照してください。</li>
+<li>Sv39モード：仮想メモリが有効で、仮想化が有効でない場合（satpのmodeが8）、または仮想メモリが有効で、仮想化が有効な場合（vsatpのmodeが8）の2つの状況を含みます。このとき、vaddrの[63:39]ビットがvaddrの38ビット目と同じ符号である必要があります。そうでない場合、命令フェッチ/load/store要求に応じて、それぞれinstruction page fault、load page fault、store page faultを報告する必要があります。</li>
+<li>Sv48モード：仮想メモリが有効で、仮想化が有効でない場合（satpのmodeが9）、または仮想メモリが有効で、仮想化が有効な場合（vsatpのmodeが9）の2つの状況を含みます。このとき、vaddrの[63:48]ビットがvaddrの47ビット目と同じ符号である必要があります。そうでない場合、命令フェッチ/load/store要求に応じて、それぞれinstruction page fault、load page fault、store page faultを報告する必要があります。</li>
+<li>Sv39x4モード：仮想メモリが有効で、仮想化が有効で、vsatpのmodeが0で、hgatpのmodeが8である場合。（注：vsatpのmodeが8/9で、hgatpのmodeが8の場合、第2段階のアドレス変換もSv39x4モードであり、対応する例外が発生する可能性があります。しかし、この部分は「アドレス変換プロセス中に、仮想アドレスまたは物理アドレスに関連する例外」に属し、L2 TLBのページテーブルウォーク中に処理されるため、L1 TLBの処理範囲外です。L1 TLBは「元のアドレスで、仮想アドレスまたは物理アドレスに関連する例外」のみを別途処理します。）このとき、vaddrの[63:41]ビットがすべて0である必要があります。そうでない場合、命令フェッチ/load/store要求に応じて、それぞれinstruction guest page fault、load guest page fault、store guest page faultを報告する必要があります。</li>
+<li>Sv48x4モード：仮想メモリが有効で、仮想化が有効で、vsatpのmodeが0で、hgatpのmodeが9である場合。（注：vsatpのmodeが8/9で、hgatpのmodeが9の場合、第2段階のアドレス変換もSv48x4モードであり、対応する例外が発生する可能性があります。しかし、この部分は「アドレス変換プロセス中に、仮想アドレスまたは物理アドレスに関連する例外」に属し、L2 TLBのページテーブルウォーク中に処理されるため、L1 TLBの処理範囲外です。L1 TLBは「元のアドレスで、仮想アドレスまたは物理アドレスに関連する例外」のみを別途処理します。）このとき、vaddrの[63:50]ビットがすべて0である必要があります。そうでない場合、命令フェッチ/load/store要求に応じて、それぞれinstruction guest page fault、load guest page fault、store guest page faultを報告する必要があります。</li>
+<li>Bareモード：仮想メモリが有効でない場合、paddr = vaddrです。XiangShanプロセッサの物理アドレスは現在48ビットに限定されているため、vaddrの[63:48]ビットがすべて0である必要があります。そうでない場合、命令フェッチ/load/store要求に応じて、それぞれinstruction access fault、load access fault、store access faultを報告する必要があります。</li>
+</ol>
+</li>
+</ol>
+<p>上記の「元のアドレスでの」例外処理をサポートするために、L1 TLBはfullva（64ビット）とcheckfullva（1ビット）の入力信号を追加する必要があります。また、出力にvaNeedExtを追加する必要があります。具体的には：</p>
+<ol>
+<li>checkfullvaはfullvaの制御信号ではありません。つまり、fullvaの内容はcheckfullvaがハイのときだけ有効というわけではありません。</li>
+<li>checkfullvaがいつ有効になるか（ハイにする必要があるか）<ol>
+<li>ITLBの場合、checkfullvaは常にfalseです。そのため、ChiselがVerilogを生成する際に、checkfullvaが最適化されて入力に現れない可能性があります。</li>
+<li>DTLBの場合、すべてのload/store/amo/vector命令について、BackendからMemBlockに初めて送信される際に、checkfullvaチェックを行う必要があります。ここで補足すると、「元のアドレスで、仮想アドレスまたは物理アドレスに関連する例外」はvaddrのみに対するチェックです（load/store命令の場合、vaddrの計算は通常、あるレジスタの値+imm即値で計算された64ビットの値です）。そのため、TLBのヒットを待つ必要はなく、このチェックの例外が発生した場合、TLBはミスを返さず、例外が有効であることを示します。したがって、「BackendからMemBlockに初めて送信される際」に、この例外を必ず発見して報告できます。非整列メモリアクセスの場合、misalign bufferには入りません。load命令の場合、load replay queueには入りません。store命令の場合、リザベーションステーションから再発行されることもありません。したがって、「BackendからMemBlockに初めて送信される際」にこの例外が発見されなかった場合、load replayから再発行される際には、この例外は絶対に発生せず、checkfullvaチェックを行う必要はありません。プリフェッチ命令の場合、checkfullvaはハイになりません。</li>
+</ol>
+</li>
+<li>fullvaがいつ有効になるか（いつ使用されるか）<ol>
+<li>特定の状況を除き、fullvaはcheckfullvaがハイのときのみ有効で、チェック対象の完全なvaddrを表します。ここで説明すると、load/store命令で計算された元のvaddrは64ビットです（レジスタから読み出された値は64ビットです）。しかし、TLBの検索には下位48/50ビット（Sv48/Sv48x4）しか使用されず、例外の検索には完全な64ビットが必要です。</li>
+<li>特定の状況：非整列命令でgpfが発生し、gpaddrを取得する必要がある場合。現在のメモリアクセス側の非整列例外の処理ロジックは以下の通りです。</li>
+<li>例えば、元のvaddrが0x81000ffbで、8バイトのデータをldする場合</li>
+<li>misalign bufferはこの命令をvaddrが0x81000ff8（load 1）と0x81001000（load 2）の2つのloadに分割し、これら2つのloadは同じ仮想ページに属しません。</li>
+<li>load 1の場合、TLBに渡されるvaddrは0x81000ff8で、fullvaは常に元のvaddr 0x81000ffbです。load 2の場合、TLBに渡されるvaddrは0x81001000で、fullvaは常に元のvaddr 0x81000ffbです。</li>
+<li>load 1で例外が発生した場合、<em>tvalレジスタに書き込むオフセットは元のaddrのオフセット（つまり0xffb）と約束されています。load 2で例外が発生した場合、</em>tvalレジスタに書き込むオフセットは次のページの開始値（0x000）と約束されています。仮想化シナリオのonlyStage2の場合、gpaddr = 例外が発生したvaddrです。したがって、ページをまたぐ非整列要求で、ページをまたいだ後のアドレスで例外が発生した場合、gpaddrの生成にはvaddr（このときのオフセットは実際には0x000）しか使用されず、fullvaは使用されません。ページをまたがない非整列要求、またはページをまたぎ、元のアドレスで例外が発生した非整列要求の場合、gpaddrの生成にはfullvaのオフセット（0xffb）が使用されます。ここでfullvaは常に有効で、checkfullvaがハイかどうかとは関係ありません。</li>
+</ol>
+</li>
+<li>vaNeedExtがいつ有効になるか（いつ使用されるか）</li>
+<li>メモリアクセスキュー（load queue/store queue）では、面積を節約するために、64ビットの元のアドレスを50ビットに切り詰めて保存しますが、<em>tvalレジスタに書き込む際には64ビットの値を書き込む必要があります。前述の通り、「元のアドレスで、仮想アドレスまたは物理アドレスに関連する例外」の例外の場合、元の完全な64ビットアドレスを保持する必要があります。一方、他のページテーブル関連の例外の場合、アドレスの上位ビットは要求を満たしています。例えば：
+        * fullva = 0xffff,ffff,8000,0000; vaddr = 0xffff,8000,0000。Modeは非仮想化のSv39。ここで元のアドレスは例外を発生させていません。これがload要求だと仮定し、TLBへの最初のアクセスでミスしたため、このloadはload replay queueに入り、再発行を待ち、アドレスは50ビットに切り詰められます。load命令が再発行された後、このページテーブルのVビットが0であることが判明し、page faultが発生し、vaddrを</em>tvalレジスタに書き込む必要があります。アドレスはload queue replayで切り詰められているため、符号拡張を行う必要があります（例えばSv39の場合、39ビット以上を38ビット目の値で拡張する）。返されるvaNeedExtはハイになります。
+        * fullva = 0x0000,ffff,8000,0000; vaddr = 0xffff,8000,0000。Modeは非仮想化のSv39。ここで元のアドレスが例外を発生させていることがわかります。このアドレスを対応するexception bufferに直接書き込みます（exception bufferは完全な64ビットの値を保存します）。このとき、0x0000,ffff,8000,0000の元の値を*tvalに直接書き込む必要があり、符号拡張は行わず、vaNeedExtはローになります。</li>
+</ol>
+<h3 id="pointer-masking">pointer masking拡張のサポート</h3>
+<p>現在、XiangShanプロセッサはpointer masking拡張をサポートしています。</p>
+<p>pointer masking拡張の本質は、メモリアクセスのfullvaを「レジスタファイルの値+imm即値」という元の値から、「effective vaddr」という上位ビットが無視される可能性のある値に変えることです。pmmの値が2の場合、上位7ビットが無視されます。pmmの値が3の場合、上位16ビットが無視されます。pmmが0の場合は上位ビットを無視せず、pmmが1の場合は予約されています。</p>
+<p>pmmの値は、mseccfg/menvcfg/henvcfg/senvcfgのPMM（[33:32]）ビット、またはhstatusレジスタのHUPMM（[49:48]）ビットから来ることがあります。具体的な選択方法は以下の通りです。</p>
+<ol>
+<li>フロントエンドの命令フェッチ要求、またはマニュアルで規定されたhlvx命令の場合、pointer maskingは使用されません（pmmは0）。</li>
+<li>現在のメモリアクセス有効特権レベル（dmode）がMモードの場合、mseccfgのPMM（[33:32]）ビットを選択します。</li>
+<li>非仮想化シナリオで、現在のメモリアクセス有効特権レベルがSモード（HS）の場合、menvcfgのPMM（[33:32]）ビットを選択します。</li>
+<li>仮想化シナリオで、現在のメモリアクセス有効特権レベルがSモード（VS）の場合、henvcfgのPMM（[33:32]）ビットを選択します。</li>
+<li>仮想化命令で、現在のプロセッサ特権レベル（imode）がUモードの場合、hstatusのHUPMM（[49:48]）ビットを選択します。</li>
+<li>その他のUモードのシナリオでは、senvcfgのPMM（[33:32]）ビットを選択します。</li>
+</ol>
+<p>pointer maskingはメモリアクセスにのみ適用され、フロントエンドの命令フェッチには適用されないため、ITLBには「effective vaddr」の概念はなく、CSRから渡されるこれらの信号もポートに導入されません。</p>
+<p>これらのアドレスの上位ビットは、前述の「元のアドレスで、仮想アドレスまたは物理アドレスに関連する例外」でのみチェックされるため、上位ビットをマスクする場合は、例外が発生しないようにするだけです。具体的には：</p>
+<ol>
+<li>仮想メモリが有効な非仮想化シナリオ、または仮想化シナリオの非onlyStage2（vsatpのmodeが0でない）の場合、pmmの値が2または3に応じて、アドレスの上位7または16ビットを符号拡張します。</li>
+<li>仮想化シナリオのonlyStage2の場合、または仮想メモリが有効でない場合、pmmの値が2または3に応じて、アドレスの上位7または16ビットをゼロ拡張します。</li>
+</ol>
+<h3 id="tlb">TLB圧縮のサポート</h3>
+<p>
+<figure><img src="../figure/image18.png" /><figcaption>TLB圧縮の模式図</figcaption>
+</figure>
+</p>
+<p>KunminghuアーキテクチャはTLB圧縮をサポートしており、各TLB圧縮エントリは連続する8つのページテーブルエントリを保存します（上図参照）。TLB圧縮の理論的基礎は、オペレーティングシステムがページを割り当てる際に、バディシステムなどの理由で、連続する仮想ページに連続する物理ページを割り当てる傾向があることです。プログラムの実行が進むにつれて、ページの割り当ては順序付けられたものから無秩序なものへと変化しますが、このページの ASSOCIATIVE 性は広く存在します。したがって、複数の連続するページテーブルエントリをハードウェアで1つのTLBエントリにまとめることで、TLBの容量を向上させることができます。</p>
+<p>つまり、仮想ページ番号の上位ビットが同じページテーブルエントリについて、これらのページテーブルエントリの物理ページ番号の上位ビットとページテーブル属性も同じ場合、これらのページテーブルエントリを1つのエントリに圧縮して保存することで、TLBの有効容量を向上させることができます。圧縮後のTLBエントリは、物理ページ番号の上位ビットとページテーブル属性ビットを共有し、各ページテーブルは物理ページ番号の下位ビットを個別に持ち、validでそのページテーブルが圧縮後のTLBエントリで有効であることを示します（表5.1.8参照）。</p>
+<p>表5.1.8は圧縮前後の比較を示しています。圧縮前のタグはvpnですが、圧縮後のタグはvpnの上位24ビットで、下位3ビットは保存する必要がありません。実際、連続する8つのページテーブルのi番目のエントリのiがタグの下位3ビットになります。ppnの上位21ビットは同じで、ppn_lowは8つのページテーブルのppnの下位3ビットをそれぞれ保存します。Valididxはこれら8つのページテーブルの有効性を示し、valididx(i)が1の場合のみ有効です。pteidx(i)は元の要求に対応するi番目のエントリ、つまり元の要求のvpnの下位3ビットの値を表します。</p>
+<p>例を挙げて説明します。例えば、あるvpnが0x0000154で、下位3ビットが100、つまり4だとします。L1 TLBにリフィルされると、vpnが0x0000150から0x0000157までの8つのページテーブルエントリがすべてリフィルされ、1つのエントリに圧縮されます。例えば、vpnが0x0000154のppnの上位21ビットがPPN0、ページテーブル属性ビットがPERM0の場合、これら8つのページテーブルのi番目のエントリのppnの上位21ビットとページテーブル属性もPPN0とPERM0であれば、valididx(i)は1になり、ppn_low(i)でi番目のページテーブルの下位3ビットを保存します。また、pteidx(i)は元の要求に対応するi番目のエントリを表し、ここでは元の要求のvpnの下位3ビットが4なので、pteidx(4)は1、他のpteidx(i)はすべて0になります。</p>
+<p>また、TLBはクエリ結果がラージページ（1GB、2MB）の場合は圧縮を行いません。ラージページの場合、返却時にvalididx(i)の各ビットがすべて1に設定されます。ページテーブルのクエリ規則によれば、ラージページは実際にはppn_lowを使用しないため、ppn_lowの値は任意の値でかまいません。</p>
+<table><caption>TLB圧縮前後の各エントリの格納内容</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>圧縮</strong></th>
+<th style="text-align: center;"><strong>tag</strong></th>
+<th style="text-align: center;"><strong>asid</strong></th>
+<th style="text-align: center;"><strong>level</strong></th>
+<th style="text-align: center;"><strong>ppn</strong></th>
+<th style="text-align: center;"><strong>perm</strong></th>
+<th style="text-align: center;"><strong>valididx</strong></th>
+<th style="text-align: center;"><strong>pteidx</strong></th>
+<th style="text-align: center;"><strong>ppn_low</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">いいえ</td>
+<td style="text-align: center;">27ビット</td>
+<td style="text-align: center;">16ビット</td>
+<td style="text-align: center;">2ビット</td>
+<td style="text-align: center;">24ビット</td>
+<td style="text-align: center;">ページテーブル属性</td>
+<td style="text-align: center;">保存しない</td>
+<td style="text-align: center;">保存しない</td>
+<td style="text-align: center;">保存しない</td>
+</tr>
+<tr>
+<td style="text-align: center;">はい</td>
+<td style="text-align: center;">24ビット</td>
+<td style="text-align: center;">16ビット</td>
+<td style="text-align: center;">2ビット</td>
+<td style="text-align: center;">21ビット</td>
+<td style="text-align: center;">ページテーブル属性</td>
+<td style="text-align: center;">8ビット</td>
+<td style="text-align: center;">8ビット</td>
+<td style="text-align: center;">8×3ビット</td>
+</tr>
+</tbody>
+</table>
+<p>TLB圧縮を実装した後、L1 TLBのヒット条件はTAGヒットから、TAGヒット（vpnの上位ビットが一致）かつvpnの下位3ビットでインデックスされたvalididx(i)が有効であることに変わります。PPNはppn（上位21ビット）とppn_low(i)を連結して得られます。</p>
+<p>ただし、H拡張を追加すると、L1TLBのエントリは4つのタイプに分かれ、TLB圧縮メカニズムは仮想化されたTLBエントリでは有効になりません（ただし、TLB圧縮はL2TLBでは引き続き使用されます）。次に、これら4つのタイプについて詳しく説明します。</p>
+<h3 id="4tlb">4種類のTLBエントリを格納</h3>
+<p>H拡張を追加したL1TLBでは、TLBエントリが変更されました（<span><a href="#fig:L1TLB-item">此图</a></span>参照）。</p>
+<p>
+<figure id="fig:L1TLB-item"><img src="../figure/image19.png" /><figcaption>TLBエントリの模式図</figcaption></figure>
+</p>
+<p>元の設計と比較して、g_perm、vmid、s2xlateが新たに追加されました。g_permは第2段階のページテーブルのpermを格納するために使用され、vmidは第2段階のページテーブルのvmidを格納するために使用され、s2xlateはTLBエントリのタイプを区別するために使用されます。s2xlateの違いによって、TLBエントリに格納される内容も異なります。</p>
+<table><caption>TLBエントリのタイプ</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>タイプ</strong></th>
+<th style="text-align: center;"><strong>s2xlate</strong></th>
+<th style="text-align: center;"><strong>tag</strong></th>
+<th style="text-align: center;"><strong>ppn</strong></th>
+<th style="text-align: center;"><strong>perm</strong></th>
+<th style="text-align: center;"><strong>g_perm</strong></th>
+<th style="text-align: center;"><strong>level</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">noS2xlate</td>
+<td style="text-align: center;">b00</td>
+<td style="text-align: center;">非仮想化下の仮想ページ番号</td>
+<td style="text-align: center;">非仮想化下の物理ページ番号</td>
+<td style="text-align: center;">非仮想化下のページテーブルエントリperm</td>
+<td style="text-align: center;">使用しない</td>
+<td style="text-align: center;">非仮想化下のページテーブルエントリlevel</td>
+</tr>
+<tr>
+<td style="text-align: center;">allStage</td>
+<td style="text-align: center;">b11</td>
+<td style="text-align: center;">第1段階ページテーブルの仮想ページ番号</td>
+<td style="text-align: center;">第2段階ページテーブルの物理ページ番号</td>
+<td style="text-align: center;">第1段階ページテーブルのperm</td>
+<td style="text-align: center;">第2段階ページテーブルのperm</td>
+<td style="text-align: center;">2段階変換中の最大level</td>
+</tr>
+<tr>
+<td style="text-align: center;">onlyStage1</td>
+<td style="text-align: center;">b01</td>
+<td style="text-align: center;">第1段階ページテーブルの仮想ページ番号</td>
+<td style="text-align: center;">第1段階ページテーブルの物理ページ番号</td>
+<td style="text-align: center;">第1段階ページテーブルのperm</td>
+<td style="text-align: center;">使用しない</td>
+<td style="text-align: center;">第1段階ページテーブルのlevel</td>
+</tr>
+<tr>
+<td style="text-align: center;">onlyStage2</td>
+<td style="text-align: center;">b10</td>
+<td style="text-align: center;">第2段階ページテーブルの仮想ページ番号</td>
+<td style="text-align: center;">第2段階ページテーブルの物理ページ番号</td>
+<td style="text-align: center;">使用しない</td>
+<td style="text-align: center;">第2段階ページテーブルのperm</td>
+<td style="text-align: center;">第2段階ページテーブルのlevel</td>
+</tr>
+</tbody>
+</table>
+<p>TLB圧縮技術はnoS2xlateとonlyStage1で有効になり、他の状況では有効になりません。allStageとonlyS2xlateの場合、L1TLBのヒットメカニズムはpteidxを使用して有効なpteのタグとppnを計算します。これら2つの状況はリフィル時にも違いがあります。また、asidはnoS2xlate、allStage、onlyStage1で有効で、vmidはallStage、onlyStage2で有効です。</p>
+<h3 id="tlb2">TLBリフィルは2段階のページテーブルを融合</h3>
+<p>H拡張を追加したMMUでは、PTWの応答構造が3つの部分に分かれています。第1部はs1で、元の設計のPtwSectorRespで、第1段階変換のページテーブルを格納します。第2部はs2で、HptwRespで、第2段階変換のページテーブルを格納します。第3部はs2xlateで、このrespのタイプを表し、noS2xlate、allStage、onlyStage1、onlyStage2に分かれます（<span><a href="#fig:L1TLB-PTW-resp-struct">此图</a></span>参照）。PtwSectorEntryはTLB圧縮技術を採用したPtwEntryで、両者の主な違いはタグとppnの長さです。</p>
+<p>
+<figure id="fig:L1TLB-PTW-resp-struct"><img src="../figure/image20.png" /><figcaption>PTW resp構造の模式図</figcaption></figure>
+</p>
+<p>noS2xlateとonlyStage1の場合、s1の結果をTLBエントリに書き込むだけでよく、書き込み方法は元の設計と似ており、返されたs1の対応するフィールドをエントリの対応するフィールドに書き込むだけです。noS2xlateの場合、vmidフィールドは無効であることに注意してください。</p>
+<p>onlyS2xlateの場合、s2の結果をTLBエントリに書き込みます。ここではTLB圧縮の構造に合わせるために、いくつかの特別な処理が必要です。まず、このエントリのasid、permは使用しないため、このときに書き込まれる値は気にしません。vmidにはs1のvmidを書き込みます（PTWモジュールはどのような状況でもこのフィールドを書き込むため、このフィールドを直接使用して書き込むことができます）。s2のタグをTLBエントリのタグに書き込み、pteidxはs2のタグの下位sectortlbwidthビットによって決定されます。s2がラージページの場合、TLBエントリのvalididxはすべて有効になります。そうでない場合、TLBエントリのpteidxに対応するvalididxが有効になります。ppnの書き込みについては、allStageのロジックを再利用し、allStageの場合に紹介します。</p>
+<p>allStageの場合、2段階のページテーブルを融合する必要があります。まず、s1に基づいてタグ、asid、vmidなどを書き込みます。levelは1つしかないため、s1とs2の最大値を書き込みます。これは、第1段階がラージページで第2段階がスモールページの場合、あるアドレスを検索したときにラージページにヒットするが、実際には第2段階のページテーブルの範囲を超えている可能性があることを考慮したものです。このような要求のタグも融合する必要があります。例えば、最初のタグが第1レベルのページテーブル、2番目のタグが第2レベルのページテーブルの場合、最初のタグの第1レベルのページ番号と2番目のタグの第2レベルのページ番号を連結して（第3レベルのページ番号は直接0で埋めることができます）、新しいページテーブルのタグを取得する必要があります。また、s1とs2のpermとs2xlateも書き込む必要があります。ppnについては、ゲスト物理アドレスを保存しないため、第1段階がスモールページで第2段階がラージページの場合、s2のppnを直接保存すると、そのページテーブルを検索したときに計算される物理アドレスが間違ってしまう可能性があります。そのため、まずs2のlevelに基づいてs2のタグとppnを連結し、s2ppnを上位ppn、s2ppn_tmpを下位を計算するために構築し、上位をTLBエントリのppnフィールドに、下位をTLBエントリのppn_lowフィールドに書き込みます。</p>
+<h3 id="tlb_1">TLBエントリのヒット判定ロジック</h3>
+<p>L1TLBで使用されるヒットには3種類あります。TLBの検索ヒット、TLBの書き込みヒット、PTW要求の応答ヒットです。</p>
+<p>TLBの検索ヒットについては、vmid、hasS2xlate、onlyS2、onlyS1などのパラメータが新たに追加されました。Asidのヒットは第2段階の変換中は常にtrueです。H拡張ではpteidxヒットが追加され、スモールページかつallStageとonlyS2の場合に有効になり、TLB圧縮メカニズムを無効にするために使用されます。</p>
+<p>TLBの書き込みヒット（wbhit）については、入力はPtwRespS2で、現在の比較対象のvpnを判断する必要があります。第2段階の変換のみの場合はs2のタグの上位を使用し、その他の場合はs1vpnのタグを使用し、下位sectortlbwidthビットに0を補完してから、vpnとTLBエントリのタグを比較します。H拡張ではwb_validの判断が変更され、pteidx_hitとs2xlate_hitが新たに追加されました。第2段階の変換のみのPTW応答の場合、wb_valididxはs2のタグによって決定されます。そうでない場合は、s1のvalididxを直接接続します。s2xlateヒットは、TLBエントリのs2xlateとPTW応答のs2xlateを比較し、TLBエントリのタイプをフィルタリングするために使用されます。pteidx_hitは、TLB圧縮を無効にするために使用されます。第2段階の変換のみの場合は、s2のタグの下位とTLBエントリのpteidxを比較します。その他の2段階変換の場合は、TLBエントリのptedixとs1のpteidxを比較します。</p>
+<p>PTW要求の応答ヒットについては、主にPTW応答時に、現在のTLBが送信したPTW要求がこの応答に対応しているかどうか、またはTLBの検索時にPTW応答がこの要求に必要なPTW結果であるかどうかを判断するために使用されます。このメソッドはPtwRespS2で定義されており、その内部では3種類のヒットに分かれています。noS2_hit（noS2xlate）の場合は、s1がヒットしたかどうかを判断するだけでよく、onlyS2_hit（onlyStage2）の場合は、s2がヒットしたかどうかを判断するだけでよく、all_onlyS1_hit（allStageまたはonlyStage1）の場合は、vpnhitの判断ロジックを再設計する必要があり、単純にs1hitを判断するだけではいけません。vpn_hitの判断レベルはs1とs2の最大値を取り、levelに基づいてヒットを判断し、vasid（vsatpから）のヒットとvmidのヒットを追加します。</p>
+<h3 id="gpaddrptw">ゲストページフォルト後のgpaddr取得のためのPTW再送をサポート</h3>
+<p>L1TLBは変換結果のgpaddrを保存しないため、TLBエントリを検索してゲストページフォルトが発生した場合、gpaddrを取得するためにPTWを再実行する必要があります。このとき、TLBの応答は依然としてミスです。ここではいくつかのレジスタが新たに追加されました。</p>
+<table><caption>gpaddr取得のための追加レジスタ</caption><thead>
+<tr>
+<th style="text-align: center;"><strong>名称</strong></th>
+<th style="text-align: center;"><strong>タイプ</strong></th>
+<th style="text-align: center;"><strong>役割</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">need_gpa</td>
+<td style="text-align: center;">Bool</td>
+<td style="text-align: center;">ある要求がgpaddrを取得中であることを示す</td>
+</tr>
+<tr>
+<td style="text-align: center;">need_gpa_robidx</td>
+<td style="text-align: center;">RobPtr</td>
+<td style="text-align: center;">gpaddrを取得する要求のrobidx</td>
+</tr>
+<tr>
+<td style="text-align: center;">need_gpa_vpn</td>
+<td style="text-align: center;">vpnLen</td>
+<td style="text-align: center;">gpaddrを取得する要求のvpn</td>
+</tr>
+<tr>
+<td style="text-align: center;">need_gpa_gvpn</td>
+<td style="text-align: center;">vpnLen</td>
+<td style="text-align: center;">取得したgpaddrのgvpnを格納</td>
+</tr>
+<tr>
+<td style="text-align: center;">need_gpa_refill</td>
+<td style="text-align: center;">Bool</td>
+<td style="text-align: center;">この要求のgpaddrがneed_gpa_gvpnに書き込まれたことを示す</td>
+</tr>
+</tbody>
+</table>
+<p>TLB要求が検索したTLBエントリでゲストページフォルトが発生した場合、PTWを再実行する必要があります。このとき、need_gpaが有効になり、要求のvpnがneed_gpa_vpnに、要求のrobidxがneed_gpa_robidxに書き込まれ、resp_gpa_refillがfalseに初期化されます。PTWが応答し、need_gpa_vpnによって以前に送信されたgpaddr取得要求であることが判断されると、PTW応答のs2タグがneed_gpa_gvpnに書き込まれ、need_gpa_refillが有効になり、gpaddrのgvpnが取得されたことを示します。以前の要求が再度TLBに入ると、このneed_gpa_gvpnを使用してgpaddrを計算して返すことができます。ある要求が上記プロセスを完了すると、need_gpaは無効になります。ここでのresp_gpa_refillは依然として有効なので、リフィルされたgvpnは他のTLB要求に使用される可能性があります（need_gpa_vpnと等しい限り）。</p>
+<p>また、リダイレクトが発生し、命令ストリーム全体が変化し、以前にgpaddrを取得した要求がTLBに再度入らない可能性があります。そのため、リダイレクトが発生した場合は、保存されているneed_gpa_robidxに基づいて、TLB内のgpaddr取得に関連するレジスタを無効にする必要があるかどうかを判断します。</p>
+<p>また、gpaddrを取得するPTW要求が返されたときにTLBをリフィルしないようにするために、PTW要求を送信する際に新しい出力信号getGpaを追加しました。この信号はmemidxと同様のパスを伝わり、Repeater内に渡されます。PTWがTLBに応答を返すとき、この信号も返されます。この信号が有効な場合、このPTW要求はgpaddrを取得するためだけのものであることを示し、このときはTLBをリフィルしません。</p>
+<p>ゲストページフォルト発生後のgpaddr取得処理について、いくつかの重要な点を再度説明します。</p>
+<ol>
+<li>
+<p>gpa取得メカニズムは、1エントリのみのバッファと見なすことができます。ある要求がゲストページフォルトを発生させると、そのバッファにneed_gpaの対応する情報が書き込まれます。need_gpa_vpn_hit &amp;&amp; resp_gpa_refill条件が有効になるか、flush（itlb）/redirect（dtlb）信号が入力されてgpa情報が更新されるまで、この状態が続きます。</p>
+</li>
+<li>
+<p>need_gpa_vpn_hitとは、ある要求がゲストページフォルトを発生させた後、vpn情報がneed_gpa_vpnに書き込まれることを指します。同じvpnが再度TLBを検索すると、need_gpa_vpn_hit信号がハイになり、取得したgpaddrが元のget_gpa要求に対応することを示します。このとき、resp_gpa_refillもハイであれば、vpnが対応するgpaddrを取得したことを示し、gpaddrをフロントエンドの命令フェッチ/バックエンドのメモリアクセスに返して例外処理を行うことができます。</p>
+</li>
+<li>
+<p>したがって、フロントエンドまたはメモリアクセスの任意の要求がgpaをトリガーした場合、後続で以下の2つの条件のいずれかを満たす必要があります。</p>
+<ol>
+<li>gpaをトリガーした要求は必ず再発行できる必要があります（TLBはgpaddrを取得するまで、その要求に対してミスを返し続け、gpaddrの結果が得られるまで続きます）。</li>
+<li>
+<p>TLBにflushまたはredirect信号を入力して、そのgpa要求をフラッシュする必要があります。具体的には、すべての可能な要求について：</p>
+<ol>
+<li>ITLBの命令フェッチ要求：gpfが発生した命令フェッチ要求が投機パス上にあり、誤った投機が発見された場合、flushPipe信号によってフラッシュされます（バックエンドのリダイレクト、またはフロントエンドの多段分岐予測器で後段の予測器の予測結果が前段の予測器の予測結果を更新する場合などを含みます）。その他の場合、ITLBはその要求に対してミスを返すため、フロントエンドは同じvpnの要求を再発行することを保証します。</li>
+<li>DTLBのload要求：gpfが発生したload要求が投機パス上にあり、誤った投機が発見された場合、redirect信号によってフラッシュされます（gpfが発生したrobidxと入力されたredirectのrobidxの前後関係を判断する必要があります）。その他の場合、DTLBはその要求に対してミスを返し、同時にtlbreplay信号をハイにして、load queue replayがその要求を必ず再発行できるようにします。</li>
+<li>DTLBのstore要求：gpfが発生したstore要求が投機パス上にあり、誤った投機が発見された場合、redirect信号によってフラッシュされます（gpfが発生したrobidxと入力されたredirectのrobidxの前後関係を判断する必要があります）。その他の場合、DTLBはその要求に対してミスを返すため、バックエンドはそのstore命令を必ず再発行するようにスケジューリングします。</li>
+<li>DTLBのプリフェッチ要求：返されるgpf信号がハイになり、そのプリフェッチ要求のアドレスでgpfが発生したことを示しますが、gpa*の一連のレジスタには書き込まれず、gpaddr検索メカニズムはトリガーされず、考慮する必要はありません。</li>
+<li>現在の処理メカニズムでは、gpfが発生し、gpaを待機しているTLBエントリが、gpaを待機中に置き換えられないようにする必要があります。ここでは、gpa待機状況が発生した場合にTLBのリフィルを阻止することで、置き換え操作が発生しないようにします。gpfが発生した場合は例外処理プログラムを実行する必要があり、その後の命令はリダイレクトされてフラッシュされるため、gpa待機中にリフィルを阻止しても性能上の問題は発生しません。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="_5">全体ブロック図</h2>
+<p>L1 TLBの全体ブロック図を<span><a href="#fig:L1TLB-overall">此图</a></span>に示します。緑色の枠内がITLBとDTLBです。ITLBはFrontendからのPTW要求を受け取り、DTLBはMemblockからのPTW要求を受け取ります。FrontendからのPTW要求には、ICacheの3つの要求とIFUの1つの要求が含まれます。MemblockからのPTW要求には、LoadUnitの2つの要求（AtomicsUnitはLoadUnitの1つの要求チャネルを占有）、L1 Load Stream &amp; Stride prefetchの1つの要求、StoreUnitの2つの要求、およびSMSPrefetcherの1つの要求が含まれます。</p>
+<p>ITLBとDTLBでクエリ結果が得られた後、PMPとPMAのチェックを行う必要があります。L1 TLBの面積は比較的小さいため、PMPとPMAレジスタのバックアップはL1 TLB内部には保存されず、FrontendまたはMemblockに保存され、それぞれITLBとDTLBにチェックを提供します。ITLBとDTLBがミスした場合、repeaterを介してL2 TLBにクエリ要求を送信する必要があります。</p>
+<p>
+<figure id="fig:L1TLB-overall"><img src="../figure/image21.png" /><figcaption>L1 TLBモジュール全体ブロック図</figcaption></figure>
+</p>
+<h2 id="_6">インターフェースタイミング</h2>
+<h3 id="sec:ITLB-time-frontend">ITLBとFrontendのインターフェースタイミング</h3>
+<h4 id="frontenditlbptwitlb">FrontendからITLBへのPTW要求がITLBにヒットした場合</h4>
+<p>FrontendからITLBへのPTW要求がITLBにヒットした場合のタイミング図を<span><a href="#fig:ITLB-time-hit">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:ITLB-time-hit"><img src="../figure/image11.svg" /><figcaption>FrontendからITLBへのPTW要求がITLBにヒットした場合のタイミング図</figcaption></figure>
+</p>
+<p>FrontendからITLBへのPTW要求がITLBにヒットした場合、resp_miss信号は0のままです。req_validが1になった次のクロックの立ち上がりエッジで、ITLBはresp_valid信号を1にし、同時にFrontendに仮想アドレス変換後の物理アドレス、およびゲストページフォルト、ページフォルト、アクセスフォルトが発生したかどうかなどの情報を返します。タイミングの説明は以下の通りです。</p>
+<ul>
+<li>0拍目：FrontendがITLBにPTW要求を送信し、req_validを1にします。</li>
+<li>1拍目：ITLBがFrontendに物理アドレスを返し、resp_validを1にします。</li>
+</ul>
+<h4 id="frontenditlbptwitlb_1">FrontendからITLBへのPTW要求がITLBにミスした場合</h4>
+<p>FrontendからITLBへのPTW要求がITLBにミスした場合のタイミング図を<span><a href="#fig:ITLB-time-miss">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:ITLB-time-miss"><img src="../figure/image13.svg" /><figcaption>FrontendからITLBへのPTW要求がITLBにミスした場合のタイミング図</figcaption></figure>
+</p>
+<p>FrontendからITLBへのPTW要求がITLBにミスした場合、次のサイクルでITLBにresp_miss信号が返され、ITLBがミスしたことを示します。このとき、ITLBのこのrequestorチャネルは新しいPTW要求を受け付けなくなり、FrontendがL2 TLBまたはメモリからページテーブルを取得して返すまで、この要求を繰り返し送信します。（注意：「ITLBのこのrequestorチャネルは新しいPTW要求を受け付けなくなる」はFrontendによって制御されます。つまり、Frontendがミスした要求を再送しないか、他の要求を再送するかを選択しても、Frontendの動作はTLBに対して透過的です。Frontendが新しい要求を送信することを選択した場合、ITLBは古い要求を直接破棄します。）</p>
+<p>ITLBがミスした場合、L2 TLBにPTW要求を送信し、結果が得られるまでクエリを続けます。ITLBとL2 TLBのタイミングインタラクション、およびFrontendに返される物理アドレスなどの情報については、図4.4のタイミング図と以下のタイミング説明を参照してください。</p>
+<ul>
+<li>0拍目：FrontendがITLBにPTW要求を送信し、req_validを1にします。</li>
+<li>1拍目：ITLBがミスを検出し、Frontendにresp_missを1、resp_validを1として返します。同時に、このサイクルでITLBはL2 TLB（実際にはitlbrepeater1）にPTW要求を送信し、ptw_req_validを1にします。</li>
+<li>X拍目：L2 TLBがITLBにPTW応答を返します。これには、PTW要求の仮想ページ番号、取得した物理ページ番号、ページテーブル情報などが含まれ、ptw_resp_validは1です。このサイクルでITLBはL2 TLBのPTW応答を受信し、ptw_req_validを0にします。</li>
+<li>X+1拍目：ITLBがヒットし、resp_validは1、resp_missは0です。ITLBはFrontendに物理アドレス、およびアクセスフォルト、ページフォルトなどが発生したかどうかを返します。</li>
+<li>X+2拍目：ITLBがFrontendに返すresp_valid信号を0にします。</li>
+</ul>
+<h3 id="sec:DTLB-time-memblock">DTLBとMemblockのインターフェースタイミング</h3>
+<h4 id="memblockdtlbptwdtlb">MemblockからDTLBへのPTW要求がDTLBにヒットした場合</h4>
+<p>MemblockからDTLBへのPTW要求がDTLBにヒットした場合のタイミング図を<span><a href="#fig:DTLB-time-hit">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:DTLB-time-hit"><img src="../figure/image11.svg" /><figcaption>MemblockからDTLBへのPTW要求がDTLBにヒットした場合のタイミング図</figcaption></figure>
+</p>
+<p>MemblockからDTLBへのPTW要求がDTLBにヒットした場合、resp_miss信号は0のままです。req_validが1になった次のクロックの立ち上がりエッジで、DTLBはresp_valid信号を1にし、同時にMemblockに仮想アドレス変換後の物理アドレス、およびページフォルト、アクセスフォルトが発生したかどうかなどの情報を返します。タイミングの説明は以下の通りです。</p>
+<ul>
+<li>0拍目：MemblockがDTLBにPTW要求を送信し、req_validを1にします。</li>
+<li>1拍目：DTLBがMemblockに物理アドレスを返し、resp_validを1にします。</li>
+</ul>
+<h4 id="memblockdtlbptwdtlb_1">MemblockからDTLBへのPTW要求がDTLBにミスした場合</h4>
+<p>DTLBとITLBは同じくノンブロッキングアクセスです（つまり、TLB内部にはブロッキングロジックは含まれておらず、要求元が同じままであれば、ミス後に同じ要求を継続して再送すると、ブロッキングアクセスのような効果が現れます。要求元がミスのフィードバックを受けた後、他の異なる要求をスケジューリングしてTLBを検索すると、ノンブロッキングアクセスのような効果が現れます）。フロントエンドの命令フェッチとは異なり、MemblockからDTLBへのPTW要求がDTLBにミスした場合、パイプラインはブロックされません。DTLBはreq_validの次のサイクルでMemblockに要求がミスしたこととresp_valid信号を返します。Memblockがミス信号を受け取った後、スケジューリングを行い、他の要求の検索を続けることができます。</p>
+<p>MemblockがDTLBにアクセスしてミスした場合、DTLBはL2 TLBにPTW要求を送信し、L2 TLBまたはメモリからページテーブルを検索します。DTLBはFilterを介してL2 TLBに要求を渡し、FilterはDTLBからL2 TLBへの重複した要求をマージし、DTLBに重複エントリが出現するのを防ぎ、L2 TLBの利用率を向上させます。MemblockからDTLBへのPTW要求がDTLBにミスした場合のタイミング図を<span><a href="#fig:DTLB-time-miss">此图</a></span>に示します。この図は、要求がミスしてからDTLBがL2 TLBにPTW要求を送信するまでのプロセスのみを記述しています。</p>
+<p>
+<figure id="fig:DTLB-time-miss"><img src="../figure/image15.svg" /><figcaption>MemblockからDTLBへのPTW要求がDTLBにミスした場合のタイミング図</figcaption></figure>
+</p>
+<p>DTLBがL2 TLBのPTW応答を受信した後、ページテーブルエントリをDTLBに保存します。Memblockが再度DTLBにアクセスするとヒットし、<span><a href="#fig:DTLB-time-hit">此图</a></span>と同じ状況になります。DTLBとL2 TLBのインタラクションのタイミングは、<span><a href="#fig:ITLB-time-miss">此图</a></span>のptw_reqとptw_respの部分と同じです。</p>
+<h3 id="sec:L1TLB-tlbRepeater-time">TLBとtlbRepeaterのインターフェースタイミング</h3>
+<h4 id="tlbtlbrepeaterptw">TLBからtlbRepeaterへのPTW要求</h4>
+<p>TLBからtlbRepeaterへのPTW要求のインターフェースタイミング図を<span><a href="#fig:L1TLB-time-ptw-req">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:L1TLB-time-ptw-req"><img src="../figure/image23.svg" /><figcaption>TLBからRepeaterへのPTW要求のタイミング図</figcaption></figure>
+</p>
+<p>Kunminghuアーキテクチャでは、ITLBとDTLBはともにノンブロッキングアクセスを採用しており、TLBがミスした場合にL2 TLBにPTW要求を送信しますが、PTW応答を受信していないためにパイプラインとTLBとRepeater間のPTWチャネルをブロックすることはありません。TLBはtlbRepeaterに継続的にPTW要求を送信でき、tlbRepeaterはこれらの要求の仮想ページ番号に基づいて重複した要求をマージし、L2 TLBのリソースの無駄遣いやL1 TLBの重複エントリを防ぎます。</p>
+<p><span><a href="#fig:L1TLB-time-ptw-req">此图</a></span>のタイミング関係からわかるように、tlbがRepeaterにPTW要求を送信した次のサイクルで、RepeaterはPTW要求をさらに下流に渡します。Repeaterはすでに仮想ページ番号vpn1のPTW要求をL2 TLBに送信しているため、Repeaterが同じ仮想ページ番号のPTW要求を再度受信しても、L2 TLBには渡しません。</p>
+<h4 id="itlbrepeateritlbptw">itlbRepeaterからITLBへのPTW応答</h4>
+<p>itlbRepeaterからITLBへのPTW応答のインターフェースタイミング図を<span><a href="#fig:ITLB-time-ptw-resp">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:ITLB-time-ptw-resp"><img src="../figure/image25.svg" /><figcaption>itlbRepeaterからITLBへのPTW応答のタイミング図</figcaption></figure>
+</p>
+<p>タイミングの説明は以下の通りです。</p>
+<ul>
+<li>X拍目：itlbRepeaterが下位のitlbRepeaterを介して渡されたL2 TLBのPTW応答を受信し、itlbrepeater_ptw_resp_validがハイになります。</li>
+<li>X+1拍目：ITLBがitlbRepeaterからのPTW応答を受信します。</li>
+</ul>
+<h4 id="dtlbrepeaterdtlbptw">dtlbRepeaterからDTLBへのPTW応答</h4>
+<p>dtlbRepeaterからDTLBへのPTW応答のインターフェースタイミング図を<span><a href="#fig:DTLB-time-ptw-resp">此图</a></span>に示します。</p>
+<p>
+<figure id="fig:DTLB-time-ptw-resp"><img src="../figure/image27.svg" /><figcaption>dtlbRepeaterからDTLBへのPTW応答のタイミング図</figcaption></figure>
+</p>
+<p>タイミングの説明は以下の通りです。</p>
+<ul>
+<li>X拍目：dtlbRepeaterが下位のdtlbRepeaterを介して渡されたL2 TLBのPTW応答を受信し、dtlbrepeater_ptw_resp_validがハイになります。</li>
+<li>X+1拍目：dtlbRepeaterがPTW応答をmemblockに渡します。</li>
+<li>X+2拍目：DTLBがPTW応答を受信します。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="前: メモリ管理ユニット概要">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                メモリ管理ユニット概要
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Repeater/" class="md-footer__link md-footer__link--next" aria-label="次: Repeater">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                Repeater
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <div>XiangShan Documents are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div>
+<div>Copyright © 2024 - 2025 The XiangShan Team, Beijing Institute of Open Source Chip</div>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://xiangshan.cc/" target="_blank" rel="noopener" title="XiangShan Homepage" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://docs.xiangshan.cc" target="_blank" rel="noopener" title="XiangShan Documents" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4zm11 3h5.5L15 1.5zM8 0h8l6 6v12c0 1.11-.89 2-2 2H8a2 2 0 0 1-2-2V2c0-1.11.89-2 2-2m9 16v-2H8v2zm3-4v-2H8v2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/OpenXiangShan" target="_blank" rel="noopener" title="XiangShan on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+  
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+
+  <!-- ReadTheDocs Version Addon -->
+  
+
+  </body>
+</html>

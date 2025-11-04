@@ -4,7 +4,7 @@ docs_dir: 'docs/ja'
 site_dir: 'site/ja'
 
 site_name: XiangShan デザインドキュメント
-repo_url: https://github.com/OpenXiangShan/XiangShan-Design-Doc
+repo_url: https://github.com/wakuto/XiangShan-Design-Doc
 repo_name: XiangShan-Design-Doc
 
 theme:
@@ -27,7 +27,7 @@ extra:
       link: https://docs.xiangshan.cc/projects/design/en/latest/
       lang: en
     - name: 日本語
-      link: https://docs.xiangshan.cc/projects/design/ja/latest/
+      link: https://xiangshan-design-doc-ja.vercel.app/ja/
       lang: ja
 
 nav:

@@ -1,0 +1,4740 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../decode/">
+      
+      
+        <link rel="next" href="../Dispatch/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+
+  <!-- ReadTheDocs Version Addon -->
+  
+
+    
+      
+        <title>リネーム - XiangShan デザインドキュメント</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/table_fix.css">
+    
+    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rename" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!--
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!--
+  Additional Copyright © 2025 Xu Zefan, The XiangShan Team
+
+  Portions of this software have been modified. These modifications are
+  released under the same license as the original software, and are subject to
+  the same terms and conditions.
+-->
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="ヘッダー"
+  >
+
+    <!-- Link to home -->
+    <a href="../../.."
+      title="XiangShan デザインドキュメント"
+      class="md-header__button md-logo"
+      aria-label="XiangShan デザインドキュメント"
+      data-md-component="logo"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XiangShan デザインドキュメント
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              リネーム
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- New: Back to home button -->
+    
+      
+      
+      
+      <div class="md-header__option">
+        <a
+          class="md-header__button md-icon"
+          href="https://docs.xiangshan.cc/"
+          title="XiangShan ドキュメントホームに戻る"
+          aria-label="XiangShan ドキュメントホームに戻る"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+      </div>
+    
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="言語切り替え">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://docs.xiangshan.cc/projects/design/zh-cn/latest/backend/CtrlBlock/Rename/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://docs.xiangshan.cc/projects/design/en/latest/backend/CtrlBlock/Rename/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://xiangshan-design-doc-ja.vercel.app/ja/backend/CtrlBlock/Rename/" hreflang="ja" class="md-select__link">
+              日本語
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Button to open search modal -->
+    
+      
+
+      <!-- Check if search is actually enabled - see https://t.ly/DT_0V -->
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+
+        <!-- Search interface -->
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wakuto/XiangShan-Design-Doc" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XiangShan-Design-Doc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="XiangShan デザインドキュメント" class="md-nav__button md-logo" aria-label="XiangShan デザインドキュメント" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    XiangShan デザインドキュメント
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wakuto/XiangShan-Design-Doc" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XiangShan-Design-Doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ホーム
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    フロントエンド
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            フロントエンド
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/BPU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    分岐予測ユニット
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            分岐予測ユニット
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/Composer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BPU抽象モジュール
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/FTB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    フェッチターゲットユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/uFTB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    分岐ターゲットバッファ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/TAGE-SC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メイン予測器TAGE-SC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/ITTAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    間接分岐予測器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/BPU/RAS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リターンアドレススタック
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/FTQ/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    フェッチターゲットキュー
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            フェッチターゲットキュー
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/IFU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    命令フェッチユニット
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            命令フェッチユニット
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/IFU/PreDecoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プリデコーダ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/ICache/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    命令キャッシュ
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            命令キャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MainPipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/IPrefetchPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IPrefetchPipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/WayLookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WayLookup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/MissUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MissUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/Replacer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Replacer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../frontend/ICache/CtrlUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CtrlUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../frontend/Pruned_Address/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    PCクラス
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            PCクラス
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    バックエンド
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            バックエンド
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    制御ブロック (CtrlBlock)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            制御ブロック (CtrlBlock)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    デコード
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    リネーム
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    リネーム
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本機能
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      リネーム入力
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      リネーム出力
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:alloc-int-prf" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数物理レジスタの割り当て
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:alloc-fp-vec-prf" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮動小数点またはベクトル物理レジスタの割り当て
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#psrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      ソースオペランドの物理レジスタ（psrc）の設定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pdest" class="md-nav__link">
+    <span class="md-ellipsis">
+      デスティネーションオペランドの物理レジスタ（pdest）の設定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:commit-int-inst" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数命令のコミット
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:commit-fp-vec-inst" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮動小数点またはベクトル命令のコミット
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      リダイレクト
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:rename-re-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      再リネーム
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#robidx" class="md-nav__link">
+    <span class="md-ellipsis">
+      robIdx の割り当て
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:decide-snpt-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      リネームスナップショットの生成決定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体ブロック図
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      インターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="インターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decode 入力インターフェースタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename 出力インターフェースタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      命令コミットロジックタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      リダイレクトと再リネームのタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Dispatch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ディスパッチ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リオーダバッファ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    データパス (DataPath)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            データパス (DataPath)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataPath/DataPath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DataPath
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataPath/Og2ForVector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Og2ForVector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataPath/WbDataPath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WbDataPath
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataPath/WbFuBusyTable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WbFuBusyTable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataPath/BypassNetwork/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BypassNetwork
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    スケジューリングと発行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            スケジューリングと発行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Schedule_And_Issue/Scheduler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Schedule_And_Issue/IssueQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IssueQueue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Schedule_And_Issue/IssueQueueEntries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IssueQueueEntries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    実行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            実行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ExuBlock/ExuBlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ExuBlock
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ExuBlock/ExuUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ExuUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    機能ユニット (FunctionUnit)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            機能ユニット (FunctionUnit)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FunctionUnit/IntFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    整数機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FunctionUnit/FpFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    浮動小数点機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FunctionUnit/VecFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトル機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FunctionUnit/MemFunctionUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メモリ機能ユニット
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VFPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトル浮動小数点ユニット (VFPU)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CSR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    制御ステータスレジスタ (CSR)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HPM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ハードウェア性能モニタ (HPM)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DebugModule/DM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    デバッグモジュール
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    メモリシステム
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            メモリシステム
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/LSU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ロード・ストアユニット (LSU)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            ロード・ストアユニット (LSU)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LoadUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードユニット (LoadUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/StoreUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアアドレスユニット (StoreUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/StdExeUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアデータユニット (StdExeUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/AtomicsUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    アトミック操作ユニット (AtomicsUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/LSU/VLSU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ベクトルメモリアクセス
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1_6" id="__nav_4_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            ベクトルメモリアクセス
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VLSplit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルロード分割ユニット (VLSplit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VSSplit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルストア分割ユニット (VSSplit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VLMergeBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルロードマージバッファ (VLMergeBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VSMergeBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルストアマージバッファ (VSMergeBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VSegmentUnit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルセグメントユニット (VSegmentUnit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/VLSU/VfofBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ベクトルFOFユニット (VfofBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/LSU/LSQ/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ロード・ストアキュー (LSQ)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1_7" id="__nav_4_1_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            ロード・ストアキュー (LSQ)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/VirtualLoadQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードキュー (VirtualLoadQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueRAR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read-After-Readチェック (LoadQueueRAR)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueRAW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read-After-Writeチェック (LoadQueueRAW)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueReplay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードリプレイキュー (LoadQueueReplay)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LoadQueueUncache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uncacheロードユニット (LoadQueueUncache)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/LqExceptionBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロード例外バッファ (LqExceptionBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LSQ/StoreQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアキュー (StoreQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/Uncache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uncache処理ユニット (Uncache)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/SBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストアコミットバッファ (SBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/LoadMisalignBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロード非整列アクセスユニット (LoadMisalignBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/LSU/StoreMisalignBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ストア非整列アクセスユニット (StoreMisalignBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/DCache/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    データキャッシュ
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            データキャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/LoadPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ロードパイプライン (LoadPipe)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/MissQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ミスキュー (MissQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/ProbeQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プローブキュー (ProbeQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    メインパイプライン (MainPipe)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/WritebackQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ライトバックキュー (WritebackQueue)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/DCache/Error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    エラー処理とカスタム障害注入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/MMU/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    メモリ管理ユニット (MMU)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            メモリ管理ユニット (MMU)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L1TLB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    L1TLB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/Repeater/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repeater
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../memblock/MMU/L2TLB/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    L2TLB
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            L2TLB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/PageCache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ページキャッシュ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/PTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/LLPTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    最終レベルページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/HPTW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ハイパーバイザページテーブルウォーカー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/MissQueue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ミスキュー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/L2TLB/Prefetcher/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    プリフェッチャ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memblock/MMU/PMP-PMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PMP & PMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    キャッシュサブシステム
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            キャッシュサブシステム
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            L2キャッシュ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/CoupledL2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    L2キャッシュ (CoupledL2)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/ReqBuf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aチャネル要求バッファ (RequestBuffer)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/ReqArb_MainPipe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    要求アービタとメインパイプライン
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ディレクトリ (Directory)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/DataStorage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    データSRAM (DataStorage)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/MSHR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MSHR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_7" id="__nav_5_1_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    アップストリームTileLinkチャネル
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            アップストリームTileLinkチャネル
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/upstream/SinkA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SinkA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/upstream/SinkC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SinkC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/upstream/GrantBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GrantBuffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_8" id="__nav_5_1_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ダウンストリームCHIチャネル
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            ダウンストリームCHIチャネル
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/TXREQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXREQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/RXRSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXRSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/RXDAT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXDAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/RXSNP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RXSNP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/TXDAT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXDAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/TXRSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TXRSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/PCredit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    P-Credit管理機構
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/downstream/LinkMonitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    リンク層コントローラ (LinkMonitor)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/MMIOBridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MMIOブリッジ (MMIOBridge)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/l2cache/Error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    エラー処理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本機能
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      リネーム入力
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      リネーム出力
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:alloc-int-prf" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数物理レジスタの割り当て
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:alloc-fp-vec-prf" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮動小数点またはベクトル物理レジスタの割り当て
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#psrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      ソースオペランドの物理レジスタ（psrc）の設定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pdest" class="md-nav__link">
+    <span class="md-ellipsis">
+      デスティネーションオペランドの物理レジスタ（pdest）の設定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:commit-int-inst" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数命令のコミット
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:commit-fp-vec-inst" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮動小数点またはベクトル命令のコミット
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      リダイレクト
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:rename-re-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      再リネーム
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#robidx" class="md-nav__link">
+    <span class="md-ellipsis">
+      robIdx の割り当て
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec:decide-snpt-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      リネームスナップショットの生成決定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      全体ブロック図
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      インターフェースタイミング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="インターフェースタイミング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decode 入力インターフェースタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename 出力インターフェースタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      命令コミットロジックタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      リダイレクトと再リネームのタイミング概略図
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/wakuto/XiangShan-Design-Doc/edit/master/docs/backend/CtrlBlock/Rename.md" title="編集" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/wakuto/XiangShan-Design-Doc/raw/master/docs/backend/CtrlBlock/Rename.md" title="このページの原文を表示" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="rename">Rename リネーム</h1>
+<ul>
+<li>バージョン：V2R2</li>
+<li>ステータス：OK</li>
+<li>日付：2025/01/20</li>
+<li>コミット：<a href="https://github.com/OpenXiangShan/XiangShan/tree/xxx">xxx</a></li>
+</ul>
+<p>Rename モジュールは Decode モジュールから命令デコード情報を受け取り、デコード情報に基づいて命令に robIdx と物理レジスタを割り当て、オペランドを介して対応する物理レジスタを検索します。同時に、このモジュールは命令デコード情報、命令コミット情報、および RenameTable からのレジスタ解放情報に基づいて freeList の状態を維持し、命令デコード情報と命令コミット情報に基づいて RenameTable に書き込み要求を送信して、投機的実行時のレジスタマッピング状態を更新します。さらに、このモジュールは ROB からのリダイレクト要求も処理し、リダイレクト情報に基づいて freeList の状態を再更新します。リネームが完了すると、Rename はリネームされた命令情報を Dispatch モジュールに送信します。</p>
+<h2 id="_1">基本機能</h2>
+<p>論理レジスタを物理レジスタにマッピングし、命令内の各論理レジスタに物理レジスタを割り当てます。</p>
+<p>レジスタリネームは、リネーム関連のテーブルまたはポインタを維持します。論理レジスタから物理レジスタへのマッピングテーブルを維持し、各論理レジスタに対応する最近割り当てられた物理レジスタ番号を記録します。</p>
+<p>整数、浮動小数点、およびベクトルレジスタに対して、それぞれ 224、192、および 128 項目の物理レジスタ状態テーブルを維持し、物理レジスタの状態を記録し、割り当てられているかどうかを記録します。空き物理レジスタ割り当てポインタを使用して、割り当てられていない物理レジスタを記録します。</p>
+<p>コミットされた論理レジスタに対応する物理レジスタのマッピングテーブル（RenameTable, RAT）を維持し、コミット状態の論理レジスタと物理レジスタのマッピング関係を記録します。</p>
+<p>コミット状態の空き物理レジスタ割り当てポインタを維持します。レジスタリネーム技術は、命令間のレジスタ読み取り後書き込み（WAR）および書き込み後書き込み（WAW）の依存関係を解消し、命令実行中に例外が発生したり、分岐命令の推測が誤って後続の命令がキャンセルされたりした場合に、コンテキストの正確性を保証します。</p>
+<h2 id="_2">リネーム入力</h2>
+<ul>
+<li>デコード段階からの入力（途中で FusionDecoder が DecodeStage から出力された命令に対してマクロ操作の融合と変更を行い、隣接する命令の組み合わせの種類に応じて valid、uop などの情報を変更し、また、隣接する命令の ftqptr と ftqoffset の異なる組み合わせに応じて、この融合された命令のコミットタイプ CommitType を変更します）</li>
+<li>RAT からの投機的リネームデータの返却を受け入れます</li>
+<li>命令融合情報、および命令融合の状況に応じたデコード入力命令ストリームの変更</li>
+<li>ssit、waittable 情報</li>
+<li>Ctrlblock スナップショット制御情報およびキューの出入りポインタ</li>
+<li>rab コミット情報</li>
+</ul>
+<h2 id="_3">リネーム出力</h2>
+<ul>
+<li>rat へ：リネーム情報を書き込みます。</li>
+<li>dispatch へ：dispatch recv が有効な場合、リネーム後の uop 情報をパイプライン出力します。</li>
+<li>snapshot へ：enqdata、スナップショットの生成を許可します。</li>
+</ul>
+<h2 id="sec:alloc-int-prf">整数物理レジスタの割り当て</h2>
+<p>Decode モジュールから有効な整数命令デコード情報を受け取った後、Rename モジュールは io_in_[0-5]<em>bits_rfWen 信号と io_in</em>[0-5]_bits_ldest 信号に基づいて、新しい整数物理レジスタを割り当てる必要があるかどうかを判断します。rfWen がハイレベルで ldest が 0 でない場合、新しい整数物理レジスタを割り当てる必要があります。新しい整数物理レジスタを割り当てる必要がある場合、intFreeList に割り当て要求を送信し、そのサイクルで割り当て結果を取得します。それ以外の場合は、割り当て要求を送信しません。また、Rename モジュールは整数の Move 命令の削除をサポートしています。デコードされた命令が整数の Move 命令であると検出された場合も、新しい整数物理レジスタは割り当てられません。</p>
+<h2 id="sec:alloc-fp-vec-prf">浮動小数点またはベクトル物理レジスタの割り当て</h2>
+<p>Decode モジュールから有効なベクトル浮動小数点命令デコード情報を受け取った後、Rename モジュールは io_in_[0-5]<em>bits_fpWen および io_in</em>[0-5]_bits_vecWen 信号に基づいて、新しいベクトル浮動小数点物理レジスタを割り当てる必要があるかどうかを判断します。fpWen または vecWen 信号がハイレベルの場合、新しい浮動小数点またはベクトル物理レジスタを割り当てる必要があります。新しい浮動小数点またはベクトル物理レジスタを割り当てる必要がある場合、fpFreeList または vecFreeList に割り当て要求を送信し、そのサイクルで割り当て結果を取得します。それ以外の場合は、割り当て要求を送信しません。</p>
+<h2 id="psrc">ソースオペランドの物理レジスタ（psrc）の設定</h2>
+<p>Decode モジュールから渡される命令デコード情報に整数レジスタまたはベクトル浮動小数点レジスタ型のソースオペランドがある場合、通常、Decode モジュールは 1 サイクル前に RenameTable に論理レジスタに対応する物理レジスタを問い合わせ、1 サイクル後に Rename モジュールで投機的リネームテーブルの読み取り結果を取得し、その結果を io_out_[0-5]<em>bits_psrc</em>[0-4] を介して Dispatch モジュールに渡します。例外として、前の命令のデスティネーションオペランドと現在の命令のソースオペランドが同じ場合、現在の命令の psrc は前の命令の pdest に設定されるべきです。</p>
+<h2 id="pdest">デスティネーションオペランドの物理レジスタ（pdest）の設定</h2>
+<p>Decode モジュールから渡される命令デコード情報にデスティネーションオペランドが存在することが示されている場合（<span></span> および <span></span> を参照）、通常、Rename モジュールは io_out_[0-5]_bits_pdest を介して新しく割り当てられた物理レジスタを Dispatch モジュールに渡します。例外として、その命令が整数の Move 命令である場合、この命令の pdest はこの命令の psrc に設定されるべきです。</p>
+<h2 id="sec:commit-int-inst">整数命令のコミット</h2>
+<p>整数命令がコミットされると、Rename は RenameTableWrapper から渡される io_int_need_free_[0-5] および io_int_old_pdest_[0-5] 情報に基づいて intFreeList に free 信号を送信し、対応する整数物理レジスタを解放して新しい命令が使用できるようにします。io_int_need_free_[0-5] がハイレベルの場合、対応するチャネルの io_int_old_pdest_[0-5] 整数物理レジスタを解放する必要があることを示します。さらに、Rename は RAB から送られてくる commit 信号を intFreeList に送信し、アーキテクチャ状態リネームポインタの維持に使用させます。</p>
+<h2 id="sec:commit-fp-vec-inst">浮動小数点またはベクトル命令のコミット</h2>
+<p>RAB から浮動小数点命令のコミット情報が渡されると、Rename は RAB と RenameTableWrapper から渡されるコミット情報を組み合わせて fpFreeList に free 信号を送信し、使用されなくなったベクトル浮動小数点物理レジスタを解放して新しい命令が使用できるようにします。RAB から渡される io_rabCommits_info_[0-5]<em>fp/vecWen 信号が 1 サイクル遅延され、1 サイクル遅延された io_rabCommits_isCommit および io_rabCommits_commitValid</em>[0-5] 信号（これらの信号は、そのサイクルがコミット状態にあり、そのチャネルのコミット信号が有効であることを示します。詳細は <span></span> を参照）とともにすべてハイレベルである場合、対応するチャネルの io_fp/vec_old_pdest_[0-5] 浮動小数点またはベクトルレジスタを解放する必要があることを示します。さらに、Rename は RAB から送られてくる commit 信号を fpFreeList に送信し、アーキテクチャ状態リネームポインタの維持に使用させます。</p>
+<h2 id="_4">リダイレクト</h2>
+<p>io_redirect ポートからリダイレクト信号が入力されると、freeList は物理レジスタの割り当てを一時停止し、freeList の物理レジスタ割り当てポインタをアーキテクチャ状態または某个スナップショットの状態に復元します。さらに、Rename モジュールは RenameTable に書き込み要求信号を送信しなくなります。</p>
+<h2 id="sec:rename-re-rename">再リネーム</h2>
+<p>リダイレクト信号が入力されてから 1 サイクル後、Rename モジュールは再リネームプロセスに入ります。再リネーム信号は RAB から io_rabCommits ポートを介して入力されます。再リネーム時、Rename モジュールは Dispatch に有効な命令信号を出力しなくなり、RenameTable に書き込み要求信号も送信しなくなります。</p>
+<p>Rename モジュールは、intFreeList、fpFreeList、および vecFreeList に、それぞれの io_walkReq_[0-5] ポートを介して再リネーム信号を送信します。これらの再リネーム信号は、RAB モジュールからの io_rabCommits_walkValid_[0-5]、io_rabCommits_info_[0-5]<em>isMove、io_rabCommits_info</em>[0-5]<em>ldest、および io_rabCommits_info</em>[0-5]<em>rf/fp/vecWen 信号です。io_rabCommits_isWalk がハイレベルの場合にのみ、io_walkReq</em>[0-5] に入力される信号は有効です。</p>
+<p>intFreeList の場合、io_rabCommits_walkValid_[0-5] がハイレベルで、対応するチャネルの io_rabCommits_info_[0-5]<em>rfWen がハイレベル、io_rabCommits_info</em>[0-5]<em>ldest が 0 でなく、かつ io_rabCommits_info</em>[0-5]<em>isMove がローレベルの場合、対応する io_walkReq</em>[0-5] ポートに有効信号が送信され、再リネームが必要であることを意味します。</p>
+<p>fpFreeList および vecFreeList の場合、io_rabCommits_walkValid_[0-5] がハイレベルで、対応するチャネルの io_rabCommits_info_[0-5]<em>fp/vecWen 信号がハイレベルの場合、対応する io_walkReq</em>[0-5] ポートに有効信号が送信され、再リネームが必要であることを意味します。</p>
+<h2 id="robidx">robIdx の割り当て</h2>
+<p>Rename モジュールは、各マイクロ命令に robIdx を割り当てる責任があります。このモジュール内部では robIdxHead を維持しています。通常、Rename モジュールは Decode から渡されたデコード後の命令に連続した robIdx を順次割り当て、robIdxHead をインクリメントしますが、対応するチャネルの io_in_[0-5]<em>bits_lastUop がローレベルであるか、または compressUnit から出力される対応するチャネルの io_out_needRobFlags</em>[0-5] がローレベルである場合、次のチャネルのマイクロ命令には robIdx が割り当てられません。</p>
+<p>リダイレクトが発生したサイクルでは、このモジュールは robIdxHead をリダイレクトの robIdx にリセットし、次のサイクルで io_redirect_bits_level の値に基づいて robIdxHead をインクリメントするかどうかを決定します。</p>
+<h2 id="sec:decide-snpt-gen">リネームスナップショットの生成決定</h2>
+<p>Rename モジュールは、リネームスナップショットを生成するかどうかも決定します。リネームスナップショットは、リダイレクトが発生した後に再リネームの時間を短縮することを目的としています。リネームスナップショットは分散しており、RenameTable、RenameTable_1、RenameTable_2、intFreeList、fpFreeList、vecFreeList、Rob、Rab、CtrlBlock など多くのモジュールに分布しており、スナップショットに保存される内容もそれぞれ異なります。そのため、どのモジュールがいつスナップショットを生成するかを指示するモジュールが必要であり、そのモジュールが Rename です。外部に対して、Rename はスナップショット生成信号を io_out_*_bits_snapshot を介して他のモジュールに伝達します。内部に対して、Rename はスナップショット生成信号を intFreeList、fpFreeList、vecFreeList にも伝達します。</p>
+<p>リネームスナップショットの生成には多くの制限があります。まず、Rename モジュール内部にはスナップショットカウンタ snapshotCtr があり、このカウンタが 0 のときにのみスナップショットを生成できます。次に、現在他にスナップショットが存在する場合、このサイクルでリネームされる最初のマイクロ命令に割り当てられる robIdx は、最後に生成されたスナップショットの robIdx と 6 以上、つまり ROB のコミット幅以上離れている必要があります。最後に、このサイクルでリネームされる最初のマイクロ命令は、それが属する命令の最初のマイクロ命令でなければなりません。つまり、io_in_0_bits_firstUop はハイレベルでなければなりません。これらの 3 つの条件をすべて満たし、かつリネームされる 6 つのマイクロ命令の中に分岐ジャンプ命令が存在する場合にのみ、スナップショットが生成されます。このとき、分岐ジャンプ命令であるチャネルの io_out_*_bits_snapshot 信号がハイレベルになり、Rename はスナップショット生成信号を内部のサブモジュールに伝えます。</p>
+<p>スナップショットカウンタ snapshotCtr は、スナップショットの生成間隔を制御するカウンタです。近すぎるスナップショットは意味がなく、スナップショットリソースの無駄遣いになるため、このようなカウンタが実装されています。snapshotCtr の初期値は RAB のコミット幅の 4 倍、つまり 4×8=32 に設定されています。現在有効なリネームスナップショットが存在しない場合、snapshotCtr は 0 に設定されます。そうでない場合、n 個のマイクロ命令がリネームされるごとに snapshotCtr は n だけデクリメントされ、0 になるまで続きます。snapshotCtr が 0 になった後、ある時点でリネームスナップショットが生成されると、snapshotCtr は最大値からそのサイクルでリネームされたマイクロ命令数を引いた値、つまり 32-PopCount(io_out_<em><em>valid &amp;&amp; io_out</em></em>_ready) にリセットされます。</p>
+<h2 id="_5">全体ブロック図</h2>
+<p>
+<figure><img src="../figure/Rename-Overall.svg" /><figcaption>Rename 全体ブロック図</figcaption>
+</figure>
+</p>
+<h2 id="_6">インターフェースタイミング</h2>
+<h3 id="decode">Decode 入力インターフェースタイミング概略図</h3>
+<p>
+<figure id="fig:rename-input"><img src="../figure/Rename-Input.svg" /><figcaption>Decode 入力インターフェースタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:rename-input">此图</a></span> は、decode からの 3 つのデコード結果入力例を示しています。ready と valid 信号が同時にハイのとき、対応する bits が Rename モジュールに受け取られます。</p>
+<h3 id="rename_1">Rename 出力インターフェースタイミング概略図</h3>
+<p>
+<figure id="fig:rename-output"><img src="../figure/Rename-Output.svg" /><figcaption>Rename 出力インターフェースタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:rename-output">此图</a></span> は、3 つのリネーム結果の例を示しています。ready と valid 信号が同時にハイのとき、対応する bits が Rename モジュールから Dispatch に送信されます。</p>
+<h3 id="_7">命令コミットロジックタイミング概略図</h3>
+<p>
+<figure id="fig:rename-commit-io"><img src="../figure/Rename-Commit-IO.svg" /><figcaption>命令コミットロジックタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:rename-commit-io">此图</a></span> は、ROB からの 5 つの命令コミット入力を示しています。io_rabCommits_isCommit がハイで io_rabCommits_isWalk がローの場合、io_rabCommits_info_<em>_</em> は命令コミット情報です。io_rabCommits_commitValid_<em> がハイの場合、対応する io_rabCommits_info_</em><em><em> は有効な命令コミット情報を Rename モジュールに渡します。同時に、io_</em>_old_pdest</em><em> は 1 サイクル遅延して、解放する必要のある古い物理レジスタ番号を Rename モジュールに渡し、さらに 1 サイクル遅延して、整数物理レジスタを解放する必要があるかどうかを io_int_need_free_</em> ポートを介して Rename モジュールに渡します。</p>
+<h3 id="_8">リダイレクトと再リネームのタイミング概略図</h3>
+<p>
+<figure id="fig:rename-redirect-io"><img src="../figure/Rename-Redirect-IO.svg" /><figcaption>リダイレクトと再リネームのタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:rename-redirect-io">此图</a></span> は、リダイレクト発生前後の関連信号を示しています。最初の 2 サイクルでは、io_redirect_valid はローレベルで、Rename は通常動作状態にあり、<span><a href="#fig:rename-commit-io">此图</a></span> と同じです。その後、io_redirect_valid 信号が 1 サイクルハイになり、リダイレクトが到着し、リダイレクトの関連情報が io_redirect_bits_<em> から送られ、Rename は次のサイクルから再リネーム動作状態に入ります。その後の 3 サイクルでは、io_rabCommits_isCommit はローレベルになり、io_rabCommits_info_</em><em><em> はもはやコミット情報を送信しません。それに対して、io_rabCommits_isWalk はハイレベルになり、io_rabCommits_info_</em></em><em> が再リネーム情報を送信することを示し、Rename は再リネーム作業を行う必要があります。io_rabCommits_walkValid_</em> がハイの場合、対応する io_rabCommits_info_<em>_</em> から送られる再リネーム情報は有効です。</p>
+<h1 id="renametablewrapper">RenameTableWrapper</h1>
+<p>RenameTableWrapper は、内部に整数リネームテーブル RenameTable モジュール、浮動小数点リネームテーブル RenameTable_1 モジュール、およびベクトルリネームテーブル RenameTable_2 モジュールを含むラッパーモジュールです。このラッパーモジュールは、3 つのリネームテーブルを単純にパッケージ化するだけでなく、内部でコミットと再リネームに関連するロジックを処理します。RenameTableWrapper は、内部のリネームテーブルと外部モジュールとの間の橋渡し役を果たします。</p>
+<h2 id="_9">投機的リネームテーブルの読み取り</h2>
+<p>RenameTableWrapper には、合計 12 個の整数レジスタ読み取りポート、18 個の浮動小数点レジスタ読み取りポート、および 30 個のベクトル浮動小数点レジスタ読み取りポートがあります。整数レジスタ読み取りポートは 2 個で 1 グループ、浮動小数点レジスタ読み取りポートは 3 個で 1 グループ、ベクトルレジスタ読み取りポートは 5 個で 1 グループで、それぞれ 6 グループの読み取りポートがあります。整数レジスタ読み取りポートは、整数論理レジスタから整数物理レジスタへの投機的マッピング関係を読み取るために使用されます。浮動小数点レジスタ読み取りポートは、浮動小数点論理レジスタからベクトル浮動小数点物理レジスタへの投機的マッピング関係を読み取るために使用されます。ベクトルレジスタ読み取りポートは、ベクトル論理レジスタからベクトル浮動小数点物理レジスタへの投機的マッピング関係を読み取るために使用されます。</p>
+<p>RenameTableWrapper の読み取りは同期的です。これは、<code>T</code> 番目のクロックサイクルで io_(int/fp/vec)ReadPorts_<em>_</em><em>addr を介して送信された読み取り要求は、<code>T+1</code> 番目のクロックサイクルで io</em>(int/fp/vec)ReadPorts_<em>_</em>_data から <code>T</code> 番目のクロックサイクルに対応する論理レジスタの物理レジスタを取得することを意味します。</p>
+<p>RenameTableWrapper の読み取りにはフォワーディング機能があります。<code>T</code> 番目のクロックサイクルであるアドレスに読み取り要求を送信すると同時に、あるアドレスに書き込み要求を送信した場合、<code>T+1</code> 番目のクロックサイクルでは、<code>T</code> 番目のクロックサイクルであるアドレスに書き込まれた値を読み取ります。</p>
+<p>RenameTableWrapper の読み取りには保持機能があります。<code>T</code> 番目のクロックサイクルで、ある読み取りポートの io_(int/fp/vec)ReadPorts_<em>_</em>_hold がハイレベルの場合、<code>T+1</code> 番目のクロックサイクルで読み取られる値は、<code>T</code> 番目のクロックサイクルで読み取られた値と同じになります。</p>
+<h2 id="_10">リネーム段階での投機的リネームテーブルへの書き込み</h2>
+<p>RenameTableWrapper には、合計 6 個の整数レジスタ書き込みポート、6 個の浮動小数点レジスタ書き込みポート、および 6 個のベクトルレジスタ書き込みポートがあり、これらのポートはリネーム段階で投機的リネームテーブルに書き込むために使用されます。整数レジスタ書き込みポートは、リネーム段階で整数論理レジスタから整数物理レジスタへの投機的マッピング関係を更新するために使用されます。浮動小数点レジスタ書き込みポートは、リネーム段階で浮動小数点論理レジスタからベクトル浮動小数点物理レジスタへの投機的マッピング関係を更新するために使用されます。ベクトルレジスタ書き込みポートは、リネーム段階でベクトル論理レジスタからベクトル浮動小数点物理レジスタへの投機的マッピング関係を更新するために使用されます。</p>
+<p>RenameTableWrapper の書き込みは同期的です。これは、<code>T</code> 番目のクロックサイクルで io_(int/fp/vec)RenamePorts_<em><em>addr と io</em>(int/fp/vec)RenamePorts_</em>_data を介して送信された書き込み要求は、<code>T+1</code> 番目のクロックサイクルで読み出されることを意味します。</p>
+<p>RenameTableWrapper の書き込みにはイネーブルがあります。io_(int/fp/vec)RenamePorts_*_wen がハイの書き込み要求のみが有効です。</p>
+<p>RenameTableWrapper の書き込みには優先順位があります。書き込みチャネルの番号が大きいほど優先順位が高くなります。つまり、2 つのチャネルが同じアドレスに書き込む場合、最終的に書き込まれる結果は番号の大きい方のチャネルの結果になります。</p>
+<h2 id="sec:w-arch-rat">コミット段階でのアーキテクチャリネームテーブルへの書き込み</h2>
+<p>RenameTableWrapper は、RAB からの commit 情報を監視して、アーキテクチャリネームテーブルを更新します。あるサイクルの io_rabCommits_isCommit 信号がハイレベルの場合、そのサイクルがコミット中であることを示します。このとき、ある io_rabCommits_commitValid_<em> 信号がハイレベルの場合、そのポートのコミット信号が有効であることを示します。このとき、さらに io_rabCommits_info_</em><em>rfWen、io_rabCommits_info</em><em><em>fpWen、および io_rabCommits_info</em></em><em>vecWen を調べる必要があります。io_rabCommits_info</em><em><em>rfWen がハイレベルの場合、整数レジスタがアーキテクチャリネームテーブルを更新する必要があることを示します。io_rabCommits_info</em></em><em>fpWen がハイレベルの場合、浮動小数点レジスタがアーキテクチャリネームテーブルを更新する必要があることを示します。io_rabCommits_info</em><em><em>vecWen がハイレベルの場合、ベクトルレジスタがアーキテクチャリネームテーブルを更新する必要があることを示します。これらの 3 つのいずれかの場合、RenameTableWrapper は、整数、浮動小数点、またはベクトルのアーキテクチャリネームテーブルのアドレス io_rabCommits_info</em></em><em>ldest の項目を io_rabCommits_info</em>*_pdest に変更します。</p>
+<h2 id="_11">コミット段階での物理レジスタ解放情報の提供</h2>
+<p>RenameTableWrapper は、コミット段階でのアーキテクチャリネームテーブルへの書き込み状況に基づいて、物理レジスタの解放情報を提供します。この情報には、解放する整数物理レジスタ番号 io_int_old_pdest_<em> と対応する有効信号 io_int_need_free_</em>、および解放するベクトル浮動小数点物理レジスタ番号 io_(fp/vec)<em>old_pdest</em>* が含まれます。これらの信号は RenameTableWrapper のサブモジュールから直接送られ、Rename モジュールで命令コミットの状況と組み合わせて物理レジスタの解放が行われます。</p>
+<h2 id="_12">再リネーム段階での投機的リネームテーブルへの書き込み</h2>
+<p>RenameTableWrapper は、RAB からの commit 情報を監視して再リネームを行います。あるサイクルの io_rabCommits_isWalk 信号がハイレベルの場合、そのサイクルが再リネーム中であることを示します。このとき、ある io_rabCommits_walkValid_<em> 信号がハイレベルの場合、そのポートの再リネーム信号が有効であることを示します。このとき、さらに io_rabCommits_info_</em><em>rfWen、io_rabCommits_info</em><em><em>fpWen、および io_rabCommits_info</em></em><em>vecWen を調べる必要があります。io_rabCommits_info</em><em><em>rfWen がハイレベルの場合、整数レジスタが再リネームする必要があることを示します。io_rabCommits_info</em></em><em>fpWen がハイレベルの場合、浮動小数点レジスタが再リネームする必要があることを示します。io_rabCommits_info</em><em><em>vecWen がハイレベルの場合、ベクトルレジスタが再リネームする必要があることを示します。これらの 3 つのいずれかの場合、RenameTableWrapper は、整数、浮動小数点、またはベクトルの投機的リネームテーブルのアドレス io_rabCommits_info</em></em><em>ldest の項目を io_rabCommits_info</em>*_pdest に変更します。</p>
+<h2 id="_13">リネームスナップショットの維持</h2>
+<p>RenameTableWrapper は、外部からのリネームスナップショット信号 io_snpt_* を各サブモジュールに渡し、リネームスナップショットの生成、解放、フラッシュ、および使用に使用します。</p>
+<h2 id="_14">全体ブロック図</h2>
+<p>
+<figure><img src="../figure/RenameTableWrapper.svg" /><figcaption>RenameTableWrapper 全体ブロック図</figcaption>
+</figure>
+</p>
+<h2 id="_15">インターフェースタイミング</h2>
+<h3 id="_16">整数読み書きインターフェースタイミング概略図（浮動小数点ベクトルも同様）</h3>
+<p>
+<figure id="fig:rat-wrapper-rw-io"><img src="../figure/RAT-Wrapper-RW-IO.svg" /><figcaption>整数読み書きインターフェースタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:rat-wrapper-rw-io">此图</a></span> は、整数の読み書きのインターフェースタイミングを示しています。</p>
+<p>時刻 2 で、io_intRenamePorts_0 はアドレス 14 に 73 を書き込みました。同時に、io_intReadPorts_0_0 もアドレス 14 に読み取り要求を発行したため、時刻 3 で時刻 2 に書き込まれた 73 が読み取られました。</p>
+<p>時刻 4 で、io_intRenamePorts_0 はアドレス 4 に 74 を書き込み、io_intRenamePorts_1 もアドレス 4 に 75 を書き込みました。そのため、io_intReadPorts_0_0 が時刻 5 でアドレス 4 に読み取り要求を発行した後、時刻 6 で io_intRenamePorts_1 が書き込んだ 75 が読み取られました。</p>
+<p>時刻 3 と時刻 7 で、io_intReadPorts_0_0_hold はハイレベルであるため、時刻 4 で読み出された値は時刻 3 で読み出された値と同じ 73 であり、アドレス 5 の値ではありません。同様に、時刻 8 で読み出された値は時刻 7 で読み出された値と同じ 76 であり、時刻 7 で新しく書き込まれた値 77 ではありません。</p>
+<h3 id="_17">再リネームとコミットのインターフェースタイミング概略図</h3>
+<p>
+<figure id="fig:rat-wrapper-re-rename-io"><img src="../figure/RAT-Wrapper-Re-Rename-IO.svg" /><figcaption>再リネームとコミットのインターフェースタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:rat-wrapper-re-rename-io">此图</a></span> は、2 つの再リネームとコミットのインターフェースのタイミングを示しています。</p>
+<p>時刻 1 から時刻 4 まで、io_rabCommits_isWalk 信号はハイ、io_rabCommits_ioCommit 信号はローで、このときは再リネーム状態です。時刻 2 で、io_rabCommits_walkValid_0 はハイ、io_rabCommits_info_0_rfWen はロー、io_rabCommits_info_0_fpWen はハイで、再リネームインターフェース 0 は 37 を浮動小数点投機的リネームテーブルのアドレス 0 に書き込みます。時刻 3 で、2 つの再リネームインターフェースは両方とも 12 番の論理整数レジスタに値を書き込みました。このとき、1 番インターフェースは 0 番インターフェースよりも優先度が高いため、57 が実際に整数投機的リネームテーブルのアドレス 12 に書き込まれます。</p>
+<p>時刻 5 から時刻 9 まで、io_rabCommits_isWalk 信号はロー、io_rabCommits_ioCommit 信号はハイで、このときはコミット状態です。時刻 7 で、io_rabCommits_commitValid_0 はハイ、io_rabCommits_info_0_rfWen はロー、io_rabCommits_info_0_fpWen はハイで、コミットインターフェース 0 は 92 を浮動小数点アーキテクチャリネームテーブルのアドレス 18 に書き込みます。</p>
+<h1 id="sec:me-rat">move 削除をサポートする RenameTable</h1>
+<p>move 削除をサポートする RenameTable は、整数レジスタのリネームテーブルに使用され、モジュール名は <code>RenameTable</code> で、論理整数レジスタと物理整数レジスタのマッピング関係を維持します。12 個の読み取り投機的リネームテーブルポート、6 個の書き込み投機的リネームテーブルポート、および 6 個の書き込みアーキテクチャリネームテーブルポートがあり、内部では 32 個の幅 8 のレジスタによって実際にマッピング関係が維持されます。読み取りポートと書き込みポートの動作は、RenameTableWrapper で説明されている動作と完全に同じです。注意すべき点として、タイミングを考慮して、モジュールの <code>T0</code> 時刻の書き込み投機的リネームテーブル要求は実際には <code>T1</code> 時刻に処理され、<code>T0</code> 時刻の書き込み投機的リネームテーブルデータは <code>T1</code> 時刻の読み取り投機的リネームテーブル結果にバイパスされます。</p>
+<p>次に、モジュール内部には、リダイレクトと再リネーム時の高速回復のための 4 つの投機的リネームテーブルスナップショットがあります。これらのスナップショットは、サブモジュール SnapShotGenerator_3 に保存されており、RenameTable での名前は <em>snapshots_snapshotGen_io_snapshots_0/1/2/3</em>[0-31] です。スナップショットの生成、解放、使用、およびフラッシュは、外部信号 io_redirect および io_snpt_* によって完全に制御されます。</p>
+<p>外部から渡されるリダイレクト信号 io_redirect とスナップショット制御信号 io_snpt_<em> は、1 サイクル遅延して t1_redirect と t1_snap_</em> 信号になります。リダイレクト信号 t1_redirect がハイレベルの場合、t1_snpt_useSnpt 信号がハイレベルかどうかをチェックします。t1_snpt_useSnpt 信号がローレベルの場合、投機的リネームテーブルをアーキテクチャリネームテーブルに設定します。t1_snpt_useSnpt がハイレベルの場合、投機的リネームテーブルを <em>snapshots_snapshotGen_io_snapshots</em>[t1_snpt_snptSelect]_[0-31] に設定します。</p>
+<p>さらに、モジュールは、書き込みアーキテクチャリネームテーブルポートと内部のアーキテクチャリネームテーブルに基づいて、物理レジスタ解放信号を出力します。書き込みアーキテクチャリネームテーブルチャネルの書き込みイネーブル信号 io_archWritePorts_n_wen がローレベルの場合、次のサイクルの io_old_pdest_n は 0 になります。書き込みイネーブル信号がゼロでない場合、次のサイクルの io_old_pdest_n は、そのサイクルの arch_table[io_archWritePorts_n_addr] になります。追加の注意点として、io_old_pdest_n にはバイパスがあります。n&gt;0 の場合、n より小さい番号のチャネルがアーキテクチャリネームテーブルの同じ論理レジスタに値を書き込んだ場合、次のサイクルの io_old_pdest_n は、arch_table[io_archWritePorts_n_addr] ではなく、この値に設定されるべきです。例えば、0&lt;j<n で、io_archWritePorts_n_wen と io_archWritePorts_j_wen が両方ともハイレベルで、io_archWritePorts_n_addr == io_archWritePorts_j_addr の場合、次のサイクルの io_old_pdest_n は、arch_table[io_archWritePorts_n_addr] ではなく、io_archWritePorts_j_data に設定されるべきです。さらに、n>1 の場合、n より小さい番号の複数のチャネルがアーキテクチャリネームテーブルの同じ論理レジスタに値を書き込んだ場合、次のサイクルの io_old_pdest_n は、これらのチャネルの中で番号の大きい方に対応する書き込み値に設定されるべきです。例えば、0&lt;j&lt;k&lt;n で、io_archWritePorts_n_wen、io_archWritePorts_j_wen、および io_archWritePorts_k_wen がすべてハイレベルで、io_archWritePorts_n_addr == io_archWritePorts_j_addr == io_archWritePorts_k_addr の場合、次のサイクルの io_old_pdest_n は、arch_table[io_archWritePorts_n_addr] や io_archWritePorts_j_data ではなく、io_archWritePorts_k_data に設定されるべきです。</p>
+<p>物理レジスタ解放信号には、io_need_free_<em> 信号も含まれます。そのサイクルのあるチャネルの io_old_pdest_n 信号が arch_table_</em> のどの項目とも異なる場合、そのチャネルの次のサイクルの io_need_free_n 信号をハイに設定します。追加の注意点として、n&gt;0 の場合、n より小さい番号のチャネルの io_old_pdest_j 信号が io_old_pdest_n と同じ場合、次のサイクルの io_need_free_n 信号はハイに設定されません。</p>
+<h2 id="_18">全体ブロック図</h2>
+<p>
+<figure><img src="../figure/RenameTable.svg" /><figcaption>RenameTable 全体ブロック図</figcaption>
+</figure>
+</p>
+<h2 id="_19">インターフェースタイミング</h2>
+<h3 id="_20">読み書きインターフェースタイミング概略図</h3>
+<p>
+<figure><img src="../figure/RAT-RW-IO.svg" /><figcaption>move 削除をサポートする RenameTable 読み書きインターフェースタイミング概略図</figcaption>
+</figure>
+</p>
+<h1 id="move-renametable">move 削除をサポートしない RenameTable</h1>
+<p>move 削除をサポートしない RenameTable は <span></span> とほぼ同じですが、io_need_free_* 信号は含まれません。浮動小数点レジスタのリネームテーブル <code>RenameTable_1</code> とベクトルレジスタのリネームテーブル <code>RenameTable_2</code> は、このタイプのリネームテーブルを使用します。</p>
+<p>浮動小数点レジスタのリネームテーブル <code>RenameTable_1</code> は、論理浮動小数点レジスタと物理ベクトル浮動小数点レジスタのマッピング関係を維持します。18 個の読み取り投機的リネームテーブルポート、6 個の書き込み投機的リネームテーブルポート、および 6 個の書き込みアーキテクチャリネームテーブルポートがあり、内部では 34 個の幅 8 のレジスタによって実際にマッピング関係が維持されます。</p>
+<p>浮動小数点レジスタのリネームテーブル <code>RenameTable_2</code> は、論理ベクトルレジスタと物理ベクトル浮動小数点レジスタのマッピング関係を維持します。30 個の読み取り投機的リネームテーブルポート、6 個の書き込み投機的リネームテーブルポート、および 6 個の書き込みアーキテクチャリネームテーブルポートがあり、内部では 48 個の幅 8 のレジスタによって実際にマッピング関係が維持されます。</p>
+<h2 id="_21">インターフェースタイミング</h2>
+<h3 id="_22">読み書きインターフェースタイミング概略図</h3>
+<p>
+<figure><img src="../figure/RAT-NO-ME-RW-IO.svg" /><figcaption>move 削除をサポートしない RenameTable 読み書きインターフェースタイミング概略図</figcaption>
+</figure>
+</p>
+<h1 id="stdfreelist">StdFreeList</h1>
+<p>StdFreeList は Rename モジュールで fpFreeList および vecFreeList としてインスタンス化されます。<span></span>、<span></span>、および <span></span> で述べたように、fpFreelist はリネーム時にベクトル浮動小数点物理レジスタの割り当て要求を受け取り、割り当てられた空きベクトル浮動小数点物理レジスタを返します。再リネーム時には RAB から渡される再リネーム要求に基づいてベクトル浮動小数点物理レジスタを再割り当てします。コミット時には、もはや使用されなくなったベクトル浮動小数点物理レジスタを解放し、アーキテクチャのデキューポインタを更新します。</p>
+<h2 id="_23">全体ブロック図</h2>
+<p>
+<figure><img src="../figure/StdFreeList.svg" /><figcaption>StdFreeList 全体ブロック図</figcaption>
+</figure>
+</p>
+<h2 id="_24">インターフェースタイミング</h2>
+<h3 id="_25">空きレジスタ割り当てタイミング概略図</h3>
+<p>
+<figure id="fig:stdfreelist-alloc-io"><img src="../figure/StdFreeList-Alloc-IO.svg" /><figcaption>StdFreeList 空きレジスタ割り当てタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:stdfreelist-alloc-io">此图</a></span> は、空き物理レジスタ割り当てのタイミングを示しています。時刻 3、時刻 5、および時刻 6 で、io_redirect と io_walk はローレベル、io_doAllocate と io_canAllocate はハイレベルであり、空き物理レジスタの割り当てが行われました。時刻 3 で、io_allocateReq_[2-4] はハイレベルであり、StdFreeList は io_allocatePhyReg_[2-4] を介してそれぞれ割り当てられた空き物理レジスタ番号 151、112、および 143 を返しました。時刻 5 では、io_allocatePhyReg_[0-2|5] はそれぞれ割り当てられた空き物理レジスタ番号 127、162、163、および 144 を返しました。時刻 6 では、174、182、および 179 を返しました。<code>n</code> 個の空き物理レジスタが正常に割り当てられるたびに、モジュール内部の headPtr は <code>n</code> だけインクリメントされます。</p>
+<h3 id="_26">命令コミットタイミング概略図</h3>
+<p>
+<figure id="fig:stdfreelist-commit-io"><img src="../figure/StdFreeList-Commit-IO.svg" /><figcaption>StdFreeList 命令コミットタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:stdfreelist-commit-io">此图</a></span> は、命令コミットのタイミングを示しています。ここで、io_freeReq_<em> はあるパスの io_freeReq 信号を表し、io_freePhyReg_</em> は io_freeReq_* に対応するあるパスの io_freePhyReg 信号を表します。io_redirect と io_walk が両方ともローレベルの場合、io_freeReq がハイレベルであれば、StdFreeList は対応する io_freePhyReg を空きキューに追加します。</p>
+<p>さらに、io_freeReq_<em> の前のサイクルで、Rename モジュールは RAB のコミット情報を渡して、アーキテクチャのデキューポインタ archHeadPtr を更新します。io_commit_isCommit と対応するチャネルの io_commit_commitValid_</em> 信号がハイレベルの場合、対応するチャネルの更新信号が有効であることを示します。このとき、対応するチャネルの io_commit_info_<em><em>fpWen または io_commit_info</em></em>_vecWen がハイレベルの場合、そのチャネルが archHeadPtr を 1 つインクリメントさせることを示します。<code>k</code> 個のチャネルが上記の条件を満たす場合、archHeadPtr は <code>k</code> だけインクリメントされます。</p>
+<h3 id="_27">命令再リネームタイミング概略図</h3>
+<p>
+<figure id="fig:stdfreelist-re-rename-io"><img src="../figure/StdFreeList-Re-Rename-IO.svg" /><figcaption>StdFreeList 命令再リネームタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:stdfreelist-re-rename-io">此图</a></span> は、命令の再リネームのタイミングを示しています。io_redirect が時刻 1 で 1 サイクルハイになった後、io_walk は数サイクルハイになり、モジュールが再リネーム段階に入ったことを示します。時刻 1 で、io_snpt_useSnpt がローレベルであるため、headPtr は archHeadPtr の値に復元されます。この復元はすぐには行われず、時刻 2 で io_walkReq_<em> のハイレベルの数（2）を加算して headPtrAllocate（5）を取得し、時刻 3 で headPtr に書き込まれます。その後、io_walk がハイレベルの場合、headPtrAllocate は headPtr+PopCount(io_walkReq_</em>) の値に設定され、次のサイクルで headPtr に書き込まれます。</p>
+<p>再リネームプロセスは、投機的実行の誤ったパス上のリネーム状態を排除することを目的としています。まず headPtr をアーキテクチャの archHeadPtr 状態（または io_snpt_useSnpt がハイレベルの場合はスナップショット状態）に復元し、その後、誤ったパスに入る前まで再リネームすることで、この目的を達成します。</p>
+<h2 id="_28">主要回路：リングキュー</h2>
+<p>空き物理レジスタはリングキューによって管理されます。このリングキューは、レジスタグループ freeList（コード中の freeList_<em>、その数を size とする）、およびヘッドポインタ headPtr（コード中の headPtr_</em>）とテールポインタ tailPtr（コード中の tailPtr_*）で構成されます。ここで、headPtr はデキューポインタ、tailPtr はエンキューポインタです。</p>
+<p>説明を簡単にするために、まず通常のキューを考えます。このとき、headPtr と tailPtr は両方とも freeList 内の要素を指すポインタです。通常動作時、tailPtr は常に headPtr 以上であり、キュー内の要素は {headPtr, headPtr + 1, ..., tailPtr - 1} です。要素をエンキューする場合、要素を freeList[tailPtr] に配置し、tailPtr を 1 つインクリメントします。要素をデキューする場合、freeList[headPtr] を取り出し、headPtr を 1 つインクリメントします。tailPtr と headPtr が等しい場合、キューは空です。tailPtr が headPtr より大きい場合、キューは空ではありません。</p>
+<p>
+<figure><img src="../figure/Queue-Normal.svg" /><figcaption>通常のキュー</figcaption>
+</figure>
+</p>
+<p>しかし、freeList は無限長ではないため、リングキューを設計しました。リングキューは、有限長の通常のキューを先頭と末尾でつなげたものと考えることができます。このとき、tailPtr と headPtr はもはや freeList 内の要素を指す単なるポインタではなくなります。元の設計では、tailPtr と headPtr が等しい場合、リングキューは空であるか、満杯である可能性があります。</p>
+<p>この問題を解決するために、tailPtr と headPtr に flag フィールドを追加しました。このフィールドの初期値は false で、freeList[size - 1] から freeList[0] に変わるたびに flag を反転させます。これにより、value が同じ場合でも、flag が同じであればリングキューは空であり、flag が異なればリングキューは満杯であることがわかります。</p>
+<p>canAllocate の更新タイミング：現在のサイクルで headPtr、tailPtr、freeReq、および allocateReq に基づいて freeRegCnt を計算し、それを 1 サイクル遅延させて freeRegCntReg を取得します（これが実際の size です）。freeRegCntReg がデコード幅より大きい場合、canAllocate はハイになり、そのサイクルで出力されます。</p>
+<p>
+<figure><img src="../figure/Queue-Circle.svg" /><figcaption>リングキュー</figcaption>
+</figure>
+</p>
+<h1 id="mefreelist">MEFreeList</h1>
+<p>MEFreeList は Rename モジュールで intFreeList としてインスタンス化されます。<span></span>、<span></span>、および <span></span> で述べたように、intFreelist はリネーム時に整数物理レジスタの割り当て要求を受け取り、割り当てられた空き整数物理レジスタを返します。再リネーム時には RAB から渡される再リネーム要求に基づいて整数物理レジスタを再割り当てします。コミット時には、もはや使用されなくなった整数物理レジスタを解放します。StdFreeList とは異なり、MEFreeList は move 命令の削除をサポートしています。命令が move 命令の場合、Rename は io_allocateReq_*_valid をハイに設定しないため、MEFreeList はその命令に空き物理レジスタを割り当てません。</p>
+<h2 id="_29">全体ブロック図</h2>
+<p>
+<figure><img src="../figure/MEFreeList.svg" /><figcaption>MEFreeList 全体ブロック図</figcaption>
+</figure>
+</p>
+<h2 id="_30">インターフェースタイミング</h2>
+<h3 id="_31">空きレジスタ割り当てタイミング概略図</h3>
+<p>
+<figure id="fig:mefreelist-alloc-io"><img src="../figure/MEFreeList-Alloc-IO.svg" /><figcaption>MEFreeList 空きレジスタ割り当てタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:mefreelist-alloc-io">此图</a></span> は、空き物理レジスタ割り当てのタイミングを示しています。時刻 3、時刻 5、および時刻 6 で、io_redirect と io_walk はローレベル、io_doAllocate と io_canAllocate はハイレベルであり、空き物理レジスタの割り当てが行われました。時刻 3 で、io_allocateReq_[2-4] はハイレベルであり、MEFreeList は io_allocatePhyReg_[2-4] を介してそれぞれ割り当てられた空き物理レジスタ番号 151、112、および 143 を返しました。時刻 5 では、io_allocatePhyReg_[0-2|5] はそれぞれ割り当てられた空き物理レジスタ番号 127、162、163、および 144 を返しました。時刻 6 では、174、182、および 179 を返しました。</p>
+<h3 id="_32">命令コミットタイミング概略図</h3>
+<p>
+<figure id="fig:mefreelist-commit-io"><img src="../figure/MEFreeList-Commit-IO.svg" /><figcaption>MEFreeList 命令コミットタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:mefreelist-commit-io">此图</a></span> は、命令コミットのタイミングを示しています。ここで、io_freeReq_<em> はあるパスの io_freeReq 信号を表し、io_freePhyReg_</em> は io_freeReq_* に対応するあるパスの io_freePhyReg 信号を表します。io_redirect と io_walk が両方ともローレベルの場合、io_freeReq がハイレベルであれば、StdFreeList は対応する io_freePhyReg を空きキューに追加します。</p>
+<p>さらに、io_freeReq_<em> の 2 サイクル前に、Rename モジュールは RAB のコミット情報を渡して、アーキテクチャのデキューポインタ archHeadPtr を更新します。io_commit_isCommit と対応するチャネルの io_commit_commitValid_</em> 信号がハイレベルの場合、対応するチャネルの更新信号が有効であることを示します。このとき、対応するチャネルの io_commit_info_<em><em>rfWen がハイレベル、io_commit_info</em></em><em>ldest が 0 でなく、かつ io_commit_info</em>*_isMove がローレベルの場合、そのチャネルが archHeadPtr を 1 つインクリメントさせることを示します。<code>k</code> 個のチャネルが上記の条件を満たす場合、archHeadPtr は <code>k</code> だけインクリメントされます。</p>
+<p>io_commit_commitValid_<em> があるサイクルでハイレベルであっても、io_freeReq_</em> 信号が 2 サイクル後に必ずしもハイレベルになるとは限りません。この現象の原因は move 削除です。ここでの io_freeReq_* は RenameTable の出力信号 io_need_free に由来します。RenameTable モジュールで述べたように、RenameTable の io_need_free 信号は、arch_table に同じ物理レジスタが存在する場合、ハイにならない可能性があります。そして、move 削除によって異なる論理レジスタが同じ物理レジスタを共有することになり、その結果、RenameTable の異なる項目に同じ物理レジスタが存在することになります。</p>
+<h3 id="_33">命令再リネームタイミング概略図</h3>
+<p>
+<figure id="fig:mefreelist-re-rename-io"><img src="../figure/MEFreeList-Re-Rename-IO.svg" /><figcaption>MEFreeList 命令再リネームタイミング概略図</figcaption></figure>
+</p>
+<p><span><a href="#fig:mefreelist-re-rename-io">此图</a></span> は、命令の再リネームのタイミングを示しています。io_redirect が時刻 1 で 1 サイクルハイになった後、io_walk は数サイクルハイになり、モジュールが再リネーム段階に入ったことを示します。時刻 1 で、io_snpt_useSnpt がローレベルであるため、headPtr は archHeadPtr の値に復元されます。この復元はすぐには行われず、時刻 2 で io_walkReq_<em> のハイレベルの数（2）を加算して headPtrAllocate（5）を取得し、時刻 3 で headPtr に書き込まれます。その後、io_walk がハイレベルの場合、headPtrAllocate は headPtr+PopCount(io_walkReq_</em>) の値に設定され、次のサイクルで headPtr に書き込まれます。</p>
+<p>再リネームプロセスは、投機的実行の誤ったパス上のリネーム状態を排除することを目的としています。まず headPtr をアーキテクチャの archHeadPtr 状態（または io_snpt_useSnpt がハイレベルの場合はスナップショット状態）に復元し、その後、誤ったパスに入る前まで再リネームすることで、この目的を達成します。</p>
+<h1 id="compressunit">CompressUnit</h1>
+<p>CompressUnit は、どの命令が同じ ROB エントリを共有できるか、つまり同じ ROB エントリに圧縮できるかを決定するために使用されます。このモジュールはデコードユニットからの出力を受け取り、デコード出力の結果に基づいて ROB 圧縮情報を取得します。</p>
+<p>あるチャネルが ROB 圧縮可能（canCompress_[0-5]）としてマークされるのは、そのチャネルから渡されたデコード情報が次の条件を満たす場合のみです：そのチャネルのデコード情報が有効（io_in_[0-5]<em>valid）、そのチャネルに命令融合がない（!io_in</em>[0-5]<em>bits_commitType[2]）、そのチャネルに命令分割がないか、または命令分割の最後のマイクロ命令である（io_in</em>[0-5]<em>bits_lastUop）、そのチャネルに例外がない（io_in</em>[0-5]<em>bits_exceptionVec</em>* がすべてローレベル）、かつそのチャネルが ROB 圧縮可能としてマークされている（io_in_[0-5]_bits_canRobCompress）。</p>
+<p>CompressUnit は、各チャネルに対して ROB エントリを割り当てる必要があるかどうかのフラグ io_out_needRobFlags_[0-5] を出力します。あるチャネルの canCompress_[0-5] が 0 であるか、またはそのチャネルが自身が属する連続して 1 である canCompress_[0-5] グループの中で最も番号の大きいチャネルである場合にのみ、そのチャネルの io_out_needRobFlags_[0-5] はハイレベルに設定されます。</p>
+<p>CompressUnit は、各チャネルに対して、そのチャネルが属する ROB エントリ内の命令数 io_out_instrSizes_[0-5] を出力します。あるチャネルの canCompress_[0-5] が 0 の場合、そのチャネルの io_out_instrSizes_[0-5] は 1 です。あるチャネルの canCompress_[0-5] が 1 の場合、そのチャネルの io_out_instrSizes_[0-5] は、自身が属する連続して 1 である canCompress_[0-5] グループの要素数です。</p>
+<p>CompressUnit は、各チャネルに対して、そのチャネルと同じ ROB エントリを共有するチャネルのマスク io_out_masks_[0-5] を出力します。この信号のビット幅は 6 で、チャネル数と同じです。あるチャネルの canCompress_n が 0 の場合、そのチャネルの io_out_masks_n[n] は 1 で、io_out_masks_n[n] 以外のビットは 0 です。あるチャネルの canCompress_n が 1 の場合、io_out_masks_n で 1 であるビットのインデックスは、「自身が属する連続して 1 である canCompress_[0-5] グループ」内のチャネルの番号です。</p>
+<p>例えば、{canCompress_5, canCompress_4, canCompress_3, canCompress_2, canCompress_1, canCompress_0} == {1, 0, 0, 1, 1, 0} の場合、{io_out_needRobFlags_5, io_out_needRobFlags_4, io_out_needRobFlags_3, io_out_needRobFlags_2, io_out_needRobFlags_1, io_out_needRobFlags_0} == {1, 1, 1, 1, 0, 1}、{io_out_instrSizes_5, io_out_instrSizes_4, io_out_instrSizes_3, io_out_instrSizes_2, io_out_instrSizes_1, io_out_instrSizes_0} == {1, 1, 1, 2, 2, 1}、{io_out_masks_5, io_out_masks_4, io_out_masks_3, io_out_masks_2, io_out_masks_1, io_out_masks_0} == {{1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0}, {0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 1}} となります。</p>
+<h2 id="_34">全体ブロック図</h2>
+<p>
+<figure><img src="../figure/CompressUnit.svg" /><figcaption>CompressUnit 全体ブロック図</figcaption>
+</figure>
+</p>
+<h2 id="_35">インターフェースタイミング</h2>
+<p>このモジュールは純粋な組み合わせロジックであり、信号はそのサイクルで入力され、そのサイクルで出力されます。</p>
+<h1 id="snapshotgenerator">SnapshotGenerator</h1>
+<p><span></span> で述べたように、リネームスナップショットは分散しており、リダイレクトが発生した後に誤ったリネームパスの影響を排除する必要がある各モジュールに配置され、再リネームを高速化する目的を果たします。リネーム関連のモジュールについては、RenameTable、RenameTable_1、RenameTable_2、StdFreeList、および MEFreeList のすべてにこのサブモジュールが存在します。</p>
+<p>異なるサブモジュールに具体的に保存されるスナップショットデータ snapshots はそれぞれ異なります。RenameTable(_*) については、それぞれ 4 つの spec_table が保存されています。StdFreeList と MEFreeList については、それぞれ 4 つの headPtr が保存されています。</p>
+<p>モジュール内部では、リングポインタのペア snptEnqPtr と snptDeqPtr が維持されます。io_redirect がローレベルの場合、スナップショットストレージが満杯でなく、かつ io_enq がハイレベルであれば、モジュールは io_enqData_* から渡されたデータをスナップショットストレージ snapshots_[snptEnqPtr_value] に記録し、snptValids[snptEnqPtr_value] を 1 に設定してから snptEnqPtr を 1 つインクリメントします。</p>
+<p>それに対して、io_redirect がローレベルの場合、io_deq がハイレベルであれば、スナップショットモジュールがスナップショットをデキューする必要があることを示します。このとき、snptValids_[snptDeqPtr_value] はローに設定され、その後 snptDrqPtr が 1 つインクリメントされます。</p>
+<p>リダイレクト発生時、スナップショットモジュールは io_flushVec_<em> 信号に基づいて内部のスナップショットをフラッシュします。まず、io_flushVec_</em> がハイレベルの場合、対応するチャネルの snptValids_<em> はローに設定されます。次に、snptEnqPtr は、ローに設定された後の最初の snptValids_</em> がローである位置にロールバックされます。</p>
+<p>スナップショットに保存されたデータは、io_snapshots_[0-3]_* インターフェースを介してモジュール外部に転送され、各モジュールがリダイレクト時に回復するために使用されます。リダイレクト時にスナップショットを使用するかどうか、およびどのスナップショットを使用するかは、CtrlBlock によって統一的に信号が生成され、このモジュールはスナップショットデータを提供するだけです。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../decode/" class="md-footer__link md-footer__link--prev" aria-label="前: デコード">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                デコード
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Dispatch/" class="md-footer__link md-footer__link--next" aria-label="次: ディスパッチ">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                ディスパッチ
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <div>XiangShan Documents are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div>
+<div>Copyright © 2024 - 2025 The XiangShan Team, Beijing Institute of Open Source Chip</div>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://xiangshan.cc/" target="_blank" rel="noopener" title="XiangShan Homepage" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://docs.xiangshan.cc" target="_blank" rel="noopener" title="XiangShan Documents" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4zm11 3h5.5L15 1.5zM8 0h8l6 6v12c0 1.11-.89 2-2 2H8a2 2 0 0 1-2-2V2c0-1.11.89-2 2-2m9 16v-2H8v2zm3-4v-2H8v2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/OpenXiangShan" target="_blank" rel="noopener" title="XiangShan on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+  
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+
+  <!-- ReadTheDocs Version Addon -->
+  
+
+  </body>
+</html>
