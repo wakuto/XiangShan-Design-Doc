@@ -7,7 +7,7 @@ site_name: XiangShan デザインドキュメント
 repo_url: https://github.com/wakuto/XiangShan-Design-Doc/tree/japanese
 repo_name: XiangShan-Design-Doc
 copyright: |
-  <div>この文書は日本語翻訳版です。翻訳者: <a href="https://github.com/wakuto">wakuto</a></div>
+  <div>この文書は<b>非公式の</b>日本語翻訳版です。翻訳者: <a href="https://github.com/wakuto">wakuto</a></div>
   <div>※ AI翻訳を使用しているため、誤訳や不正確な表現が含まれる可能性があります</div>
   <div>原著作 © 2024 - 2025 The XiangShan Team, Beijing Institute of Open Source Chip</div>
   <div>ライセンス: <a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a></div>

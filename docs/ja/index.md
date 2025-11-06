@@ -1,3 +1,12 @@
+!!!warning "訳注"
+    本書は、訳者：[wakuto](https://github.com/wakuto) による **非公式の** 日本語版です。
+    翻訳にはAIを用いており、内容の正しさは一切保証できません！
+    日本語版の翻訳の誤りについては XiangShan 公式ではなく、
+
+    * 日本語版リポジトリ：[https://github.com/wakuto/XiangShan-Design-Doc/tree/japanese](https://github.com/wakuto/XiangShan-Design-Doc/tree/japanese)
+
+    にお願いします。
+
 # 前書き {.unnumbered .unlisted}
 
 本書は「香山オープンソースプロセッサ設計ドキュメント」であり、{{processor_name}} のマイクロアーキテクチャ実装を詳細に解説する。
